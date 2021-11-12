@@ -28,8 +28,8 @@ class _MyAccountPageState extends State<MyAccountPage> {
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                        image: NetworkImage("https://picsum.photos/250?image=9"),
-                        fit: BoxFit.cover)),
+                      image: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Son_Tung_M-TP_1_%282017%29.png/1200px-Son_Tung_M-TP_1_%282017%29.png"),
+                      fit: BoxFit.cover)),
               ),
 
               //Tên

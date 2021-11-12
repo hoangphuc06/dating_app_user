@@ -8,9 +8,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: routes,
-      initialRoute: "login_page",
+      initialRoute: "welcome_page",
       theme: ThemeData(
-        primarySwatch: Colors.pink,
+        primarySwatch: Colors.deepPurple,
       ),
     );
   }

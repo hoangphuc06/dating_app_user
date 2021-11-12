@@ -14,10 +14,10 @@ class MainButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 55,
+      height: 50,
       decoration: BoxDecoration(
-          color: Colors.pink,
-          borderRadius: BorderRadius.circular(10.0)
+          color: Colors.deepPurple,
+          borderRadius: BorderRadius.circular(20.0)
       ),
       child: FlatButton(
         onPressed: onpressed,
@@ -25,8 +25,8 @@ class MainButton extends StatelessWidget {
           name,
           style: TextStyle(
             color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.w400
+            fontSize: 17,
+            fontWeight: FontWeight.w500
           ),
         ),
       ),

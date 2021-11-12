@@ -1,4 +1,5 @@
 import 'package:dating_app_user/src/colors/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SettingPage extends StatefulWidget {
@@ -14,8 +15,13 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.pink,
+        iconTheme: IconThemeData(
+          color: Colors.deepPurple, //change your color here
+        ),
+        backgroundColor: Colors.white,
         elevation: 0,
+        title: Text("Cài đặt", style: TextStyle(color: Colors.deepPurple),),
+        centerTitle: true,
       ),
       body: Container(
         padding: EdgeInsets.all(16),
@@ -101,7 +107,9 @@ class _SettingPageState extends State<SettingPage> {
               SizedBox(height: 10,),
 
               _tab_logout("Đăng xuất", (){
-                print("2");
+                FirebaseAuth.instance.signOut().then((value) => {
+                  Navigator.pushReplacementNamed(context, "login_page"),
+                });
               }),
 
               SizedBox(height: 50,)
@@ -112,19 +120,19 @@ class _SettingPageState extends State<SettingPage> {
     );
   }
 
-  _title(String name) => Text(
-    name,
+  _title(String text) => Text(
+    text,
     style: TextStyle(
-      fontSize: 17,
-      fontWeight: FontWeight.w500,
-      color: Colors.pink,
+        color: Colors.grey,
+        fontWeight: FontWeight.w500
     ),
   );
 
   _description(String description) => Text(
     description,
     style: TextStyle(
-      color: Colors.black.withOpacity(0.5)
+      color: Colors.black.withOpacity(0.5),
+      fontWeight: FontWeight.w400
     ),
     textAlign: TextAlign.justify,
   );
@@ -153,7 +161,7 @@ class _SettingPageState extends State<SettingPage> {
           Text(
             detail,
             style: TextStyle(
-              color: Colors.pink,
+              color: Colors.deepPurple,
               fontWeight: FontWeight.bold
             ),
           ),

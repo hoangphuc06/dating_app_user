@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyInfoPage extends StatefulWidget {
@@ -72,6 +73,30 @@ class _MyInfoPageState extends State<MyInfoPage> {
 
   _imageView() => Container(
     height: 200,
+    child: ListView(
+      scrollDirection: Axis.horizontal,
+      children: [
+        // _image("https://vnn-imgs-f.vgcloud.vn/2021/08/19/08/mu-nhan-tin-cuc-vui-ve-rashford.jpg"),
+        _image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Son_Tung_M-TP_1_%282017%29.png/1200px-Son_Tung_M-TP_1_%282017%29.png"),
+        _image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Son_Tung_M-TP_1_%282017%29.png/1200px-Son_Tung_M-TP_1_%282017%29.png"),
+        _image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Son_Tung_M-TP_1_%282017%29.png/1200px-Son_Tung_M-TP_1_%282017%29.png"),
+        _image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Son_Tung_M-TP_1_%282017%29.png/1200px-Son_Tung_M-TP_1_%282017%29.png"),
+        _image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Son_Tung_M-TP_1_%282017%29.png/1200px-Son_Tung_M-TP_1_%282017%29.png"),
+        _image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Son_Tung_M-TP_1_%282017%29.png/1200px-Son_Tung_M-TP_1_%282017%29.png"),
+      ],
+    ),
+  );
+
+  _image(String url) => Container(
+    width: 150,
+    margin: EdgeInsets.only(right: 10),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      image: DecorationImage(
+        image: NetworkImage(url),
+        fit: BoxFit.cover
+      )
+    ),
   );
 
   _bio() => Container(
@@ -87,13 +112,20 @@ class _MyInfoPageState extends State<MyInfoPage> {
       children: [
         Text(
           "Bio",
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold
+          ),
         ),
+        SizedBox(height: 10,),
         Text(
-          "Mình thích đi dạo vào mỗi tối cuối tuần 🤣.",
+          "Mình thích đi dạo vào mỗi tối cuối tuần. Thích nuôi chó và mèo.",
           style: TextStyle(
             color: Colors.deepPurple,
             fontWeight: FontWeight.w500
           ),
+          maxLines: 3,
+          textAlign: TextAlign.justify,
         ),
       ],
     ),
@@ -101,7 +133,6 @@ class _MyInfoPageState extends State<MyInfoPage> {
 
   _character() => Container(
     padding: EdgeInsets.all(16),
-    height: 100,
     width: double.infinity,
     decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.1),
@@ -114,6 +145,10 @@ class _MyInfoPageState extends State<MyInfoPage> {
           children: [
             Text(
               "Tính cách",
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold
+              ),
             ),
             Spacer(),
             GestureDetector(
@@ -124,19 +159,28 @@ class _MyInfoPageState extends State<MyInfoPage> {
                 "Cập nhật",
                 style: TextStyle(
                     color: Colors.deepPurple,
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.bold
                 ),
               ),
             ),
           ],
         ),
+        SizedBox(height: 10,),
+        Wrap(
+          spacing: 20,
+          runSpacing: 10,
+          children: [
+            _lable("🤠 Tự lập"),
+            _lable("😐 Can đảm"),
+            _lable("😊 Thận trọng"),
+          ],
+        )
       ],
     ),
   );
 
   _hobby() => Container(
     padding: EdgeInsets.all(16),
-    height: 100,
     width: double.infinity,
     decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.1),
@@ -149,6 +193,10 @@ class _MyInfoPageState extends State<MyInfoPage> {
           children: [
             Text(
               "Sở thích",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold
+              ),
             ),
             Spacer(),
             GestureDetector(
@@ -159,19 +207,28 @@ class _MyInfoPageState extends State<MyInfoPage> {
                 "Cập nhật",
                 style: TextStyle(
                     color: Colors.deepPurple,
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.bold
                 ),
               ),
             ),
           ],
         ),
+        SizedBox(height: 10,),
+        Wrap(
+          spacing: 20,
+          runSpacing: 15,
+          children: [
+            _lable("📸 Chụp ảnh"),
+            _lable("🎖 Tham gia tình nguyện"),
+            _lable("🎮 Game online"),
+          ],
+        )
       ],
     ),
   );
 
   _dating() => Container(
     padding: EdgeInsets.all(16),
-    height: 100,
     width: double.infinity,
     decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.1),
@@ -184,6 +241,10 @@ class _MyInfoPageState extends State<MyInfoPage> {
           children: [
             Text(
               "Kiểu hẹn hò",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold
+              ),
             ),
             Spacer(),
             GestureDetector(
@@ -194,10 +255,20 @@ class _MyInfoPageState extends State<MyInfoPage> {
                 "Cập nhật",
                 style: TextStyle(
                     color: Colors.deepPurple,
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.bold
                 ),
               ),
             ),
+          ],
+        ),
+        SizedBox(height: 10,),
+        Wrap(
+          spacing: 20,
+          runSpacing: 15,
+          children: [
+            _lable("🏍 Đi du lịch"),
+            _lable("⚽ Chơi thể thao"),
+            _lable("🎞 Xem phim"),
           ],
         ),
       ],
@@ -366,7 +437,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
               children: [
                 _lable("🎏 Đi picnic"),
                 _lable("🎮 Chơi game"),
-                _lable("🎶 Đighe nhạc"),
+                _lable("🎶 Đi nghe nhạc"),
                 _lable("🏍 Đi du lịch"),
                 _lable("⚽ Chơi thể thao"),
                 _lable("🎞 Xem phim"),
