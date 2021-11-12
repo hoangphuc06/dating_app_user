@@ -3,6 +3,7 @@ import 'package:dating_app_user/src/page/tab/explore/view/explore_page.dart';
 import 'package:dating_app_user/src/page/tab/my_account/view/my_account_page.dart';
 import 'package:dating_app_user/src/page/tab/notification/view/notification_page.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TabPage extends StatefulWidget {
   const TabPage({Key? key}) : super(key: key);
@@ -46,23 +47,23 @@ class _TabPageState extends State<TabPage> {
       onTap: _cambiarWidget,
       showUnselectedLabels: false,
       showSelectedLabels: false,
-
+  
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           label: "Explore",
-          icon: Icon(Icons.explore),
+          icon: FaIcon(FontAwesomeIcons.hotjar),
         ),
         BottomNavigationBarItem(
           label: "Notification",
-          icon: Icon(Icons.wb_twighlight),
+          icon: FaIcon(FontAwesomeIcons.bell),
         ),
         BottomNavigationBarItem(
           label: "Chat",
-          icon: Icon(Icons.chat_bubble),
+          icon: FaIcon(FontAwesomeIcons.rocketchat),
         ),
         BottomNavigationBarItem(
           label: "Account",
-          icon: Icon(Icons.account_circle),
+          icon: FaIcon(FontAwesomeIcons.userCircle),
         ),
       ],
     );
