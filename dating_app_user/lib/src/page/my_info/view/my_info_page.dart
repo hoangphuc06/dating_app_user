@@ -9,8 +9,10 @@ class MyInfoPage extends StatefulWidget {
 }
 
 class _MyInfoPageState extends State<MyInfoPage> {
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -437,7 +439,8 @@ class _MyInfoPageState extends State<MyInfoPage> {
               children: [
                 _lable("🎏 Đi picnic"),
                 _lable("🎮 Chơi game"),
-                _lable("🎶 Đi nghe nhạc"),
+                _lable("🌳 Đi dạo"),
+                _lable("🎶 Nghe nhạc"),
                 _lable("🏍 Đi du lịch"),
                 _lable("⚽ Chơi thể thao"),
                 _lable("🎞 Xem phim"),
@@ -445,8 +448,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                 _lable("🎎 Hứng đi đâu đó"),
                 _lable("🥗 Nấu ăn chung"),
                 _lable("🥘 Đi ăn"),
-                _lable("🥂 Đi uống rượu"),
-                _lable("🌳 Đi dạo"),
+                _lable("🥂 Đi bar"),
                 _lable("🥤 Đi cà phê"),
                 _lable("👨🏾‍🤝‍👨🏼 Đi cùng nhóm bạn"),
               ],
@@ -472,6 +474,27 @@ class _MyInfoPageState extends State<MyInfoPage> {
       text,
       style: TextStyle(
         fontSize: 15
+      ),
+    ),
+  );
+
+  _lableChoice(String text, bool isCheck) => Container(
+    padding: EdgeInsets.all(8),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: isCheck == false? Colors.grey.withOpacity(0.2) : Colors.deepPurple.withOpacity(0.3)
+    ),
+    child: GestureDetector(
+      onTap: () async {
+        setState(() {
+          isCheck = true;
+        });
+      },
+      child: Text(
+        text,
+        style: TextStyle(
+            fontSize: 15
+        ),
       ),
     ),
   );

@@ -34,7 +34,7 @@ class _SettingPageState extends State<SettingPage> {
 
               SizedBox(height: 10,),
 
-              _description("Để giữ được tính chân thật cho cộng đồng , bạn sẽ chỉ có thể thay đổi thông tin này 1 lần."),
+              _description("Để giữ được tính chân thật cho cộng đồng Vima, bạn sẽ chỉ có thể thay đổi thông tin này 1 lần."),
 
               SizedBox(height: 10,),
 

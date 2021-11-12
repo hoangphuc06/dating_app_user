@@ -35,7 +35,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
               //Tên
               SizedBox(height: 20,),
               Text(
-                "Hoàng Phúc",
+                "Lê Hoàng Phúc",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 20,
@@ -77,9 +77,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.mode_edit, color: Colors.pink,),
+                              Icon(Icons.mode_edit, color: Colors.deepPurple,),
                               SizedBox(width: 5,),
-                              Text("Chỉnh sửa thông tin", style: TextStyle(color: Colors.pink),),
+                              Text("Chỉnh sửa thông tin", style: TextStyle(color: Colors.deepPurple),),
                             ],
                           ),
                           onPressed: (){
@@ -88,10 +88,8 @@ class _MyAccountPageState extends State<MyAccountPage> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 10,),
+                    //SizedBox(width: 10,),
                     Container(
-                      height: 50,
-                      width: 50,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.grey.withOpacity(0.2),
@@ -100,9 +98,89 @@ class _MyAccountPageState extends State<MyAccountPage> {
                         onPressed: () {
                           Navigator.pushNamed(context, "setting_page");
                         },
-                        child: Icon(Icons.settings),
+                        child: Icon(Icons.settings, color: Colors.deepPurple,),
                       ),
                     ),
+                  ],
+                ),
+              ),
+
+              //Điểm tích lũy
+              SizedBox(height: 20,),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.all(16),
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: Colors.grey.withOpacity(0.1)
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      "Điểm Vima của bạn là:",
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: 10,),
+                    Text(
+                      "500",
+                      style: TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    SizedBox(height: 20,),
+                    Text(
+                      "Điểm tích lũy càng nhiều thì càng nhận được nhiều giá trị cao hơn cũng như đặc quyền tốt hơn.",
+                      style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w400,),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+
+              //Mã giới thiệu
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.all(16),
+                padding: EdgeInsets.all(8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Mã giới thiệu",
+                      style: TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: 15,),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.1),
+                              borderRadius: BorderRadius.all(Radius.circular(30)),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Nhập tại đây", style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.deepPurple,
+                          ),
+                          child: FlatButton(
+                            onPressed: () {
+
+                            },
+                            child: Icon(Icons.arrow_forward, color: Colors.white,),
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               )
