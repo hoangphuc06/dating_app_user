@@ -10,6 +10,17 @@ class MyInfoPage extends StatefulWidget {
 
 class _MyInfoPageState extends State<MyInfoPage> {
 
+  final String title_INTJ = "INTJ - Người quân sư";
+  final String strong_INTJ = "Có lý trí, hiểu biết rộng, độc lập, kiên định, tò mò và linh hoạt.";
+  final String weak_INTJ = "Kiêu ngạo, xem thường cảm xúc người khác, hay chỉ trích, hơi hung năng, lãng mạn";
+  final String descr_INTJ = "INTJ là người có các đặc điểm tính cách hướng nội, đầy trực giác, có suy nghĩ và đánh giá tốt."
+      "Những nhà chiến thuật chu đáo này thích chú trọng các chi tiết của cuộc sống, áp dụng sự sáng tạo, hợp lý vào mọi việc họ làm. "
+      "Thế giới nội tâm thường là một thế giới riêng tư và phức tạp.";
+  final String inlove_INTJ = "INTJ quan tâm đến chiều sâu và trí tuệ, và quan trọng sự trung thực, cởi mở trong giao tiếp. "
+      "Đối với họ, một mối quan hệ không dự trên những giá trị này sẽ khó có thể lâu dài.";
+  final String dating_INTJ = "INTP, INFJ, INFP";
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -56,7 +67,9 @@ class _MyInfoPageState extends State<MyInfoPage> {
               SizedBox(height: 30,),
               _title("Sự thật thú vị"),
               SizedBox(height: 10,),
-              _detail("16 nhóm tính cách", "ENTP", (){}),
+              _detail("16 nhóm tính cách", "ENTP", (){
+                _showTop16CharacterDialog();
+              }),
               SizedBox(height: 50,),
             ],
           ),
@@ -464,6 +477,283 @@ class _MyInfoPageState extends State<MyInfoPage> {
       )
   );
 
+  _showTop16CharacterDialog() => showModalBottomSheet(
+    isScrollControlled: true,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(24),
+        topRight: Radius.circular(24),
+      ),
+    ),
+    context: context,
+    builder: (context)=>Container(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "Tính cách thật gì của bạn là gì?",
+            style: TextStyle(
+                fontSize: 20,
+                color: Colors.deepPurple,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+          SizedBox(height: 10,),
+          Text(
+            "Khám phá nhóm tính cách của bạn và người ấy dựa trên trắc nghiệm 16 nhóm tính cách",
+            style: TextStyle(
+                fontSize: 13,
+                color: Colors.grey,
+                fontWeight: FontWeight.w500
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 30,),
+          Wrap(
+            spacing: 20,
+            runSpacing: 15,
+            children: [
+              _characterBox(
+                "INTJ",
+                "https://www.topcv.vn/images/mbti/web/istj.png",
+                (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+              _characterBox(
+                  "INTJ",
+                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                      (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+              _characterBox(
+                  "INTJ",
+                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                      (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+              _characterBox(
+                  "INTJ",
+                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                      (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+              _characterBox(
+                  "INTJ",
+                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                      (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+              _characterBox(
+                  "INTJ",
+                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                      (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+              _characterBox(
+                  "INTJ",
+                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                      (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+              _characterBox(
+                  "INTJ",
+                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                      (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+              _characterBox(
+                  "INTJ",
+                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                      (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+              _characterBox(
+                  "INTJ",
+                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                      (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+              _characterBox(
+                  "INTJ",
+                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                      (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+              _characterBox(
+                  "INTJ",
+                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                      (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+              _characterBox(
+                  "INTJ",
+                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                      (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+              _characterBox(
+                  "INTJ",
+                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                      (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+              _characterBox(
+                  "INTJ",
+                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                      (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+              _characterBox(
+                  "INTJ",
+                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                      (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
+              ),
+            ],
+          ),
+          SizedBox(height: 30,),
+          Text(
+            "Không biết mình thuộc nhóm tính cách nào?",
+            style: TextStyle(
+                color: Colors.deepPurple,
+                fontWeight: FontWeight.w500
+            ),
+          ),
+        ],
+      ),
+    )
+  );
+
+  _showCharacterDetailDialog(String title, String strong, String weak, String descr, String inlove, String dating) => showModalBottomSheet(
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        ),
+      ),
+      context: context,
+      builder: (context)=>Container(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: 10,),
+
+            Container(
+              alignment: Alignment.center,
+              child: Text(
+                title,
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.deepPurple,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+            ),
+
+            SizedBox(height: 10,),
+            Container(
+              alignment: Alignment.center,
+              child: Wrap(
+                spacing: 20,
+                runSpacing: 15,
+                children: [
+                  _lable("🤭 Thật thà"),
+                  _lable("😬 Chung thủy"),
+                  _lable("😄 Vui vẻ"),
+                ],
+              ),
+            ),
+
+            SizedBox(height: 10,),
+            Text(
+              "Điểm mạnh",
+              style: TextStyle(
+                  color: Colors.pink,
+                  fontWeight: FontWeight.bold
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 10,),
+            Text(
+              strong,
+              style: TextStyle(
+                  height: 1.5
+              ),
+              textAlign: TextAlign.justify,
+            ),
+
+            SizedBox(height: 10,),
+            Text(
+              "Điểm yếu",
+              style: TextStyle(
+                  color: Colors.pink,
+                  fontWeight: FontWeight.bold
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 10,),
+            Text(
+              weak,
+              style: TextStyle(
+                  height: 1.5
+              ),
+              textAlign: TextAlign.justify,
+            ),
+
+            SizedBox(height: 10,),
+            Text(
+              "Miêu tả",
+              style: TextStyle(
+                  color: Colors.pink,
+                  fontWeight: FontWeight.bold
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 10,),
+            Text(
+              descr,
+              style: TextStyle(
+                height: 1.5
+              ),
+              textAlign: TextAlign.justify,
+            ),
+
+            SizedBox(height: 10,),
+            Text(
+              "Khi trong mối quan hệ",
+              style: TextStyle(
+                  color: Colors.pink,
+                  fontWeight: FontWeight.bold
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 10,),
+            Text(
+              inlove,
+              style: TextStyle(
+                  height: 1.5
+              ),
+              textAlign: TextAlign.justify,
+            ),
+
+            SizedBox(height: 10,),
+            Text(
+              "Phù hợp với",
+              style: TextStyle(
+                  color: Colors.pink,
+                  fontWeight: FontWeight.bold
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 10,),
+            Text(
+              dating,
+              style: TextStyle(
+                  height: 1.5
+              ),
+              textAlign: TextAlign.justify,
+            ),
+
+            SizedBox(height: 30,),
+            Container(
+              alignment: Alignment.center,
+              child: _buttonSave((){}),
+            ),
+
+            SizedBox(height: 30,)
+          ],
+        ),
+      )
+  );
+
   _lable(String text) => Container(
     padding: EdgeInsets.all(8),
     decoration: BoxDecoration(
@@ -536,6 +826,33 @@ class _MyInfoPageState extends State<MyInfoPage> {
             style: TextStyle(
                 color: Colors.deepPurple,
                 fontWeight: FontWeight.bold
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+
+  _characterBox(String name, String url, funtion) => Container(
+    child: GestureDetector(
+      onTap: funtion,
+      child: Column(
+        children: [
+          Container(
+            width: 70,
+            height: 70,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: NetworkImage(url),
+                    fit: BoxFit.cover)),
+          ),
+          SizedBox(height: 5,),
+          Text(
+            name,
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w500
             ),
           ),
         ],
