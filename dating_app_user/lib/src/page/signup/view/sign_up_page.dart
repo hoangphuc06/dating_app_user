@@ -34,7 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
         key: _formkey,
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.all(36),
+            padding: EdgeInsets.all(24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -147,7 +147,19 @@ class _SignUpPageState extends State<SignUpPage> {
   _emailTextField() => TextFormField(
     controller: _emailController,
     decoration: InputDecoration(
-      hintText: "Nhập email...",
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.all(Radius.circular(10))
+        ),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.all(Radius.circular(10))
+        ),
+        hintText: "Nhập email...",
+        border: InputBorder.none,
+        filled: true,
+        fillColor: Colors.deepPurple.withOpacity(0.1),
+        prefixIcon: Icon(Icons.email, color: Colors.deepPurple,)
     ),
     keyboardType: TextInputType.emailAddress,
     validator: (val) {
@@ -162,7 +174,19 @@ class _SignUpPageState extends State<SignUpPage> {
     obscureText: true,
     controller: _passwordController,
     decoration: InputDecoration(
-      hintText: "Nhập mật khẩu...",
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.all(Radius.circular(10))
+        ),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.all(Radius.circular(10))
+        ),
+        hintText: "Nhập mật khẩu...",
+        border: InputBorder.none,
+        filled: true,
+        fillColor: Colors.deepPurple.withOpacity(0.1),
+        prefixIcon: Icon(Icons.lock, color: Colors.deepPurple,)
     ),
     keyboardType: TextInputType.emailAddress,
     validator: (val) {
@@ -177,7 +201,19 @@ class _SignUpPageState extends State<SignUpPage> {
     obscureText: true,
     controller: _confirmPasswordController,
     decoration: InputDecoration(
-      hintText: "Xác nhận mật khẩu...",
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.all(Radius.circular(10))
+        ),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.all(Radius.circular(10))
+        ),
+        hintText: "Xác nhận mật khẩu...",
+        border: InputBorder.none,
+        filled: true,
+        fillColor: Colors.deepPurple.withOpacity(0.1),
+        prefixIcon: Icon(Icons.lock, color: Colors.deepPurple,)
     ),
     keyboardType: TextInputType.emailAddress,
     validator: (val) {
