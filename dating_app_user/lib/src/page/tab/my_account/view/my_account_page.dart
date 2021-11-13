@@ -124,7 +124,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
                     ),
                     SizedBox(height: 10,),
                     Text(
-                      "10",
+                      "6",
                       style: TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     SizedBox(height: 20,),

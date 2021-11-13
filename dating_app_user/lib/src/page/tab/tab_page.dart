@@ -1,5 +1,7 @@
 import 'package:dating_app_user/src/page/tab/chat/view/chat_page.dart';
+import 'package:dating_app_user/src/page/tab/discover/view/discover_page.dart';
 import 'package:dating_app_user/src/page/tab/explore/view/explore_page.dart';
+import 'package:dating_app_user/src/page/tab/likes/view/likes_page.dart';
 import 'package:dating_app_user/src/page/tab/my_account/view/my_account_page.dart';
 import 'package:dating_app_user/src/page/tab/notification/view/notification_page.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +25,8 @@ class _TabPageState extends State<TabPage> {
   }
 
   List<Widget> _widgetOptions=[
-    ExplorePage(),
-    NotificationPage(),
+    DiscoverPage(),
+    LikesPage(),
     ChatPage(),
     MyAccountPage(),
   ];
@@ -54,8 +56,8 @@ class _TabPageState extends State<TabPage> {
           icon: FaIcon(FontAwesomeIcons.hotjar),
         ),
         BottomNavigationBarItem(
-          label: "Thông báo",
-          icon: FaIcon(FontAwesomeIcons.bell),
+          label: "Thích",
+          icon: FaIcon(FontAwesomeIcons.solidHeart),
         ),
         BottomNavigationBarItem(
           label: "Chat",
@@ -63,7 +65,7 @@ class _TabPageState extends State<TabPage> {
         ),
         BottomNavigationBarItem(
           label: "Tài khoản",
-          icon: FaIcon(FontAwesomeIcons.userCircle),
+          icon: FaIcon(FontAwesomeIcons.userAlt),
         ),
       ],
     );

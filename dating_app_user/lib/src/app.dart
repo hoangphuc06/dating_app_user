@@ -1,4 +1,4 @@
-import 'package:dating_app_user/src/routes.dart';
+import 'package:dating_app_user/routes.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
