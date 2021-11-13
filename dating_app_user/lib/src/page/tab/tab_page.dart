@@ -40,29 +40,29 @@ class _TabPageState extends State<TabPage> {
 
   Widget _bottomNavigationBar(BuildContext context) {
     return BottomNavigationBar(
-      iconSize: 30.0,
-      selectedItemColor: Colors.pink,
+      iconSize: 20.0,
+      selectedItemColor: Colors.deepPurple,
       unselectedItemColor: Colors.grey,
       currentIndex: _selectedItemIndex,
       onTap: _cambiarWidget,
-      showUnselectedLabels: false,
-      showSelectedLabels: false,
+      showUnselectedLabels: true,
+      showSelectedLabels: true,
   
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          label: "Explore",
+          label: "Khám phá",
           icon: FaIcon(FontAwesomeIcons.hotjar),
         ),
         BottomNavigationBarItem(
-          label: "Notification",
+          label: "Thông báo",
           icon: FaIcon(FontAwesomeIcons.bell),
         ),
         BottomNavigationBarItem(
           label: "Chat",
-          icon: FaIcon(FontAwesomeIcons.rocketchat),
+          icon: FaIcon(FontAwesomeIcons.facebookMessenger),
         ),
         BottomNavigationBarItem(
-          label: "Account",
+          label: "Tài khoản",
           icon: FaIcon(FontAwesomeIcons.userCircle),
         ),
       ],

@@ -100,6 +100,12 @@ class _SettingPageState extends State<SettingPage> {
 
               SizedBox(height: 10,),
 
+              _tab_detail("Đổi mật khẩu", (){
+                print("2");
+              }),
+
+              SizedBox(height: 10,),
+
               _tab_detail("Xóa tài khoản", (){
                 print("2");
               }),
@@ -207,7 +213,7 @@ class _SettingPageState extends State<SettingPage> {
       height: 50,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Colors.pink.withOpacity(0.2)
+          color: Colors.deepPurple.withOpacity(0.2)
       ),
       child: Row(
         children: [

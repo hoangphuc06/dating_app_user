@@ -1,4 +1,6 @@
 import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
+import 'package:dating_app_user/src/widgets/dialogs/loading_dialog.dart';
+import 'package:dating_app_user/src/widgets/dialogs/msg_dilog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +54,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   textAlign: TextAlign.justify,
                 ),
-                SizedBox(height: 100,),
+                SizedBox(height: 30,),
                 _emailTextField(),
                 SizedBox(height: 10,),
                 _passwordTextField(),
@@ -62,6 +64,28 @@ class _SignUpPageState extends State<SignUpPage> {
                 MainButton(
                   name: "Đăng ký",
                   onpressed: _signup,
+                ),
+                SizedBox(height: 30,),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Đã có tài khoản? ",
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "Quay lại",
+                        style: TextStyle(
+                            color: Colors.deepPurple,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -77,22 +101,45 @@ class _SignUpPageState extends State<SignUpPage> {
     String conPass = _confirmPasswordController.text.toString().trim();
 
     if(_formkey.currentState!.validate()) {
+
+      LoadingDialog.showLoadingDialog(context, "Đang kiểm tra...");
+
       if (pass==conPass) {
         try {
           UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
               email: email,
               password: pass
           );
-          Navigator.pop(context);
+
+          _emailController.clear();
+          _passwordController.clear();
+          _confirmPasswordController.clear();
+
+          LoadingDialog.hideLoadingDialog(context);
+
+          MsgDialog.showMsgDialog(context, "Đăng ký thành công", "Vui lòng đăng nhập để tiếp tục sử dụng.");
+
         } on FirebaseAuthException catch (e) {
           if (e.code == 'weak-password') {
-            print('The password provided is too weak.');
+
+            LoadingDialog.hideLoadingDialog(context);
+
+            MsgDialog.showMsgDialog(context, "Đăng ký thất bại", "Mật khẩu quá yếu.");
+
           } else if (e.code == 'email-already-in-use') {
-            print('The account already exists for that email.');
+
+            LoadingDialog.hideLoadingDialog(context);
+
+            MsgDialog.showMsgDialog(context, "Đăng ký thất bại", "Tài khoản đã tồn tại.");
+
           }
         } catch (e) {
           print(e);
         }
+      }
+      else {
+        LoadingDialog.hideLoadingDialog(context);
+        MsgDialog.showMsgDialog(context, "Đăng ký thất bại", "Mật khẩu xác nhận không trùng khớp.");
       }
     }
   }

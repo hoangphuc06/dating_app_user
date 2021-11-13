@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyAccountPage extends StatefulWidget {
@@ -28,14 +29,14 @@ class _MyAccountPageState extends State<MyAccountPage> {
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Son_Tung_M-TP_1_%282017%29.png/1200px-Son_Tung_M-TP_1_%282017%29.png"),
+                      image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/dating-app-689e4.appspot.com/o/145757914_1596428657212263_8128998582553759676_n.jpg?alt=media&token=c087b993-f8ce-4fea-be7f-6f220e7597a8"),
                       fit: BoxFit.cover)),
               ),
 
               //Tên
               SizedBox(height: 20,),
               Text(
-                "Lê Hoàng Phúc",
+                "Lê Hoàng Phúc, 19",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 20,
@@ -105,8 +106,38 @@ class _MyAccountPageState extends State<MyAccountPage> {
                 ),
               ),
 
-              //Điểm tích lũy
+              //Số người kết nối
               SizedBox(height: 20,),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.all(16),
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: Colors.grey.withOpacity(0.1)
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      "Số người đã kết nối:",
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: 10,),
+                    Text(
+                      "10",
+                      style: TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    SizedBox(height: 20,),
+                    Text(
+                      "Kết nối nhiều người giúp chúng ta mở rộng qan hệ hơn và từ đó có thể tìm được nửa kia của mình.",
+                      style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w400,),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+
+              //Điểm tích lũy
               Container(
                 width: double.infinity,
                 margin: EdgeInsets.all(16),
@@ -183,7 +214,40 @@ class _MyAccountPageState extends State<MyAccountPage> {
                     )
                   ],
                 ),
-              )
+              ),
+
+              //Mã giới thiệu của bạn
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.all(16),
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: Colors.deepPurple.withOpacity(1)
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Mã giới thiệu của bạn:",
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: 20,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "KJ7T5M",
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        SizedBox(width: 10,),
+                        Icon(Icons.copy, color: Colors.white,)
+                      ],
+                    ),
+                    SizedBox(height: 20,),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
