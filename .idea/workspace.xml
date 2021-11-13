@@ -20,41 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="97335e0d-cb59-458a-9b4a-ba8de56748e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/close_icon.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_1.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_10.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_11.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_12.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_13.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_14.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_15.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_16.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_2.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_3.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_4.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_5.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_6.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_7.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_8.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/girls/img_9.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/like_icon.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/refresh_icon.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/star_icon.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/thunder_icon.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/data/chats_json.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/data/constData.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/data/icons.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/data/likes_json.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/discover/view/discover_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/likes/view/likes_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/welcome.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/app.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/chat/view/chat_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/chat/view/chat_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/my_account/view/my_account_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/my_account/view/my_account_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/tab_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/tab_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/routes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/routes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_info_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_info_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/welcome/view/welcome_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/welcome/view/welcome_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dating_app_user/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +52,7 @@
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/dating_app_user/lib/src/data" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/dating_app_user/assets/image" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -92,8 +61,8 @@
       <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\lib" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\lib\src\data" />
       <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\assets\image" />
+      <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\lib\src\data" />
       <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\lib\src" />
       <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\lib\src\widgets\cards" />
       <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\lib\src\model" />
@@ -156,21 +125,21 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1636806279582" />
-    <state width="1491" height="207" key="GridCell.Tab.0.bottom" timestamp="1636823872521">
+    <state width="1491" height="207" key="GridCell.Tab.0.bottom" timestamp="1636824935036">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="207" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1636823872521" />
-    <state width="1491" height="207" key="GridCell.Tab.0.center" timestamp="1636823872521">
+    <state width="1491" height="207" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1636824935036" />
+    <state width="1491" height="207" key="GridCell.Tab.0.center" timestamp="1636824935036">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="207" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1636823872521" />
-    <state width="1491" height="207" key="GridCell.Tab.0.left" timestamp="1636823872521">
+    <state width="1491" height="207" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1636824935036" />
+    <state width="1491" height="207" key="GridCell.Tab.0.left" timestamp="1636824935036">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="207" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1636823872521" />
-    <state width="1491" height="207" key="GridCell.Tab.0.right" timestamp="1636823872521">
+    <state width="1491" height="207" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1636824935036" />
+    <state width="1491" height="207" key="GridCell.Tab.0.right" timestamp="1636824935036">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="207" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1636823872521" />
+    <state width="1491" height="207" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1636824935036" />
   </component>
 </project>

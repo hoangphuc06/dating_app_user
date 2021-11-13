@@ -591,7 +591,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
               ),
               _characterBox(
                   "ISFP",
-                  "assets/image/1.jpg",
+                  "assets/image/5.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
