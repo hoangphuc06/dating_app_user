@@ -17,7 +17,7 @@ class MainButton extends StatelessWidget {
       height: 50,
       decoration: BoxDecoration(
           color: Colors.deepPurple,
-          borderRadius: BorderRadius.circular(20.0)
+          borderRadius: BorderRadius.circular(30.0)
       ),
       child: FlatButton(
         onPressed: onpressed,

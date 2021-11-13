@@ -21,6 +21,8 @@ class _WelcomePageState extends State<WelcomePage> {
     Timer(Duration(seconds: 3), (){
       if (FirebaseAuth.instance.currentUser!=null)
         Navigator.pushReplacementNamed(context, "tab_page");
+      else
+        Navigator.pushReplacementNamed(context, "login_page");
     });
   }
 
@@ -33,40 +35,11 @@ class _WelcomePageState extends State<WelcomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            _button("Đăng nhập bằng Email", "assets/icon/ic_mail.png", (){
-              Navigator.pushNamed(context, "login_page");
-            }),
-            SizedBox(height: 10,),
-            _button("Đăng nhập bằng Facebook", "assets/icon/ic_facebook.png", (){}),
-            SizedBox(height: 10,),
-            _button("Đăng nhập bằng Google", "assets/icon/ic_google.png", (){}),
+
           ],
         ),
       ),
     );
   }
 
-  _button(String name, String image, funtion) => Container(
-    height: 50,
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.all(Radius.circular(30)),
-    ),
-    child: FlatButton(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            image,
-            width: 25,
-            height: 25,
-          ),
-          SizedBox(width: 10,),
-          Text(name, style: TextStyle(color: Colors.black),),
-        ],
-      ),
-      onPressed: funtion,
-    ),
-  );
 }

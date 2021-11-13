@@ -521,82 +521,82 @@ class _MyInfoPageState extends State<MyInfoPage> {
             children: [
               _characterBox(
                 "INTJ",
-                "https://www.topcv.vn/images/mbti/web/istj.png",
+                "assets/image/1.jpg",
                 (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
-                  "INTJ",
-                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                  "ENTJ",
+                  "assets/image/2.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
-                  "INTJ",
-                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                  "INTP",
+                  "assets/image/3.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
-                  "INTJ",
-                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                  "ENTP",
+                  "assets/image/4.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
-                  "INTJ",
-                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                  "INFJ",
+                  "assets/image/5.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
-                  "INTJ",
-                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                  "ENFJ",
+                  "assets/image/6.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
-                  "INTJ",
-                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                  "INFP",
+                  "assets/image/7.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
-                  "INTJ",
-                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                  "ENFP",
+                  "assets/image/8.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
-                  "INTJ",
-                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                  "ISTJ",
+                  "assets/image/9.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
-                  "INTJ",
-                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                  "ESTJ",
+                  "assets/image/10.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
-                  "INTJ",
-                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                  "ISFJ",
+                  "assets/image/11.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
-                  "INTJ",
-                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                  "ESFJ",
+                  "assets/image/12.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
-                  "INTJ",
-                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                  "ISTP",
+                  "assets/image/13.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
-                  "INTJ",
-                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                  "ESTP",
+                  "assets/image/14.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
-                  "INTJ",
-                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                  "ISFP",
+                  "assets/image/1.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
               _characterBox(
-                  "INTJ",
-                  "https://www.topcv.vn/images/mbti/web/istj.png",
+                  "ESFP",
+                  "assets/image/1.jpg",
                       (){_showCharacterDetailDialog(title_INTJ,strong_INTJ,weak_INTJ,descr_INTJ,inlove_INTJ,dating_INTJ);}
               ),
             ],
@@ -849,7 +849,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                    image: NetworkImage(url),
+                    image: AssetImage(url),
                     fit: BoxFit.cover)),
           ),
           SizedBox(height: 5,),

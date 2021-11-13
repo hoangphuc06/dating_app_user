@@ -2,6 +2,7 @@ import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
 import 'package:dating_app_user/src/widgets/dialogs/loading_dialog.dart';
 import 'package:dating_app_user/src/widgets/dialogs/msg_dilog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -33,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
         key: _formkey,
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.all(36),
+            padding: EdgeInsets.all(24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -72,6 +73,10 @@ class _LoginPageState extends State<LoginPage> {
                   name: "Đăng nhập",
                   onpressed: _login,
                 ),
+                SizedBox(height: 10,),
+                _button("Đăng nhập bằng Facebook", "assets/icon/ic_facebook.png", (){}),
+                SizedBox(height: 10,),
+                _button("Đăng nhập bằng Google", "assets/icon/ic_google.png", (){}),
                 SizedBox(height: 30,),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -141,7 +146,19 @@ class _LoginPageState extends State<LoginPage> {
   _emailTextField() => TextFormField(
     controller: _emailController,
     decoration: InputDecoration(
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.transparent),
+        borderRadius: BorderRadius.all(Radius.circular(10))
+      ),
+      focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.transparent),
+          borderRadius: BorderRadius.all(Radius.circular(10))
+      ),
       hintText: "Nhập email...",
+      border: InputBorder.none,
+      filled: true,
+      fillColor: Colors.deepPurple.withOpacity(0.1),
+      prefixIcon: Icon(Icons.email, color: Colors.deepPurple,)
     ),
     keyboardType: TextInputType.emailAddress,
     validator: (val) {
@@ -156,7 +173,19 @@ class _LoginPageState extends State<LoginPage> {
     obscureText: true,
     controller: _passwordController,
     decoration: InputDecoration(
-      hintText: "Nhập mật khẩu...",
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.all(Radius.circular(10))
+        ),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.all(Radius.circular(10))
+        ),
+        hintText: "Nhập mật khẩu...",
+        border: InputBorder.none,
+        filled: true,
+        fillColor: Colors.deepPurple.withOpacity(0.1),
+        prefixIcon: Icon(Icons.lock, color: Colors.deepPurple,)
     ),
     keyboardType: TextInputType.emailAddress,
     validator: (val) {
@@ -165,5 +194,29 @@ class _LoginPageState extends State<LoginPage> {
       }
       return null;
     },
+  );
+
+  _button(String name, String image, funtion) => Container(
+    height: 50,
+    decoration: BoxDecoration(
+      color: Colors.grey.withOpacity(0.2),
+      borderRadius: BorderRadius.all(Radius.circular(30)),
+    ),
+    child: FlatButton(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            image,
+            width: 25,
+            height: 25,
+          ),
+          SizedBox(width: 10,),
+          Text(name, style: TextStyle(color: Colors.black),),
+        ],
+      ),
+      onPressed: funtion,
+    ),
   );
 }
