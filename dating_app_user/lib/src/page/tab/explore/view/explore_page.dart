@@ -83,9 +83,8 @@ class _ExplorePageState extends State<ExplorePage> {
               },
               onSwipeUp: () {
                 setState(() {
-                  
                   if (temp < 4) {
-                    isEnd=false;
+                    isEnd = false;
                     temp++;
                     print(temp);
                     check = 0;
@@ -98,18 +97,18 @@ class _ExplorePageState extends State<ExplorePage> {
               },
               onSwipeDown: () {
                 setState(() {
-                 
                   if (temp > 0) {
-                    isEnd=false;
+                    isEnd = false;
                     temp--;
-                     print(temp);
+                    print(temp);
                     check = 0;
                   }
-                  ishide=false;
+                  ishide = false;
                 });
               },
               child: GestureDetector(
                   onTap: () {
+                    print(temp);
                     if (isEnd) {
                       setState(() {
                         isEnd = false;
@@ -118,7 +117,17 @@ class _ExplorePageState extends State<ExplorePage> {
                   },
                   child: _switchImage(temp, check))),
           isEnd == true
-              ? _switchInfo(temp) : Container(),
+              ? _switchInfo(temp)
+              : Container(
+                  width: 1,
+                  height: 1,
+                ),
+          temp == 4
+              ? _emptyInfo()
+              : Container(
+                  width: 1,
+                  height: 1,
+                ),
           ishide == false
               ? Positioned.fill(
                   child: Align(
@@ -139,7 +148,10 @@ class _ExplorePageState extends State<ExplorePage> {
                     ),
                   ),
                 ))
-              : Container()
+              : Container(
+                  width: 1,
+                  height: 1,
+                )
         ],
       ),
     );
@@ -233,6 +245,63 @@ class _ExplorePageState extends State<ExplorePage> {
       default:
     }
   }
+  
+_emptyInfo() {
+  return Container(
+    width: double.infinity,
+    height: double.infinity,
+    color: Colors.deepPurple,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        FaIcon(
+          FontAwesomeIcons.searchLocation,
+          size: 70,
+          color: Colors.white70,
+        ),
+        SizedBox(height: 30,),
+        Text(
+            "Bạn đã xem hết các hồ sơ có trong khu vực của mình. \n Hãy mở rộng tìm kiếm hoặc quay lại sau nhé! 😄",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.roboto(
+                textStyle: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white))),
+                      SizedBox(height: 25,),
+        RaisedButton(
+            onPressed: () {
+              setState(() {
+                check=0;
+                isEnd=false;
+                ishide=false;
+                temp=0;
+              });
+            },
+            elevation: 0.5,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Text("Tải lại",
+                  style: GoogleFonts.roboto(
+                      textStyle: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.deepPurple))),
+            )),
+        SizedBox(
+          height: 20,
+        ),
+        _text("Thay đổi bộ lọc tìm kiếm", 17, FontWeight.w400)
+      ],
+    ),
+  );
+}
+
 }
 
 _info(String name, String age, String description, String height, String city,
@@ -399,6 +468,7 @@ _info(String name, String age, String description, String height, String city,
       ),
     ],
   );
+  
 }
 
 _imageNetwork(List a, int index) {
