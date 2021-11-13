@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -46,8 +47,8 @@ class _ExplorePageState extends State<ExplorePage> {
   bool isEnd = false;
   bool ishide = false;
   SwiperController swiperController = new SwiperController();
-  PageController pageController = new PageController();
-  int check = 0;
+  LiquidController _liquidController = new LiquidController();
+  double check = 0;
   int temp = 0;
   @override
   Widget build(BuildContext context) {
@@ -79,14 +80,15 @@ class _ExplorePageState extends State<ExplorePage> {
               onSwipeLeft: () {
                 setState(() {
                   _next(imageList.length);
+                  print(check);
                 });
               },
               onSwipeUp: () {
                 setState(() {
-                  
                   if (temp < 4) {
-                    isEnd=false;
+                    isEnd = false;
                     temp++;
+                    _liquidController.jumpToPage(page: 0);
                     print(temp);
                     check = 0;
                   }
@@ -98,27 +100,38 @@ class _ExplorePageState extends State<ExplorePage> {
               },
               onSwipeDown: () {
                 setState(() {
-                 
                   if (temp > 0) {
-                    isEnd=false;
+                    isEnd = false;
                     temp--;
-                     print(temp);
+                    _liquidController.jumpToPage(page: 0);
+                    print(temp);
                     check = 0;
                   }
-                  ishide=false;
+                  ishide = false;
                 });
               },
               child: GestureDetector(
                   onTap: () {
+                    print(temp);
                     if (isEnd) {
                       setState(() {
                         isEnd = false;
                       });
                     }
                   },
-                  child: _switchImage(temp, check))),
+                  child: _switchImage(temp))),
           isEnd == true
-              ? _switchInfo(temp) : Container(),
+              ? _switchInfo(temp)
+              : Container(
+                  width: 1,
+                  height: 1,
+                ),
+          temp == 4
+              ? _emptyInfo()
+              : Container(
+                  width: 1,
+                  height: 1,
+                ),
           ishide == false
               ? Positioned.fill(
                   child: Align(
@@ -127,7 +140,7 @@ class _ExplorePageState extends State<ExplorePage> {
                     padding: EdgeInsets.only(bottom: 8),
                     child: DotsIndicator(
                       dotsCount: imageList.length,
-                      position: double.parse(check.toString()),
+                      position: check,
                       decorator: DotsDecorator(
                         color: Colors.grey, // Inactive color
                         activeColor: Colors.blueAccent,
@@ -139,7 +152,10 @@ class _ExplorePageState extends State<ExplorePage> {
                     ),
                   ),
                 ))
-              : Container()
+              : Container(
+                  width: 1,
+                  height: 1,
+                )
         ],
       ),
     );
@@ -162,19 +178,19 @@ class _ExplorePageState extends State<ExplorePage> {
     }
   }
 
-  _switchImage(int temp, int index) {
+  _switchImage(int temp) {
     switch (temp) {
       case 0:
-        return _imageNetwork(imageList, index);
+        return _imageNetwork(imageList);
         break;
       case 1:
-        return _imageNetwork(imageList1, index);
+        return _imageNetwork(imageList1);
         break;
       case 2:
-        return _imageNetwork(imageList2, index);
+        return _imageNetwork(imageList2);
         break;
       case 3:
-        return _imageNetwork(imageList3, index);
+        return _imageNetwork(imageList3);
         break;
       default:
     }
@@ -232,6 +248,96 @@ class _ExplorePageState extends State<ExplorePage> {
         break;
       default:
     }
+  }
+
+  _emptyInfo() {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      color: Colors.deepPurple,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          FaIcon(
+            FontAwesomeIcons.searchLocation,
+            size: 70,
+            color: Colors.white70,
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Text(
+              "Bạn đã xem hết các hồ sơ có trong khu vực của mình. \n Hãy mở rộng tìm kiếm hoặc quay lại sau nhé! 😄",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.roboto(
+                  textStyle: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white))),
+          SizedBox(
+            height: 25,
+          ),
+          RaisedButton(
+              onPressed: () {
+                setState(() {
+                  check = 0;
+                  isEnd = false;
+                  ishide = false;
+                  temp = 0;
+                });
+              },
+              elevation: 0.5,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Text("Tải lại",
+                    style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.deepPurple))),
+              )),
+          SizedBox(
+            height: 20,
+          ),
+          _text("Thay đổi bộ lọc tìm kiếm", 17, FontWeight.w400)
+        ],
+      ),
+    );
+  }
+
+  _imageNetwork(List a) {
+    return LiquidSwipe.builder(
+      itemCount: a.length,
+      itemBuilder: (context, index) {
+        return Image.network(
+          a[index],
+          fit: BoxFit.cover,
+          height: double.infinity,
+          width: double.infinity,
+        );
+      },
+      onPageChangeCallback: (index) {
+        setState(() {
+          check=double.parse(index.toString());
+          if(index==3)
+          {
+            isEnd=true;
+          }
+          else{
+            isEnd=false;
+          }
+        });
+      },
+      waveType: WaveType.liquidReveal,
+      liquidController: _liquidController,
+      fullTransitionValue: 880,
+      enableLoop: false,
+    );
   }
 }
 
@@ -398,15 +504,6 @@ _info(String name, String age, String description, String height, String city,
         ),
       ),
     ],
-  );
-}
-
-_imageNetwork(List a, int index) {
-  return Image.network(
-    a[index],
-    fit: BoxFit.cover,
-    height: double.infinity,
-    width: double.infinity,
   );
 }
 
