@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
 import 'package:dating_app_user/src/widgets/dialogs/loading_dialog.dart';
 import 'package:dating_app_user/src/widgets/dialogs/msg_dilog.dart';
@@ -110,6 +111,20 @@ class _SignUpPageState extends State<SignUpPage> {
               email: email,
               password: pass
           );
+          
+          FirebaseFirestore.instance.collection("USER").doc(userCredential.user!.uid.toString()).set({
+            "uid": userCredential.user!.uid.toString(),
+            "email": email,
+            "name": "",
+            "address": "",
+            "bio": "",
+            "birthday": "",
+            "heigh": "",
+            "hometown": "",
+            "job": "",
+            "sex": "",
+            "info": "null",
+          });
 
           _emailController.clear();
           _passwordController.clear();
@@ -165,6 +180,12 @@ class _SignUpPageState extends State<SignUpPage> {
     validator: (val) {
       if (val!.isEmpty) {
         return "Vui lòng nhập email";
+      }
+      var isValidEmail = RegExp(
+          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+          .hasMatch(val);
+      if (!isValidEmail) {
+        return "Định dạng email không đúng";
       }
       return null;
     },

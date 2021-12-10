@@ -1,3 +1,4 @@
+import 'package:dating_app_user/src/page/init_info/init_info_page.dart';
 import 'package:dating_app_user/src/page/login/view/login_page.dart';
 import 'package:dating_app_user/src/page/my_info/view/my_info_page.dart';
 import 'package:dating_app_user/src/page/setting/view/setting_page.dart';
@@ -13,4 +14,5 @@ final routes = <String, WidgetBuilder>{
   "tab_page": (BuildContext context) => TabPage(),
   "setting_page": (BuildContext context) => SettingPage(),
   "my_info_page": (BuildContext context) => MyInfoPage(),
+  "1": (BuildContext context) => InitInfoPage(),
 };

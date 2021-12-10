@@ -1,9 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dating_app_user/responsive.dart';
+import 'package:dating_app_user/src/page/init_info/init_info_page.dart';
+import 'package:dating_app_user/src/page/init_info/init_name_page.dart';
 import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
 import 'package:dating_app_user/src/widgets/dialogs/loading_dialog.dart';
 import 'package:dating_app_user/src/widgets/dialogs/msg_dilog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -21,6 +26,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    Orientation orientation = MediaQuery.of(context).orientation;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -103,6 +110,74 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
+
+        //---------------------------------------------------
+
+        // child: SingleChildScrollView(
+        //   child: SafeArea(
+        //     child: Column(
+        //       crossAxisAlignment: CrossAxisAlignment.start,
+        //       children: [
+        //         Container(
+        //           width: double.infinity,
+        //           height: getScreenPropotionHeight(orientation == Orientation.portrait ? 390 : 450, size),
+        //           child: Stack(
+        //             children: [
+        //               Positioned(
+        //                   left: getScreenPropotionWidth(64, size),
+        //                   top: getScreenPropotionHeight(90, size),
+        //                   child: Image.asset(
+        //                     'assets/image/heart.png',
+        //                     width: getScreenPropotionHeight(67, size),
+        //                   )
+        //               ),
+        //
+        //               Positioned(
+        //                   right: 0,
+        //                   child: SvgPicture.asset(
+        //                     'assets/image/couple.svg',
+        //                     height: getScreenPropotionHeight(390, size),
+        //                   )
+        //               ),
+        //
+        //               Positioned(
+        //                   left: getScreenPropotionWidth(28, size),
+        //                   top: getScreenPropotionHeight(190, size),
+        //                   child: Text(
+        //                     'Login to\na lovely\nlife.',
+        //                     style: TextStyle(
+        //                         fontSize: 36,
+        //                         fontWeight: FontWeight.bold,
+        //                         color: Color(0xFF1C1C1C)
+        //                     ),
+        //                   )
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //
+        //         SizedBox(height: 28),
+        //
+        //         Padding(
+        //           padding: EdgeInsets.symmetric(horizontal: 28),
+        //           child: Column(
+        //             crossAxisAlignment: CrossAxisAlignment.start,
+        //             children: [
+        //               Text(
+        //                 'Enter your email',
+        //                 style: TextStyle(
+        //                     fontSize: 16,
+        //                     color: Color(0xFF5E5E5E),
+        //                     fontWeight: FontWeight.w600
+        //                 ),
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ]
+        //     ),
+        //   ),
+        // ),
       ),
     );
   }
@@ -121,9 +196,14 @@ class _LoginPageState extends State<LoginPage> {
             password: pass
         );
 
-        LoadingDialog.hideLoadingDialog(context);
-
-        Navigator.pushReplacementNamed(context, "tab_page");
+        FirebaseFirestore.instance.collection("USER").doc(userCredential.user!.uid).get().then((value) => {
+          if (value["info"]=="null") {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => InitInfoPage())),
+          }
+          else {
+            Navigator.pushReplacementNamed(context, "tab_page"),
+          }
+        });
 
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
@@ -145,25 +225,42 @@ class _LoginPageState extends State<LoginPage> {
 
   _emailTextField() => TextFormField(
     controller: _emailController,
+    // decoration: InputDecoration(
+    //   enabledBorder: OutlineInputBorder(
+    //     borderSide: BorderSide(color: Colors.transparent),
+    //     borderRadius: BorderRadius.all(Radius.circular(10))
+    //   ),
+    //   focusedBorder: OutlineInputBorder(
+    //       borderSide: BorderSide(color: Colors.transparent),
+    //       borderRadius: BorderRadius.all(Radius.circular(10))
+    //   ),
+    //   hintText: "Nhập email...",
+    //   border: InputBorder.none,
+    //   filled: true,
+    //   fillColor: Colors.deepPurple.withOpacity(0.1),
+    //   prefixIcon: Icon(Icons.email, color: Colors.deepPurple,)
+    // ),
     decoration: InputDecoration(
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.transparent),
-        borderRadius: BorderRadius.all(Radius.circular(10))
-      ),
-      focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.all(Radius.circular(10))
-      ),
+        prefixIcon: Icon(Icons.email, color: Colors.deepPurple,),
       hintText: "Nhập email...",
-      border: InputBorder.none,
-      filled: true,
       fillColor: Colors.deepPurple.withOpacity(0.1),
-      prefixIcon: Icon(Icons.email, color: Colors.deepPurple,)
+        filled: true,
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+            borderSide: BorderSide.none
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 28 / 2),
     ),
     keyboardType: TextInputType.emailAddress,
     validator: (val) {
       if (val!.isEmpty) {
         return "Vui lòng nhập email";
+      }
+      var isValidEmail = RegExp(
+          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+          .hasMatch(val);
+      if (!isValidEmail) {
+        return "Định dạng email không đúng";
       }
       return null;
     },
