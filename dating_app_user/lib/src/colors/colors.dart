@@ -6,3 +6,6 @@ final MyPurple = Color.fromRGBO(138, 35, 135, 1.0);
 final White = Color.fromRGBO(255, 255, 255, 1.0);
 final Grey = Color.fromRGBO(255, 255, 255, 1.0);
 const Color primary_two = Color(0xFFfd5f60);
+final blackLight = Color.fromRGBO(0, 0, 34, 0.5);
+final backgr = Color.fromRGBO(93, 71, 139, 1.0);
+final white = Colors.white;

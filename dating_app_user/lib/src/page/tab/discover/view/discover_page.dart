@@ -1,8 +1,15 @@
 import 'package:dating_app_user/src/data/constData.dart';
 import 'package:dating_app_user/src/data/icons.dart';
+import 'package:dating_app_user/src/page/tab/discover/tinderCard/cardProvider.dart';
+import 'package:dating_app_user/src/page/tab/discover/tinderCard/tinderCard.dart';
+import 'package:dating_app_user/src/page/tab/discover/view/filter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class DiscoverPage extends StatefulWidget {
   const DiscoverPage({Key? key}) : super(key: key);
@@ -11,8 +18,8 @@ class DiscoverPage extends StatefulWidget {
   _DiscoverPageState createState() => _DiscoverPageState();
 }
 
-class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMixin{
-
+class _DiscoverPageState extends State<DiscoverPage>
+    with TickerProviderStateMixin {
   CardController controller = new CardController();
 
   List itemsTemp = [];
@@ -36,19 +43,113 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
         ),
         backgroundColor: Colors.white,
         elevation: 0,
-        actions:[
+        actions: [
           IconButton(
             icon: Icon(Icons.filter_list_alt),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => FilterPage()));
+            },
           ),
         ],
-        title: Text("Khám phá", style: TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold),),
+        title: Text(
+          "Khám phá",
+          style:
+              TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      body: getBody(),
+      body: Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.all(8),
+        child: buildCard(),
+      ),
       //bottomSheet: getBottomSheet(),
     );
+  }
+
+  Widget buildCard() {
+    final provider = Provider.of<CardProvider>(context);
+    final urlImages = provider.urlImages;
+
+    return urlImages.isEmpty
+        ? _emptyInfo()
+        : Stack(
+            children: urlImages
+                .map((urlImage) => TinderCard(
+                    urlImage: urlImage, isFront: urlImages.last == urlImage))
+                .toList(),
+          );
+  }
+
+  _emptyInfo() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.deepPurple,
+      ),
+      width: double.infinity,
+      height: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          FaIcon(
+            FontAwesomeIcons.searchLocation,
+            size: 70,
+            color: Colors.white70,
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Text(
+              "Bạn đã xem hết các hồ sơ có trong khu vực của mình. \n Hãy mở rộng tìm kiếm hoặc quay lại sau nhé! 😄",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.roboto(
+                  textStyle: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white))),
+          SizedBox(
+            height: 25,
+          ),
+          RaisedButton(
+              onPressed: () {
+                final provider =
+                    Provider.of<CardProvider>(context, listen: false);
+                provider.resetUser();
+              },
+              elevation: 0.5,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Text("Tải lại",
+                    style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.deepPurple))),
+              )),
+          SizedBox(
+            height: 20,
+          ),
+          _text("Thay đổi bộ lọc tìm kiếm", 17, FontWeight.w400)
+        ],
+      ),
+    );
+  }
+
+  _text(String text, double fontsize, fontweight) {
+    return Text(text,
+        style: GoogleFonts.roboto(
+            textStyle: TextStyle(
+                fontSize: fontsize,
+                fontWeight: fontweight,
+                color: Colors.white)));
   }
 
   Widget getBody() {
@@ -91,14 +192,10 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
                   width: size.width,
                   height: size.height,
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [
-                            Colors.black.withOpacity(0.25),
-                            Colors.black.withOpacity(0),
-                          ],
-                          end: Alignment.topCenter,
-                          begin: Alignment.bottomCenter)
-                  ),
+                      gradient: LinearGradient(colors: [
+                    Colors.black.withOpacity(0.25),
+                    Colors.black.withOpacity(0),
+                  ], end: Alignment.topCenter, begin: Alignment.bottomCenter)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,8 +208,7 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
-                                fontWeight: FontWeight.bold
-                            ),
+                                fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
                             width: 10,
@@ -122,24 +218,26 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
-                                fontWeight: FontWeight.bold
-                            ),
+                                fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
 
                       //Trạng thái hoạt động
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         children: [
                           Container(
                             width: 10,
                             height: 10,
                             decoration: BoxDecoration(
-                                color: Colors.green,
-                                shape: BoxShape.circle),
+                                color: Colors.green, shape: BoxShape.circle),
                           ),
-                          SizedBox(width: 10,),
+                          SizedBox(
+                            width: 10,
+                          ),
                           Text(
                             "Online",
                             style: TextStyle(
@@ -149,15 +247,19 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
                           )
                         ],
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Text(
                         "Đến từ " + itemsTemp[index]['hometown'],
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
+                          color: Colors.white,
+                          fontSize: 14,
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Text(
                         "Đang sống tại " + itemsTemp[index]['address'],
                         style: TextStyle(

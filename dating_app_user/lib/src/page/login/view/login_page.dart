@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: 10,),
                 Text(
-                  "Chào mừng bạn đã trợ lại, vui lòng đăng nhập để tiếp tục sử dụng ứng dụng.",
+                  "Chào mừng bạn đã trở lại, vui lòng đăng nhập để tiếp tục sử dụng ứng dụng.",
                   style: TextStyle(
 
                   ),
