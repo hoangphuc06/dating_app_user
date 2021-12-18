@@ -81,7 +81,7 @@ class _InitCompletedPageState extends State<InitCompletedPage> {
       "info": "nofull",
     }).then((value) => {
 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabPage())),
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => TabPage()),(Route<dynamic> route) => false),
 
     });
   }

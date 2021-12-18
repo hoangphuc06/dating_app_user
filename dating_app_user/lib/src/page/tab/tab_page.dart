@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/page/tab/chat/view/chat_page.dart';
+import 'package:dating_app_user/src/page/tab/dating/view/dating_page.dart';
 import 'package:dating_app_user/src/page/tab/discover/view/discover_page.dart';
 import 'package:dating_app_user/src/page/tab/explore/view/explore_page.dart';
 import 'package:dating_app_user/src/page/tab/likes/view/likes_page.dart';
 import 'package:dating_app_user/src/page/tab/my_account/view/my_account_page.dart';
 import 'package:dating_app_user/src/page/tab/notification/view/notification_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -14,7 +17,10 @@ class TabPage extends StatefulWidget {
   _TabPageState createState() => _TabPageState();
 }
 
-class _TabPageState extends State<TabPage> {
+class _TabPageState extends State<TabPage> with WidgetsBindingObserver {
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   int _selectedItemIndex = 0;
 
@@ -27,9 +33,34 @@ class _TabPageState extends State<TabPage> {
   List<Widget> _widgetOptions=[
     DiscoverPage(),
     LikesPage(),
-    ChatPage(),
+    //ChatPage(),
+    DatingPage(),
     MyAccountPage(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addObserver(this);
+    setStatus("Online");
+  }
+
+  void setStatus(String status) async {
+    await _firestore.collection('USER').doc(_auth.currentUser!.uid).update({
+      "status": status,
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // online
+      setStatus("Online");
+    } else {
+      // offline
+      setStatus("Offline");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,12 +87,12 @@ class _TabPageState extends State<TabPage> {
           icon: FaIcon(FontAwesomeIcons.hotjar),
         ),
         BottomNavigationBarItem(
-          label: "Thích",
-          icon: FaIcon(FontAwesomeIcons.solidHeart),
+          label: "Thông báo",
+          icon: FaIcon(FontAwesomeIcons.solidBell),
         ),
         BottomNavigationBarItem(
-          label: "Chat",
-          icon: FaIcon(FontAwesomeIcons.facebookMessenger),
+          label: "Hẹn hò",
+          icon: FaIcon(FontAwesomeIcons.solidHeart),
         ),
         BottomNavigationBarItem(
           label: "Tài khoản",

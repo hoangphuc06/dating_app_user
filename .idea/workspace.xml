@@ -20,30 +20,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="97335e0d-cb59-458a-9b4a-ba8de56748e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/icon/ic_gallery.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/icon/ic_gallery.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/couple.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/example/female_1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/example/female_2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/example/male_1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/example/male_2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/gallery.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/heart.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/welcome.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/responsive.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_avatar_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_birthday_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_completed_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_filter_sex_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_info_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_name_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_sex_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/dating.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/love1.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/wave1.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/wave2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/chat_room/chat_room_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/dating/view/dating_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/dating/view/is_dating_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/dating/view/non_dating_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/style/my_style.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dating_app_user.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dating_app_user.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/routes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/routes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_completed_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_completed_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_filter_sex_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_filter_sex_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_info_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_info_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/login/view/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/login/view/login_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/setting/view/setting_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/setting/view/setting_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/signup/view/sign_up_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/signup/view/sign_up_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/chat/view/chat_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/chat/view/chat_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/tab_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/tab_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/welcome/view/welcome_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/welcome/view/welcome_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/widgets/buttons/main_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/widgets/buttons/main_button.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dating_app_user/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dating_app_user/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/pubspec.yaml" afterDir="false" />
     </list>
@@ -52,6 +50,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[R58MC17EMQX]" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -78,15 +77,15 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\lib" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\assets\image" />
+      <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\assets" />
       <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\assets\icon" />
       <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\assets\image\example" />
       <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\lib" />
-      <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\lib\src\data" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\lib" />
     </key>
   </component>
   <component name="RunManager">
@@ -130,10 +129,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="654" y="280" key="#Notifications/0.0.1536.834@0.0.1536.834" timestamp="1636699811370" />
-    <state x="223" y="72" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1636774641830">
+    <state x="223" y="72" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1639728718852">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="223" y="72" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1636774641830" />
+    <state x="223" y="72" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1639728718852" />
     <state x="498" y="207" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1636699935581">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -142,29 +141,29 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="164" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.834@0.0.1536.834" timestamp="1636811022756" />
-    <state x="100" y="100" width="1336" height="634" key="AVDManager" timestamp="1636849698866">
+    <state x="-4" y="122" width="1336" height="634" key="AVDManager" timestamp="1639731736282">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="100" y="100" width="1336" height="634" key="AVDManager/0.0.1536.834@0.0.1536.834" timestamp="1636849698866" />
-    <state x="549" y="172" key="FileChooserDialogImpl" timestamp="1638099123987">
+    <state x="-4" y="122" width="1336" height="634" key="AVDManager/0.0.1536.834@0.0.1536.834" timestamp="1639731736282" />
+    <state x="549" y="172" key="FileChooserDialogImpl" timestamp="1639555603253">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1638099123987" />
-    <state width="1476" height="66" key="GridCell.Tab.0.bottom" timestamp="1639142504960">
+    <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1639555603253" />
+    <state width="1476" height="288" key="GridCell.Tab.0.bottom" timestamp="1639796092818">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1476" height="66" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1639142504960" />
-    <state width="1476" height="66" key="GridCell.Tab.0.center" timestamp="1639142504960">
+    <state width="1476" height="288" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1639796092818" />
+    <state width="1476" height="288" key="GridCell.Tab.0.center" timestamp="1639796092818">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1476" height="66" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1639142504960" />
-    <state width="1476" height="66" key="GridCell.Tab.0.left" timestamp="1639142504960">
+    <state width="1476" height="288" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1639796092818" />
+    <state width="1476" height="288" key="GridCell.Tab.0.left" timestamp="1639796092818">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1476" height="66" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1639142504960" />
-    <state width="1476" height="66" key="GridCell.Tab.0.right" timestamp="1639142504960">
+    <state width="1476" height="288" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1639796092818" />
+    <state width="1476" height="288" key="GridCell.Tab.0.right" timestamp="1639796092818">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1476" height="66" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1639142504960" />
+    <state width="1476" height="288" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1639796092818" />
   </component>
 </project>

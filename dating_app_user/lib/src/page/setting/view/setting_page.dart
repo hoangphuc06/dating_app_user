@@ -114,7 +114,7 @@ class _SettingPageState extends State<SettingPage> {
 
               _tab_logout("Đăng xuất", (){
                 FirebaseAuth.instance.signOut().then((value) => {
-                  Navigator.pushReplacementNamed(context, "login_page"),
+                  Navigator.pushNamedAndRemoveUntil(context, "welcome_page", (Route<dynamic> route) => false),
                 });
               }),
 

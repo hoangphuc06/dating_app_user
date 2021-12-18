@@ -65,7 +65,7 @@ class _InitInfoPageState extends State<InitInfoPage> {
               ],
             ),
             MainButton(name: "Tôi hiểu", onpressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => InitNamePage()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => InitNamePage()));
             })
           ],
         ),
