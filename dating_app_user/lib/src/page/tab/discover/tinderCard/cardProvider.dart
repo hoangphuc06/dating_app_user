@@ -103,7 +103,7 @@ class CardProvider extends ChangeNotifier {
 
   void resetUser() async{
     var temp= await loadData();
-    _urlImages.addAll(temp);
+    _urlImages=temp.reversed.toList();
     // _urlImages = <String>[
     //   'https://cellphones.com.vn/sforum/wp-content/uploads/2020/04/LR-29-scaled.jpg',
     //   'https://cdn.nguyenkimmall.com/images/detailed/555/may-anh-cho-nguoi-moi.jpg',
