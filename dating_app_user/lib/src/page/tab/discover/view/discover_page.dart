@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/data/constData.dart';
 import 'package:dating_app_user/src/data/icons.dart';
 import 'package:dating_app_user/src/page/tab/discover/tinderCard/cardProvider.dart';
 import 'package:dating_app_user/src/page/tab/discover/tinderCard/tinderCard.dart';
 import 'package:dating_app_user/src/page/tab/discover/view/filter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,6 +27,9 @@ class _DiscoverPageState extends State<DiscoverPage>
   List itemsTemp = [];
   int itemLength = 0;
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -36,6 +41,7 @@ class _DiscoverPageState extends State<DiscoverPage>
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
@@ -60,19 +66,36 @@ class _DiscoverPageState extends State<DiscoverPage>
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      body: Container(
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(8),
-        child: buildCard(),
+      body: StreamBuilder(
+        stream: _firestore.collection("USER").where("uid", isEqualTo: _auth.currentUser!.uid).snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+          if (!snapshot.hasData) {
+            return Center(
+              child: Container(
+                height: size.height / 20,
+                width: size.height / 20,
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+          else {
+            QueryDocumentSnapshot x = snapshot.data!.docs[0];
+            if (x["dating"]=="false")
+              return getBody();
+            else
+              return getDatingBody();
+          }
+        },
       ),
       //bottomSheet: getBottomSheet(),
     );
   }
 
+
+
   Widget buildCard() {
     final provider = Provider.of<CardProvider>(context);
     final urlImages = provider.urlImages;
-
     return urlImages.isEmpty
         ? _emptyInfo()
         : Stack(
@@ -292,6 +315,37 @@ class _DiscoverPageState extends State<DiscoverPage>
         //     });
         //   }
         // },
+      ),
+    );
+  }
+
+  Widget getDatingBody() {
+    var size = MediaQuery.of(context).size;
+    return Center(
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset("assets/image/love3.svg", height: size.height * 0.23,),
+            SizedBox(height: 20,),
+            Text(
+              "Bạn đang hẹn hò với nửa kia 😊",
+              style: TextStyle(
+                  color: Colors.deepPurple,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500
+              ),
+            ),
+            SizedBox(height: 5,),
+            Text(
+              "Hãy tìm hiểu nửa kia thật có phù hợp \nvới mình không nhé!",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            )
+          ],
+        ),
       ),
     );
   }

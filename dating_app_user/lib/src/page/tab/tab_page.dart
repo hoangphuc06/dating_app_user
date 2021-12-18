@@ -32,7 +32,8 @@ class _TabPageState extends State<TabPage> with WidgetsBindingObserver {
 
   List<Widget> _widgetOptions=[
     DiscoverPage(),
-    LikesPage(),
+    NotificationPage(),
+    //LikesPage(),
     //ChatPage(),
     DatingPage(),
     MyAccountPage(),
@@ -87,12 +88,12 @@ class _TabPageState extends State<TabPage> with WidgetsBindingObserver {
           icon: FaIcon(FontAwesomeIcons.hotjar),
         ),
         BottomNavigationBarItem(
-          label: "Thông báo",
-          icon: FaIcon(FontAwesomeIcons.solidBell),
+          label: "Thích",
+          icon: FaIcon(FontAwesomeIcons.solidHeart),
         ),
         BottomNavigationBarItem(
           label: "Hẹn hò",
-          icon: FaIcon(FontAwesomeIcons.solidHeart),
+          icon: FaIcon(FontAwesomeIcons.grinHearts),
         ),
         BottomNavigationBarItem(
           label: "Tài khoản",

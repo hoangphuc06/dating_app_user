@@ -19,11 +19,6 @@ class _NonDatingPageState extends State<NonDatingPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Container(
-              //   width: size.width * 0.6,
-              //   height: size.height * 0.4,
-              //   child: SvgPicture.asset("assets/image/love1.svg")
-              // ),
               SvgPicture.asset("assets/image/love1.svg", height: size.height * 0.23,),
               SizedBox(height: 20,),
               Text(

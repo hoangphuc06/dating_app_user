@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/colors/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,10 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,8 +116,8 @@ class _SettingPageState extends State<SettingPage> {
               }),
 
               SizedBox(height: 10,),
-
               _tab_logout("Đăng xuất", (){
+                setStatus("Offline");
                 FirebaseAuth.instance.signOut().then((value) => {
                   Navigator.pushNamedAndRemoveUntil(context, "welcome_page", (Route<dynamic> route) => false),
                 });
@@ -124,6 +129,12 @@ class _SettingPageState extends State<SettingPage> {
         ),
       ),
     );
+  }
+
+  void setStatus(String status) async {
+    await _firestore.collection('USER').doc(_auth.currentUser!.uid).update({
+      "status": status,
+    });
   }
 
   _title(String text) => Text(

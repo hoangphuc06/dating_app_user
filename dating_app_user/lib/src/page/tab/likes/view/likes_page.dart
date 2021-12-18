@@ -89,10 +89,8 @@ class _LikesPageState extends State<LikesPage> {
                               ],
                             ),
                           )
-                              : Padding(
-                            padding:
-                            const EdgeInsets.only(left: 8, bottom: 8),
-                            child: Row(
+                              : Padding(padding: const EdgeInsets.only(left: 8, bottom: 8),
+                                child: Row(
                               children: [
                                 Container(
                                   width: 8,

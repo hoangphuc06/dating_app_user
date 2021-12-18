@@ -108,7 +108,7 @@ class _InitAvatarPageState extends State<InitAvatarPage> {
     LoadingDialog.showLoadingDialog(context, "Đang lưu...");
 
     String filename = DateTime.now().millisecondsSinceEpoch.toString();
-    Reference ref = FirebaseStorage.instance.ref().child(FirebaseAuth.instance.currentUser!.uid).child("post_$filename");
+    Reference ref = FirebaseStorage.instance.ref().child("AVATAR").child(FirebaseAuth.instance.currentUser!.uid).child("post_$filename");
 
     await ref.putFile(file!);
 

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
@@ -29,6 +30,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: StreamBuilder<DocumentSnapshot>(
           stream: _firestore.collection("USER").doc(this.widget.userMap['uid']).snapshots(),
           builder: (context, snapshot) {
@@ -37,10 +39,10 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(this.widget.userMap['name']),
+                    Text(this.widget.userMap['name'], style: TextStyle(fontSize: 17),),
                     Text(
                       snapshot.data!['status'],
-                      style: TextStyle(fontSize: 13),
+                      style: TextStyle(fontSize: 11),
                     ),
                   ],
                 ),
@@ -123,21 +125,19 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
     return map['type'] == "text"
         ? Container(
       width: size.width,
-      alignment: map['sendby'] == _auth.currentUser!.displayName
-          ? Alignment.centerRight
-          : Alignment.centerLeft,
+      alignment: map['sendby'] == _auth.currentUser!.uid ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 14),
         margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: Colors.deepPurple,
+          color: map['sendby'] == _auth.currentUser!.uid ? Colors.deepPurple : Colors.grey.withOpacity(0.6),
         ),
         child: Text(
           map['message'],
           style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
+            //fontSize: 16,
+            //fontWeight: FontWeight.w500,
             color: Colors.white,
           ),
         ),
@@ -147,7 +147,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
       height: size.height / 2.5,
       width: size.width,
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      alignment: map['sendby'] == _auth.currentUser!.displayName
+      alignment: map['sendby'] == _auth.currentUser!.uid
           ? Alignment.centerRight
           : Alignment.centerLeft,
       child: InkWell(
@@ -197,7 +197,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
         .collection('chats')
         .doc(fileName)
         .set({
-      "sendby": _auth.currentUser!.displayName,
+      "sendby": _auth.currentUser!.uid,
       "message": "",
       "type": "img",
       "time": FieldValue.serverTimestamp(),
@@ -234,7 +234,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   void onSendMessage() async {
     if (_message.text.isNotEmpty) {
       Map<String, dynamic> messages = {
-        "sendby": _auth.currentUser!.displayName,
+        "sendby": _auth.currentUser!.uid,
         "message": _message.text,
         "type": "text",
         "time": FieldValue.serverTimestamp(),
