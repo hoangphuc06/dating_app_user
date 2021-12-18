@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dating_app_user/src/style/my_style.dart';
 import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
 import 'package:dating_app_user/src/widgets/dialogs/loading_dialog.dart';
 import 'package:dating_app_user/src/widgets/dialogs/msg_dilog.dart';
@@ -35,38 +36,45 @@ class _SignUpPageState extends State<SignUpPage> {
         key: _formkey,
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.all(24),
+            padding: EdgeInsets.all(30),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                //Tựa đề
                 Text(
                   "Đăng ký",
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 25,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold
                   ),
                 ),
-                SizedBox(height: 10,),
+                //Miêu tả
+                SizedBox(height: 5,),
                 Text(
-                  "Vui lòng cung cấp chính xác thông tin để tạo tài khoản.",
+                  "Bằng cách nhấp vào nút đăng ký nghĩa là \nbạn đã đồng ý với mọi điều khoản của chúng tôi",
                   style: TextStyle(
-
+                      color: Colors.black,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400
                   ),
-                  textAlign: TextAlign.justify,
+                  textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 30,),
+                //email
+                SizedBox(height: 40,),
                 _emailTextField(),
-                SizedBox(height: 10,),
+                SizedBox(height: 15,),
                 _passwordTextField(),
-                SizedBox(height: 10,),
+                SizedBox(height: 15,),
                 _confirmPasswordTextField(),
-                SizedBox(height: 30,),
+                //nut
+                SizedBox(height: 20,),
                 MainButton(
                   name: "Đăng ký",
                   onpressed: _signup,
                 ),
-                SizedBox(height: 30,),
+                //quay lai
+                SizedBox(height: 20,),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -111,6 +119,8 @@ class _SignUpPageState extends State<SignUpPage> {
               email: email,
               password: pass
           );
+
+          FirebaseAuth.instance.signOut();
           
           FirebaseFirestore.instance.collection("USER").doc(userCredential.user!.uid.toString()).set({
             "uid": userCredential.user!.uid.toString(),
@@ -124,6 +134,9 @@ class _SignUpPageState extends State<SignUpPage> {
             "job": "",
             "sex": "",
             "info": "null",
+            "status": "Offline",
+            "avatar": "",
+            "dating": "false",
           });
 
           _emailController.clear();
@@ -161,21 +174,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   _emailTextField() => TextFormField(
     controller: _emailController,
-    decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
-        hintText: "Nhập email...",
-        border: InputBorder.none,
-        filled: true,
-        fillColor: Colors.deepPurple.withOpacity(0.1),
-        prefixIcon: Icon(Icons.email, color: Colors.deepPurple,)
-    ),
+    decoration: my_decoration_textfield_style("Nhập email"),
     keyboardType: TextInputType.emailAddress,
     validator: (val) {
       if (val!.isEmpty) {
@@ -194,21 +193,7 @@ class _SignUpPageState extends State<SignUpPage> {
   _passwordTextField() => TextFormField(
     obscureText: true,
     controller: _passwordController,
-    decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
-        hintText: "Nhập mật khẩu...",
-        border: InputBorder.none,
-        filled: true,
-        fillColor: Colors.deepPurple.withOpacity(0.1),
-        prefixIcon: Icon(Icons.lock, color: Colors.deepPurple,)
-    ),
+    decoration: my_decoration_textfield_style("Nhập mật khẩu"),
     keyboardType: TextInputType.emailAddress,
     validator: (val) {
       if (val!.isEmpty) {
@@ -221,21 +206,7 @@ class _SignUpPageState extends State<SignUpPage> {
   _confirmPasswordTextField() => TextFormField(
     obscureText: true,
     controller: _confirmPasswordController,
-    decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
-        hintText: "Xác nhận mật khẩu...",
-        border: InputBorder.none,
-        filled: true,
-        fillColor: Colors.deepPurple.withOpacity(0.1),
-        prefixIcon: Icon(Icons.lock, color: Colors.deepPurple,)
-    ),
+    decoration: my_decoration_textfield_style("Nhập lại mật khẩu"),
     keyboardType: TextInputType.emailAddress,
     validator: (val) {
       if (val!.isEmpty) {

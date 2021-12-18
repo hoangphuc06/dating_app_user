@@ -99,6 +99,7 @@ class _InitFilterSexPageState extends State<InitFilterSexPage> {
     LoadingDialog.showLoadingDialog(context, "Đang lưu...");
 
     FirebaseFirestore.instance.collection("FILTER").doc(FirebaseAuth.instance.currentUser!.uid).set({
+      "uid": FirebaseAuth.instance.currentUser!.uid,
       "sex": _myChoice,
       "age_from": "18",
       "age_to": "30",
