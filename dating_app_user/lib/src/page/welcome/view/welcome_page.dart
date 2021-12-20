@@ -1,14 +1,8 @@
-import 'dart:async';
-import 'dart:ui';
 
-import 'package:dating_app_user/responsive.dart';
+import 'dart:ui';
 import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);

@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dating_app_user/src/page/my_images/my_images_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +12,9 @@ class MyInfoPage extends StatefulWidget {
 }
 
 class _MyInfoPageState extends State<MyInfoPage> {
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   final String title_INTJ = "INTJ - Người quân sư";
   final String strong_INTJ = "Có lý trí, hiểu biết rộng, độc lập, kiên định, tò mò và linh hoạt.";
@@ -23,7 +29,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -35,48 +41,67 @@ class _MyInfoPageState extends State<MyInfoPage> {
         title: Text("Chỉnh sửa hồ sơ", style: TextStyle(color: Colors.deepPurple),),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _title("Hình ảnh"),
-              SizedBox(height: 10,),
-              _imageView(),
-              SizedBox(height: 30,),
-              _title("Miêu tả"),
-              SizedBox(height: 10,),
-              _bio(),
-              SizedBox(height: 10,),
-              _character(),
-              SizedBox(height: 10,),
-              _hobby(),
-              SizedBox(height: 10,),
-              _dating(),
-              SizedBox(height: 30,),
-              _title("Thông tin cơ bản"),
-              SizedBox(height: 10,),
-              _detail("Chiều cao", "175 cm", (){}),
-              SizedBox(height: 10,),
-              _detail("Đến từ", "Tiền Giang, Việt Nam", (){}),
-              SizedBox(height: 10,),
-              _detail("Sống tại", "TP.HCM, Việt Nam", (){}),
-              SizedBox(height: 10,),
-              _detail("Nghề nghiệp", "Sinh viên", (){}),
-              SizedBox(height: 30,),
-              _title("Sự thật thú vị"),
-              SizedBox(height: 10,),
-              _detail("16 nhóm tính cách", "ENTP", (){
-                _showTop16CharacterDialog();
-              }),
-              SizedBox(height: 50,),
-            ],
-          ),
-        ),
+      body: StreamBuilder(
+        stream: _firestore.collection("USER").where("uid", isEqualTo: _auth.currentUser!.uid).snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+          if (!snapshot.hasData) {
+            return Center(
+              child: Container(
+                height: size.height / 20,
+                width: size.height / 20,
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+          else {
+            QueryDocumentSnapshot x = snapshot.data!.docs[0];
+            return _getBody(x);
+          }
+        },
       ),
     );
   }
+
+  _getBody(QueryDocumentSnapshot x) => SingleChildScrollView(
+    child: Container(
+      padding: EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _title("Hình ảnh"),
+          SizedBox(height: 10,),
+          _imageView(x["images"]),
+          SizedBox(height: 30,),
+          _title("Miêu tả"),
+          SizedBox(height: 10,),
+          _bio(x["bio"]),
+          SizedBox(height: 10,),
+          _character(),
+          SizedBox(height: 10,),
+          _hobby(),
+          SizedBox(height: 10,),
+          _dating(),
+          SizedBox(height: 30,),
+          _title("Thông tin cơ bản"),
+          SizedBox(height: 10,),
+          _detail("Chiều cao", "175 cm", (){}),
+          SizedBox(height: 10,),
+          _detail("Đến từ", "Tiền Giang, Việt Nam", (){}),
+          SizedBox(height: 10,),
+          _detail("Sống tại", "TP.HCM, Việt Nam", (){}),
+          SizedBox(height: 10,),
+          _detail("Nghề nghiệp", "Sinh viên", (){}),
+          SizedBox(height: 30,),
+          _title("Sự thật thú vị"),
+          SizedBox(height: 10,),
+          _detail("16 nhóm tính cách", "ENTP", (){
+            _showTop16CharacterDialog();
+          }),
+          SizedBox(height: 50,),
+        ],
+      ),
+    ),
+  );
 
   _title(String text) => Text(
     text,
@@ -86,40 +111,56 @@ class _MyInfoPageState extends State<MyInfoPage> {
     ),
   );
 
-  _imageView() => Container(
+  _imageView(x) => Container(
     height: 200,
     child: ListView(
       scrollDirection: Axis.horizontal,
       children: [
-        _image("https://firebasestorage.googleapis.com/v0/b/dating-app-689e4.appspot.com/o/145757914_1596428657212263_8128998582553759676_n.jpg?alt=media&token=c087b993-f8ce-4fea-be7f-6f220e7597a8"),
-        _image("https://firebasestorage.googleapis.com/v0/b/dating-app-689e4.appspot.com/o/145757914_1596428657212263_8128998582553759676_n.jpg?alt=media&token=c087b993-f8ce-4fea-be7f-6f220e7597a8"),
-        _image("https://firebasestorage.googleapis.com/v0/b/dating-app-689e4.appspot.com/o/145757914_1596428657212263_8128998582553759676_n.jpg?alt=media&token=c087b993-f8ce-4fea-be7f-6f220e7597a8"),
-        _image("https://firebasestorage.googleapis.com/v0/b/dating-app-689e4.appspot.com/o/145757914_1596428657212263_8128998582553759676_n.jpg?alt=media&token=c087b993-f8ce-4fea-be7f-6f220e7597a8"),
-        _image("https://firebasestorage.googleapis.com/v0/b/dating-app-689e4.appspot.com/o/145757914_1596428657212263_8128998582553759676_n.jpg?alt=media&token=c087b993-f8ce-4fea-be7f-6f220e7597a8"),
-        _image("https://firebasestorage.googleapis.com/v0/b/dating-app-689e4.appspot.com/o/145757914_1596428657212263_8128998582553759676_n.jpg?alt=media&token=c087b993-f8ce-4fea-be7f-6f220e7597a8"),
-        // _image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Son_Tung_M-TP_1_%282017%29.png/1200px-Son_Tung_M-TP_1_%282017%29.png"),
-        // _image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Son_Tung_M-TP_1_%282017%29.png/1200px-Son_Tung_M-TP_1_%282017%29.png"),
-        // _image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Son_Tung_M-TP_1_%282017%29.png/1200px-Son_Tung_M-TP_1_%282017%29.png"),
-        // _image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Son_Tung_M-TP_1_%282017%29.png/1200px-Son_Tung_M-TP_1_%282017%29.png"),
-        // _image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Son_Tung_M-TP_1_%282017%29.png/1200px-Son_Tung_M-TP_1_%282017%29.png"),
-        // _image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Son_Tung_M-TP_1_%282017%29.png/1200px-Son_Tung_M-TP_1_%282017%29.png"),
+        _image(x[0]),
+        x[1] == "" ? _imageNull() : _image(x[1]),
+        x[2] == "" ? _imageNull() : _image(x[2]),
+        x[3] == "" ? _imageNull() : _image(x[3]),
+        x[4] == "" ? _imageNull() : _image(x[4]),
+        x[5] == "" ? _imageNull() : _image(x[5]),
       ],
     ),
   );
 
-  _image(String url) => Container(
-    width: 150,
-    margin: EdgeInsets.only(right: 10),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-      image: DecorationImage(
-        image: NetworkImage(url),
-        fit: BoxFit.cover
-      )
+  _image(String url) => GestureDetector(
+    onTap: (){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MyImagesPage()));
+    },
+    child: Container(
+      width: 150,
+      margin: EdgeInsets.only(right: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        image: DecorationImage(
+          image: NetworkImage(url),
+          fit: BoxFit.cover
+        )
+      ),
     ),
   );
 
-  _bio() => Container(
+  _imageNull() => GestureDetector(
+    onTap: (){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MyImagesPage()));
+    },
+    child: Container(
+      width: 150,
+      margin: EdgeInsets.only(right: 10),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Colors.grey[200]
+      ),
+      child: Center(
+        child: Icon(Icons.add_circle, color: Colors.deepPurple, size: 30,),
+      ),
+    ),
+  );
+
+  _bio(String bio) => Container(
     padding: EdgeInsets.all(16),
     height: 150,
     width: double.infinity,
@@ -130,19 +171,35 @@ class _MyInfoPageState extends State<MyInfoPage> {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Bio",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold
-          ),
+        Row(
+          children: [
+            Text(
+              "Bio",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            Spacer(),
+            GestureDetector(
+              onTap: (){
+                _showHobbyDialog();
+              },
+              child: Text(
+                "Cập nhật",
+                style: TextStyle(
+                    color: Colors.deepPurple,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+            ),
+          ],
         ),
         SizedBox(height: 10,),
         Text(
-          "Mình thích đi dạo vào mỗi tối cuối tuần. Thích nuôi chó và mèo.",
+          bio,
           style: TextStyle(
-            color: Colors.deepPurple,
-            fontWeight: FontWeight.w500
+            fontSize: 15
           ),
           maxLines: 3,
           textAlign: TextAlign.justify,

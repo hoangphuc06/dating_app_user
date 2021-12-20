@@ -20,22 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="97335e0d-cb59-458a-9b4a-ba8de56748e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/love2.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/assets/image/love3.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/widgets/buttons/sup_button.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/widgets/cards/noti_card.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_images/my_images_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/assets/image/love1.svg" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/assets/image/love1.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/chat_room/chat_room_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/chat_room/chat_room_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_avatar_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_avatar_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/setting/view/setting_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/setting/view/setting_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/dating/view/is_dating_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/dating/view/is_dating_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/dating/view/non_dating_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/dating/view/non_dating_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/discover/view/discover_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/discover/view/discover_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/likes/view/likes_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/likes/view/likes_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/notification/view/notification_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/notification/view/notification_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/tab_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/tab_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/responsive.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/login/view/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/login/view/login_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_info_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_info_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/welcome/view/welcome_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/welcome/view/welcome_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,14 +60,14 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\lib" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\assets\image" />
       <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\assets" />
       <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\assets\icon" />
       <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\assets\image\example" />
+      <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\lib" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Hoang Phuc\Documents\GitHub\dating_app_user\dating_app_user\lib" />
     </key>
   </component>
@@ -130,10 +120,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="498" y="207" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1536.834@0.0.1536.834" timestamp="1636699935581" />
-    <state x="499" y="164" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1636811022756">
+    <state x="499" y="164" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1639983502262">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="499" y="164" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.834@0.0.1536.834" timestamp="1636811022756" />
+    <state x="499" y="164" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.834@0.0.1536.834" timestamp="1639983502262" />
     <state x="-4" y="122" width="1336" height="634" key="AVDManager" timestamp="1639817371582">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
@@ -142,21 +132,21 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1639555603253" />
-    <state width="1491" height="30" key="GridCell.Tab.0.bottom" timestamp="1639843378905">
+    <state width="1491" height="11" key="GridCell.Tab.0.bottom" timestamp="1639989679717">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="30" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1639843378905" />
-    <state width="1491" height="30" key="GridCell.Tab.0.center" timestamp="1639843378905">
+    <state width="1491" height="11" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1639989679717" />
+    <state width="1491" height="11" key="GridCell.Tab.0.center" timestamp="1639989679717">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="30" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1639843378905" />
-    <state width="1491" height="30" key="GridCell.Tab.0.left" timestamp="1639843378905">
+    <state width="1491" height="11" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1639989679717" />
+    <state width="1491" height="11" key="GridCell.Tab.0.left" timestamp="1639989679717">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="30" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1639843378905" />
-    <state width="1491" height="30" key="GridCell.Tab.0.right" timestamp="1639843378905">
+    <state width="1491" height="11" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1639989679717" />
+    <state width="1491" height="11" key="GridCell.Tab.0.right" timestamp="1639989679717">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="30" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1639843378905" />
+    <state width="1491" height="11" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1639989679717" />
   </component>
 </project>

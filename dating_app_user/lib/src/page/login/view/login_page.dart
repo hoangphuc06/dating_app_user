@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dating_app_user/responsive.dart';
 import 'package:dating_app_user/src/page/init_info/init_info_page.dart';
 import 'package:dating_app_user/src/page/init_info/init_name_page.dart';
 import 'package:dating_app_user/src/style/my_style.dart';
