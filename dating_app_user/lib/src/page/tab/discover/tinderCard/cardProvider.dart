@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/page/tab/discover/firebase/fb_user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-enum CardStatus { like, dislike, superlike }
+enum CardStatus { like, dislike, superlike, down }
 
 class CardProvider extends ChangeNotifier {
   List<String> _urlImages = [];
@@ -10,30 +11,90 @@ class CardProvider extends ChangeNotifier {
   double _angle = 0;
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
+  int temp = 0;
+  String? id;
+  List<String> filter1 = [];
+  List<String> filter2 = [];
+  List<String> filter3 = [];
 
   List<String> get urlImages => _urlImages;
   bool get isDragging => _isDragging;
   Offset get position => _position;
   double get angle => _angle;
+  String get uid => id!;
 
-  Future<List<String>> loadData() async {
+  Future<List<String>> loadDataUser1() async {
+    List<String> temp = [];
+    await FirebaseFirestore.instance
+        .collection('FILTER')
+        .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((QuerySnapshot querySnapshot) async {
+      await FirebaseFirestore.instance
+          .collection('USER')
+          .where('sex', isEqualTo: querySnapshot.docs[0]['sex'])
+          .where('dating', isEqualTo: false)
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((element) {
+          temp.add(element.id);
+        });
+      });
+    });
+
+    return temp;
+  }
+
+  Future<List<String>> loadDataUser2() async {
+    List<String> temp = [];
+    await FirebaseFirestore.instance
+        .collection('FILTER')
+        .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((QuerySnapshot querySnapshot) async {
+      await FirebaseFirestore.instance
+          .collection('USER')
+          .where('age',
+              isGreaterThanOrEqualTo: querySnapshot.docs[0]['age_from'])
+          .where('age', isLessThanOrEqualTo: querySnapshot.docs[0]['age_to'])
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((element) {
+          temp.add(element.id);
+        });
+      });
+    });
+
+    return temp;
+  }
+
+  Future<List<String>> loadDataUser(int index, List list) async {
     List<String> temp = [];
     await FirebaseFirestore.instance
         .collection('USER')
+        .where('uid', whereIn: list)
+        .where('uid',isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .get()
         .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        temp.add(doc["avatar"]);
-      });
+      temp = querySnapshot.docs[index]['images']
+          .toString()
+          .replaceAll('[', "")
+          .replaceAll(']', "")
+          .split(', ');
     });
+
     return temp;
   }
 
   CardProvider() {
-    resetUser();
+    resetUser(0);
   }
 
   void setScreenSize(Size sreenSize) => _screenSize = sreenSize;
+  void resetIndex(int index) {
+    temp = index;
+    notifyListeners();
+  }
 
   void startPosition(DragStartDetails details) {
     _isDragging = true;
@@ -67,6 +128,9 @@ class CardProvider extends ChangeNotifier {
       case CardStatus.superlike:
         superlike();
         break;
+      case CardStatus.down:
+        down();
+        break;
       default:
         resetPosition();
     }
@@ -96,14 +160,29 @@ class CardProvider extends ChangeNotifier {
         if (y <= -delta / 2 && forceSuperLike) {
           print('up');
           return CardStatus.superlike;
+        } else {
+          if (y > delta / 2 && forceSuperLike) {
+            print('down');
+            return CardStatus.down;
+          }
         }
       }
     }
   }
 
-  void resetUser() async{
-    var temp= await loadData();
-    _urlImages=temp.reversed.toList();
+  void resetUser(int index) async {
+    filter1 = await loadDataUser1();
+    print(filter1);
+    print('filter1');
+    filter2 = await loadDataUser2();
+    print(filter2);
+    print('filter2');
+    filter3 = filter1;
+    filter3.removeWhere((item) => !filter2.contains(item));
+    print(filter3);
+    var temp = await loadDataUser(index, filter3);
+    _urlImages = temp.reversed.toList();
+    print(id);
     // _urlImages = <String>[
     //   'https://cellphones.com.vn/sforum/wp-content/uploads/2020/04/LR-29-scaled.jpg',
     //   'https://cdn.nguyenkimmall.com/images/detailed/555/may-anh-cho-nguoi-moi.jpg',
@@ -139,9 +218,22 @@ class CardProvider extends ChangeNotifier {
   }
 
   void superlike() {
+    temp++;
     _angle = 0;
     _position -= Offset(0, _screenSize.height);
-    _nextCard();
+    print(temp);
+    resetUser(temp);
+    resetPosition();
+    notifyListeners();
+  }
+
+  void down() {
+    temp--;
+    _angle = 0;
+    _position += Offset(0, _screenSize.height);
+    print(temp);
+    resetUser(temp);
+    resetPosition();
     notifyListeners();
   }
 }
