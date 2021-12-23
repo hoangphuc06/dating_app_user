@@ -20,12 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="97335e0d-cb59-458a-9b4a-ba8de56748e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_images/my_images_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/data/characters_data.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/data/hobbies_data.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/data/styles_dating_data.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_characters_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_describe_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/widgets/buttons/tag_button.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/responsive.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/login/view/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/login/view/login_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_images/my_images_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_images/my_images_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_info_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_info_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/welcome/view/welcome_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/welcome/view/welcome_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,25 +131,25 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="-4" y="122" width="1336" height="634" key="AVDManager/0.0.1536.834@0.0.1536.834" timestamp="1639817371582" />
-    <state x="549" y="172" key="FileChooserDialogImpl" timestamp="1639555603253">
+    <state x="549" y="172" key="FileChooserDialogImpl" timestamp="1640087338613">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1639555603253" />
-    <state width="1491" height="11" key="GridCell.Tab.0.bottom" timestamp="1639989679717">
+    <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1640087338613" />
+    <state width="1491" height="55" key="GridCell.Tab.0.bottom" timestamp="1640277664497">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="11" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1639989679717" />
-    <state width="1491" height="11" key="GridCell.Tab.0.center" timestamp="1639989679717">
+    <state width="1491" height="55" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1640277664497" />
+    <state width="1491" height="55" key="GridCell.Tab.0.center" timestamp="1640277664496">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="11" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1639989679717" />
-    <state width="1491" height="11" key="GridCell.Tab.0.left" timestamp="1639989679717">
+    <state width="1491" height="55" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1640277664496" />
+    <state width="1491" height="55" key="GridCell.Tab.0.left" timestamp="1640277664496">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="11" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1639989679717" />
-    <state width="1491" height="11" key="GridCell.Tab.0.right" timestamp="1639989679717">
+    <state width="1491" height="55" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1640277664496" />
+    <state width="1491" height="55" key="GridCell.Tab.0.right" timestamp="1640277664497">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="11" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1639989679717" />
+    <state width="1491" height="55" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1640277664497" />
   </component>
 </project>
