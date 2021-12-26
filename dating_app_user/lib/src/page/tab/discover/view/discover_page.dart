@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/data/constData.dart';
 import 'package:dating_app_user/src/data/icons.dart';
+import 'package:dating_app_user/src/page/tab/discover/firebase/fb_filter.dart';
 import 'package:dating_app_user/src/page/tab/discover/tinderCard/cardProvider.dart';
 import 'package:dating_app_user/src/page/tab/discover/tinderCard/tinderCard.dart';
 import 'package:dating_app_user/src/page/tab/discover/view/filter.dart';
@@ -26,72 +27,102 @@ class _DiscoverPageState extends State<DiscoverPage>
 
   List itemsTemp = [];
   int itemLength = 0;
+  int ageStart = 0;
+  int ageEnd = 0;
+  String sex = "";
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  Future<void> loadData() async {
+    FilterFB filterFB = new FilterFB();
+    Stream<QuerySnapshot> query = filterFB.collectionReference
+        .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .snapshots();
+    await query.forEach((x) {
+      x.docs.asMap().forEach((key, value) {
+        var t = x.docs[key];
+        ageStart = t['age_from'];
+        ageEnd = t['age_to'];
+        sex = t['sex'];
+      });
+    });
+  }
+
   void initState() {
+    loadData();
     // TODO: implement initState
     super.initState();
+
     setState(() {
       itemsTemp = discover_json;
       itemLength = discover_json.length;
     });
   }
 
+  List<String> images = <String>[];
+
+  int i = 0;
+  int j = 0;
+  QueryDocumentSnapshot? x;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.deepPurple, //change your color here
+        appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.deepPurple, //change your color here
+          ),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.filter_list_alt),
+              onPressed: () {
+                _gotoPage();
+              },
+            ),
+          ],
+          title: Text(
+            "Khám phá",
+            style: TextStyle(
+                color: Colors.deepPurple, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
         ),
         backgroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.filter_list_alt),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => FilterPage()));
-            },
-          ),
-        ],
-        title: Text(
-          "Khám phá",
-          style:
-              TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-      ),
-      backgroundColor: Colors.white,
-      body: StreamBuilder(
-        stream: _firestore.collection("USER").where("uid", isEqualTo: _auth.currentUser!.uid).snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
-          if (!snapshot.hasData) {
-            return Center(
-              child: Container(
-                height: size.height / 20,
-                width: size.height / 20,
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-          else {
-            QueryDocumentSnapshot x = snapshot.data!.docs[0];
-            if (x["dating"]=="false")
-              return getBody();
-            else
-              return getDatingBody();
-          }
-        },
-      ),
-      //bottomSheet: getBottomSheet(),
-    );
+        // body: StreamBuilder(
+        //   stream: _firestore
+        //       .collection("USER")
+        //       .where("uid", isNotEqualTo: _auth.currentUser!.uid)
+        //       .snapshots(),
+        //   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        //     if (!snapshot.hasData) {
+        //       return Center(
+        //         child: Container(
+        //           height: size.height / 20,
+        //           width: size.height / 20,
+        //           child: CircularProgressIndicator(),
+        //         ),
+        //       );
+        //     } else {
+        //       x = snapshot.data!.docs[i];
+        //      images= x!['images'].toString().replaceAll('[', "").replaceAll(']', "").split(', ');
+        //      print(images.length);
+        //        return images.isEmpty
+        //   ? _emptyInfo()
+        //   : Stack(
+        //       children: images
+        //           .map((urlImage) => TinderCard(
+        //               urlImage: urlImage, isFront: images.last == urlImage))
+        //           .toList(),
+        //     );
+        //     }
+        //   },
+        // ),
+        // //bottomSheet: getBottomSheet(),
+        body: buildCard());
   }
-
-
 
   Widget buildCard() {
     final provider = Provider.of<CardProvider>(context);
@@ -141,7 +172,8 @@ class _DiscoverPageState extends State<DiscoverPage>
               onPressed: () {
                 final provider =
                     Provider.of<CardProvider>(context, listen: false);
-                provider.resetUser();
+                provider.resetUser(0);
+                provider.resetIndex(0);
               },
               elevation: 0.5,
               color: Colors.white,
@@ -326,17 +358,23 @@ class _DiscoverPageState extends State<DiscoverPage>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset("assets/image/love3.svg", height: size.height * 0.23,),
-            SizedBox(height: 20,),
+            SvgPicture.asset(
+              "assets/image/love3.svg",
+              height: size.height * 0.23,
+            ),
+            SizedBox(
+              height: 20,
+            ),
             Text(
               "Bạn đang hẹn hò với nửa kia 😊",
               style: TextStyle(
                   color: Colors.deepPurple,
                   fontSize: 20,
-                  fontWeight: FontWeight.w500
-              ),
+                  fontWeight: FontWeight.w500),
             ),
-            SizedBox(height: 5,),
+            SizedBox(
+              height: 5,
+            ),
             Text(
               "Hãy tìm hiểu nửa kia thật có phù hợp \nvới mình không nhé!",
               style: TextStyle(
@@ -386,5 +424,19 @@ class _DiscoverPageState extends State<DiscoverPage>
         ),
       ),
     );
+  }
+
+  void _gotoPage() async {
+    var id = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => FilterPage(
+                  age_from: ageStart,
+                  age_to: ageEnd,
+                  sex: sex,
+                )));
+    final provider = Provider.of<CardProvider>(context, listen: false);
+    provider.resetUser(0);
+    provider.resetIndex(0);
   }
 }
