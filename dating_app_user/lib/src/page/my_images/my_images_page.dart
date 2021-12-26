@@ -126,12 +126,19 @@ class _MyImagesPageState extends State<MyImagesPage> {
           )
       ),
       child: _listFile[index] != null ? Container(
+        padding: EdgeInsets.all(8),
         alignment: Alignment.bottomRight,
-        child: IconButton(
-          icon: Icon(Icons.delete, color: Colors.deepPurple,),
-          onPressed: (){
-            _deleleImage(index);
-          },
+        child: Container(
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white.withOpacity(0.5)
+          ),
+          child: IconButton(
+            icon: Icon(Icons.delete, color: Colors.deepPurple,),
+            onPressed: (){
+              _deleleImage(index);
+            },
+          ),
         ),
       ) : null
     )
@@ -153,12 +160,19 @@ class _MyImagesPageState extends State<MyImagesPage> {
           )
       ),
       child: _listFile[index] != null ? Container(
+        padding: EdgeInsets.all(8),
         alignment: Alignment.bottomRight,
-        child: IconButton(
-          icon: Icon(Icons.delete, color: Colors.deepPurple,),
-          onPressed: (){
-            _deleleImage(index);
-          },
+        child: Container(
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white.withOpacity(0.5)
+          ),
+          child: IconButton(
+            icon: Icon(Icons.delete, color: Colors.deepPurple.withOpacity(1),),
+            onPressed: (){
+              _deleleImage(index);
+            },
+          ),
         ),
       ) : Center(
         child:  Icon(Icons.add_circle, color: Colors.deepPurple, size: 30,),

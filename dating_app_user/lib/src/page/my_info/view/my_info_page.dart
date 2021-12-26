@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/data/characters_data.dart';
 import 'package:dating_app_user/src/page/my_images/my_images_page.dart';
+import 'package:dating_app_user/src/page/my_info/view/my_address_page.dart';
 import 'package:dating_app_user/src/page/my_info/view/my_characters_page.dart';
 import 'package:dating_app_user/src/page/my_info/view/my_describe_page.dart';
+import 'package:dating_app_user/src/page/my_info/view/my_height_page.dart';
+import 'package:dating_app_user/src/page/my_info/view/my_job_page.dart';
 import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
 import 'package:dating_app_user/src/widgets/buttons/tag_button.dart';
 import 'package:dating_app_user/src/widgets/dialogs/loading_dialog.dart';
@@ -22,15 +25,12 @@ class _MyInfoPageState extends State<MyInfoPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  bool _isEditBio = false;
-
   List<bool> _listCharacterBool = [];
 
   bool a = false;
 
   TextEditingController _bioController = new TextEditingController();
 
-  int _numOfCharacter = 0;
 
   final String title_INTJ = "INTJ - Người quân sư";
   final String strong_INTJ = "Có lý trí, hiểu biết rộng, độc lập, kiên định, tò mò và linh hoạt.";
@@ -109,19 +109,23 @@ class _MyInfoPageState extends State<MyInfoPage> {
           SizedBox(height: 30,),
           _title("Thông tin cơ bản"),
           SizedBox(height: 10,),
-          _detail("Chiều cao", x["height"] + " cm", (){}),
+          _detail("Chiều cao", x["height"] != ""? x["height"] + " cm" : "", (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MyHeightPage(height: x["height"],)));
+          }),
           SizedBox(height: 10,),
-          //_detail("Đến từ", "Tiền Giang, Việt Nam", (){}),
+          _detail("Sống tại", x["address"], (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MyAddressPage()));
+          }),
           SizedBox(height: 10,),
-          //_detail("Sống tại", "TP.HCM, Việt Nam", (){}),
-          SizedBox(height: 10,),
-          //_detail("Nghề nghiệp", "Sinh viên", (){}),
+          _detail("Nghề nghiệp", x["job"], (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MyJobPage(job: x["job"])));
+          }),
           SizedBox(height: 30,),
-          //_title("Sự thật thú vị"),
+          _title("Sự thật thú vị"),
           SizedBox(height: 10,),
-          // _detail("16 nhóm tính cách", "ENTP", (){
-          //   _showTop16CharacterDialog();
-          // }),
+          _detail("16 nhóm tính cách", x["interesting_fact"], (){
+            _showTop16CharacterDialog();
+          }),
           SizedBox(height: 50,),
         ],
       ),
@@ -185,76 +189,68 @@ class _MyInfoPageState extends State<MyInfoPage> {
     ),
   );
 
-  _bio(String bio) => GestureDetector(
-    onTap: () {
-      setState(() {
-        _isEditBio = true;
-      });
-    },
-    child: Container(
-      padding: EdgeInsets.all(16),
-      height: 150,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.1),
-        borderRadius: BorderRadius.all(Radius.circular(10))
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Text(
-                "Bio",
+  _bio(String bio) => Container(
+    padding: EdgeInsets.all(16),
+    //height: 150,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: Colors.grey.withOpacity(0.1),
+      borderRadius: BorderRadius.all(Radius.circular(10))
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              "Bio",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            Spacer(),
+            GestureDetector(
+              onTap: (){
+                setState(() {
+                  _updateBio(_bioController.text.trim());
+
+                });
+              },
+              child: Text(
+                "Cập nhật",
                 style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.deepPurple,
                     fontWeight: FontWeight.bold
                 ),
               ),
-              Spacer(),
-              _isEditBio == true ? GestureDetector(
-                onTap: (){
-                  setState(() {
-                    _updateBio(_bioController.text.trim());
-                    _isEditBio = false;
-                  });
-                },
-                child: Text(
-                  "Cập nhật",
-                  style: TextStyle(
-                      color: Colors.deepPurple,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-              ) : Container(),
-            ],
+            )
+          ],
+        ),
+        //SizedBox(height: 10,),
+        TextFormField(
+          onSaved: (value) => {
+            _bioController.text = value!,
+          },
+          maxLines: 5,
+          minLines: 3,
+          controller: _bioController,
+          decoration: InputDecoration(
+              hintText: "Nhập miêu tả về bạn",
+              hintStyle: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 15
+              ),
+              border: InputBorder.none
           ),
-          SizedBox(height: 10,),
-          TextFormField(
-            onSaved: (value) => {
-              _bioController.text = value!,
-            },
-            readOnly: _isEditBio == true? false : true,
-            maxLines: 5,
-            minLines: 3,
-            controller: _bioController,
-            decoration: InputDecoration(
-                hintText: "Nhập miêu tả về bạn",
-                hintStyle: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 15
-                ),
-                border: InputBorder.none
-            ),
-            style: TextStyle(
-              //color: Colors.black,
-                fontWeight: FontWeight.normal,
-                fontSize: 15
-            ),
-            textAlign: TextAlign.justify,
+          style: TextStyle(
+            //color: Colors.black,
+              fontWeight: FontWeight.normal,
+              fontSize: 15
           ),
-        ],
-      ),
+          textAlign: TextAlign.justify,
+        ),
+      ],
     ),
   );
 
@@ -470,205 +466,6 @@ class _MyInfoPageState extends State<MyInfoPage> {
         ),
       )
   );
-
-  // _showCharacterDialog() => showModalBottomSheet(
-  //   isScrollControlled: true,
-  //     shape: RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.only(
-  //         topLeft: Radius.circular(24),
-  //         topRight: Radius.circular(24),
-  //       ),
-  //     ),
-  //     context: context,
-  //     builder: (context)=>Container(
-  //       padding: EdgeInsets.all(16),
-  //       child: Column(
-  //         mainAxisSize: MainAxisSize.min,
-  //         children: [
-  //           Text(
-  //             "Tính cách của bạn như thế nào?",
-  //             style: TextStyle(
-  //               fontSize: 20,
-  //                 color: Colors.deepPurple,
-  //                 fontWeight: FontWeight.bold
-  //             ),
-  //           ),
-  //           SizedBox(height: 10,),
-  //           Text(
-  //             "Chọn 1-3 mục để miêu tả về bạn",
-  //             style: TextStyle(
-  //                 fontSize: 13,
-  //                 color: Colors.grey,
-  //                 fontWeight: FontWeight.w500
-  //             ),
-  //           ),
-  //           SizedBox(height: 30,),
-  //           Wrap(
-  //             spacing: 20,
-  //             runSpacing: 15,
-  //             children: [
-  //               // TagButton((){
-  //               //   setState(() {
-  //               //     a = !a;
-  //               //   });
-  //               // }, a,"😎 Phiêu lưu"),
-  //               // _lable("😊 Dễ gần"),
-  //               // _lable("🧐 Lý trí"),
-  //               // _lable("😇 Tốt bụng"),
-  //               // _lable("🙂 Khiêm tốn"),
-  //               // _lable("☺ Nhạy cảm"),
-  //               // _lable("😉 Tự tin"),
-  //               // _lable("🤠 Tự lập"),
-  //               // _lable("😐 Can đảm"),
-  //               // _lable("😊 Thận trọng"),
-  //               // _lable("😆 Thực tế"),
-  //               // _lable("😂 Cởi mở"),
-  //               // _lable("🙃 Hướng nội"),
-  //               // _lable("🤣 Hướng ngoại"),
-  //               // _lable("🤭 Thật thà"),
-  //               // _lable("😬 Chung thủy"),
-  //               // _lable("😄 Vui vẻ"),
-  //               for (var item in characters_data)
-  //                 _lableChoice(item,a,(){
-  //                   setState(() {
-  //                     a = !a;
-  //                   });
-  //                 }),
-  //             ],
-  //           ),
-  //           SizedBox(height: 30,),
-  //           _buttonSave(
-  //               (){
-  //
-  //               }
-  //           ),
-  //         ],
-  //       ),
-  //     )
-  // );
-
-  // _showHobbyDialog() => showModalBottomSheet(
-  //     shape: RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.only(
-  //         topLeft: Radius.circular(24),
-  //         topRight: Radius.circular(24),
-  //       ),
-  //     ),
-  //     context: context,
-  //     builder: (context)=>Container(
-  //       padding: EdgeInsets.all(16),
-  //       child: Column(
-  //         children: [
-  //           Text(
-  //             "Sở thích của bạn như thế nào?",
-  //             style: TextStyle(
-  //                 fontSize: 20,
-  //                 color: Colors.deepPurple,
-  //                 fontWeight: FontWeight.bold
-  //             ),
-  //           ),
-  //           SizedBox(height: 10,),
-  //           Text(
-  //             "Chọn 1-3 mục để miêu tả về bạn",
-  //             style: TextStyle(
-  //                 fontSize: 13,
-  //                 color: Colors.grey,
-  //                 fontWeight: FontWeight.w500
-  //             ),
-  //           ),
-  //           SizedBox(height: 30,),
-  //           Wrap(
-  //             spacing: 20,
-  //             runSpacing: 15,
-  //             children: [
-  //               _lable("🛍 Mua sắm"),
-  //               _lable("🎞 Phim ảnh"),
-  //               _lable("✈ Du lịch"),
-  //               _lable("⚽ Thể thao"),
-  //               _lable("🤸‍♂ Yoga"),
-  //               _lable("💪 Gym"),
-  //               _lable("🎖 Tham gia tình nguyện"),
-  //               _lable("📚 Đọc sách"),
-  //               _lable("🍕 Ăn uống"),
-  //               _lable("🎵 Âm nhạc"),
-  //               _lable("🎭 Ngôn ngữ"),
-  //               _lable("📸 Chụp ảnh"),
-  //               _lable("🎮 Game online"),
-  //               _lable("🖼 Nghệ thuật"),
-  //               _lable("🐈 Động vật"),
-  //             ],
-  //           ),
-  //           SizedBox(height: 30,),
-  //           _buttonSave(
-  //                   (){
-  //
-  //               }
-  //           ),
-  //         ],
-  //       ),
-  //     )
-  // );
-
-  // _showDatingDialog() => showModalBottomSheet(
-  //     shape: RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.only(
-  //         topLeft: Radius.circular(24),
-  //         topRight: Radius.circular(24),
-  //       ),
-  //     ),
-  //     context: context,
-  //     builder: (context)=>Container(
-  //       padding: EdgeInsets.all(16),
-  //       child: Column(
-  //         children: [
-  //           Text(
-  //             "Kiểu hẹn hò của bạn như thế nào?",
-  //             style: TextStyle(
-  //                 fontSize: 20,
-  //                 color: Colors.deepPurple,
-  //                 fontWeight: FontWeight.bold
-  //             ),
-  //           ),
-  //           SizedBox(height: 10,),
-  //           Text(
-  //             "Chọn 1-3 mục để miêu tả về bạn",
-  //             style: TextStyle(
-  //                 fontSize: 13,
-  //                 color: Colors.grey,
-  //                 fontWeight: FontWeight.w500
-  //             ),
-  //           ),
-  //           SizedBox(height: 30,),
-  //           Wrap(
-  //             spacing: 20,
-  //             runSpacing: 15,
-  //             children: [
-  //               _lable("🎏 Đi picnic"),
-  //               _lable("🎮 Chơi game"),
-  //               _lable("🌳 Đi dạo"),
-  //               _lable("🎶 Nghe nhạc"),
-  //               _lable("🏍 Đi du lịch"),
-  //               _lable("⚽ Chơi thể thao"),
-  //               _lable("🎞 Xem phim"),
-  //               _lable("👨‍❤️‍👨 Chăm nhắn tin"),
-  //               _lable("🎎 Hứng đi đâu đó"),
-  //               _lable("🥗 Nấu ăn chung"),
-  //               _lable("🥘 Đi ăn"),
-  //               _lable("🥂 Đi bar"),
-  //               _lable("🥤 Đi cà phê"),
-  //               _lable("👨🏾‍🤝‍👨🏼 Đi cùng nhóm bạn"),
-  //             ],
-  //           ),
-  //           SizedBox(height: 30,),
-  //           _buttonSave(
-  //                   (){
-  //
-  //               }
-  //           ),
-  //         ],
-  //       ),
-  //     )
-  // );
 
   _showTop16CharacterDialog() => showModalBottomSheet(
     isScrollControlled: true,

@@ -114,8 +114,10 @@ class _InitAvatarPageState extends State<InitAvatarPage> {
 
     String URL = await ref.getDownloadURL();
 
+    List<String> list = [URL, "", "", "", "", ""];
+
     await FirebaseFirestore.instance.collection("USER").doc(FirebaseAuth.instance.currentUser!.uid).update({
-      "avatar": URL,
+      "images": list,
     }).then((value) => {
 
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => InitFilterSexPage())),

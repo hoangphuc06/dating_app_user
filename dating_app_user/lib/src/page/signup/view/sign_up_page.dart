@@ -129,14 +129,19 @@ class _SignUpPageState extends State<SignUpPage> {
             "address": "",
             "bio": "",
             "birthday": "",
-            "heigh": "",
-            "hometown": "",
+            "height": "",
             "job": "",
             "sex": "",
-            "info": "null",
+            "init": "false",
             "status": "Offline",
-            "avatar": "",
+            "images": ["", "", "", "", "", ""],
+            "characters": ["", "", ""],
+            "hobbies": ["", "", ""],
+            "styles_dating": ["", "", ""],
+            "latitude": "",
+            "longitude": "",
             "dating": "false",
+            "interesting_fact": "",
           });
 
           _emailController.clear();

@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
         );
 
         FirebaseFirestore.instance.collection("USER").doc(userCredential.user!.uid).get().then((value) => {
-          if (value["info"]=="null") {
+          if (value["init"]=="false") {
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => InitInfoPage()), (Route<dynamic> route) => false),
           }
           else {

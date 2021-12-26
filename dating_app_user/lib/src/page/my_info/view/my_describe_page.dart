@@ -88,35 +88,11 @@ class _MyDescribePageState extends State<MyDescribePage> {
         title: Text("Mô tả bản thân", style: TextStyle(color: Colors.deepPurple),),
         centerTitle: true,
       ),
-      body: StreamBuilder(
-        stream: _firestore.collection("USER").where("uid", isEqualTo: _auth.currentUser!.uid).snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
-          if (!snapshot.hasData) {
-            return Center(
-              child: Container(
-                height: size.height / 20,
-                width: size.height / 20,
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-          else {
-            QueryDocumentSnapshot x = snapshot.data!.docs[0];
-            // for (var i = 0; i < characters_data.length; i++) {
-            //   if (characters_data[i] == a) {
-            //     _listCharacterBool[i] = true;
-            //     _numOfCharacter++;
-            //     break;
-            //   }
-            // }
-            return _getBody(x);
-          }
-        },
-      ),
+      body: _getBody(),
     );
   }
   
-  Widget _getBody(x) {
+  Widget _getBody() {
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.all(16),
@@ -124,20 +100,27 @@ class _MyDescribePageState extends State<MyDescribePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _title("Tính cách"),
+            SizedBox(height: 5,),
+            _supTitle("Chọn 1 - 3 tag"),
             SizedBox(height: 10,),
-            _characterView(x["characters"]),
-            SizedBox(height: 20,),
+            _characterView(),
+            SizedBox(height: 40,),
             _title("Sở thích"),
+            SizedBox(height: 5,),
+            _supTitle("Chọn 1 - 3 tag"),
             SizedBox(height: 10,),
             _hobbyView(),
-            SizedBox(height: 20,),
+            SizedBox(height: 40,),
             _title("Kiểu hẹn hò"),
+            SizedBox(height: 5,),
+            _supTitle("Chọn 1 - 3 tag"),
             SizedBox(height: 10,),
             _styleDatingView(),
-            SizedBox(height: 20,),
+            SizedBox(height: 40,),
             MainButton(name: "Lưu", onpressed: (){
               _onClick();
             }),
+            SizedBox(height: 20,)
           ],
         ),
       ),
@@ -145,6 +128,15 @@ class _MyDescribePageState extends State<MyDescribePage> {
   }
 
   _title(String text) => Text(
+    text,
+    style: TextStyle(
+        color: Colors.pink,
+        fontSize: 17,
+        fontWeight: FontWeight.w500
+    ),
+  );
+
+  _supTitle(String text) => Text(
     text,
     style: TextStyle(
         color: Colors.grey,
@@ -170,7 +162,7 @@ class _MyDescribePageState extends State<MyDescribePage> {
     ),
   );
 
-  Widget _characterView(x) {
+  Widget _characterView() {
     List<Widget> list = [];
     for (var i = 0; i < characters_data.length; i++) {
       list.add(

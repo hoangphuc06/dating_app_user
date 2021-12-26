@@ -78,7 +78,7 @@ class _InitCompletedPageState extends State<InitCompletedPage> {
 
   void onClick() {
     FirebaseFirestore.instance.collection("USER").doc(FirebaseAuth.instance.currentUser!.uid).update({
-      "info": "nofull",
+      "init": "true",
     }).then((value) => {
 
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => TabPage()),(Route<dynamic> route) => false),
