@@ -73,7 +73,7 @@ class CardProvider extends ChangeNotifier {
     await FirebaseFirestore.instance
         .collection('USER')
         .where('uid', whereIn: list)
-        .where('uid',isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .where('uid', isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .get()
         .then((QuerySnapshot querySnapshot) {
       temp = querySnapshot.docs[index]['images']
@@ -218,22 +218,40 @@ class CardProvider extends ChangeNotifier {
   }
 
   void superlike() {
-    temp++;
-    _angle = 0;
-    _position -= Offset(0, _screenSize.height);
-    print(temp);
-    resetUser(temp);
-    resetPosition();
-    notifyListeners();
+    if (temp < filter3.length-1) {
+      temp++;
+      _angle = 0;
+      _position -= Offset(0, _screenSize.height);
+      print(temp);
+      resetUser(temp);
+      resetPosition();
+      notifyListeners();
+    } else {
+      _angle = 0;
+      _position -= Offset(0, _screenSize.height);
+      print(temp);
+      resetPosition();
+      notifyListeners();
+    }
   }
 
   void down() {
-    temp--;
-    _angle = 0;
-    _position += Offset(0, _screenSize.height);
     print(temp);
-    resetUser(temp);
-    resetPosition();
-    notifyListeners();
+    if (temp > 0) {
+      temp--;
+      _angle = 0;
+      _position += Offset(0, _screenSize.height);
+      print(temp);
+      resetUser(temp);
+      resetPosition();
+      notifyListeners();
+    } else {
+      _angle = 0;
+      _position += Offset(0, _screenSize.height);
+      print(temp);
+
+      resetPosition();
+      notifyListeners();
+    }
   }
 }
