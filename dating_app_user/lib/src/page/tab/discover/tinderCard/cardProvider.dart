@@ -21,6 +21,7 @@ class CardProvider extends ChangeNotifier {
   Offset get position => _position;
   double get angle => _angle;
   String get uid => id!;
+  
 
   Future<List<String>> loadDataFilter1() async {
     List<String> temp = [];
@@ -77,6 +78,7 @@ class CardProvider extends ChangeNotifier {
         .get()
         .then((QuerySnapshot querySnapshot) {
       print(querySnapshot.docs[index]['images'].toString());
+      id=querySnapshot.docs[0].id;
       temp = querySnapshot.docs[index]['images']
           .toString()
           .replaceAll('[', "")

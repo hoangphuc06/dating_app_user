@@ -45,6 +45,8 @@ dependencies:
   uuid: ^3.0.4
   geolocator: ^8.0.1
   geocoding: ^2.0.1
+  open_iconic_flutter: ^0.3.0
+  fluttericon: ^2.0.0
 
 dev_dependencies:
   flutter_test:
