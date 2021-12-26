@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/page/tab/discover/firebase/fb_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 enum CardStatus { like, dislike, superlike, down }
 
@@ -13,9 +14,7 @@ class CardProvider extends ChangeNotifier {
   Size _screenSize = Size.zero;
   int temp = 0;
   String? id;
-  List<String> filter1 = [];
-  List<String> filter2 = [];
-  List<String> filter3 = [];
+  List<String> filter = [];
 
   List<String> get urlImages => _urlImages;
   bool get isDragging => _isDragging;
@@ -23,44 +22,45 @@ class CardProvider extends ChangeNotifier {
   double get angle => _angle;
   String get uid => id!;
 
-  Future<List<String>> loadDataUser1() async {
+  Future<List<String>> loadDataFilter1() async {
     List<String> temp = [];
     await FirebaseFirestore.instance
-        .collection('FILTER')
+        .collection('USER')
         .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .get()
-        .then((QuerySnapshot querySnapshot) async {
+        .then((QuerySnapshot q1) async {
       await FirebaseFirestore.instance
-          .collection('USER')
-          .where('sex', isEqualTo: querySnapshot.docs[0]['sex'])
-          .where('dating', isEqualTo: false)
+          .collection('FILTER')
+          .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .get()
-          .then((QuerySnapshot querySnapshot) {
-        querySnapshot.docs.forEach((element) {
-          temp.add(element.id);
-        });
-      });
-    });
-
-    return temp;
-  }
-
-  Future<List<String>> loadDataUser2() async {
-    List<String> temp = [];
-    await FirebaseFirestore.instance
-        .collection('FILTER')
-        .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-        .get()
-        .then((QuerySnapshot querySnapshot) async {
-      await FirebaseFirestore.instance
-          .collection('USER')
-          .where('age',
-              isGreaterThanOrEqualTo: querySnapshot.docs[0]['age_from'])
-          .where('age', isLessThanOrEqualTo: querySnapshot.docs[0]['age_to'])
-          .get()
-          .then((QuerySnapshot querySnapshot) {
-        querySnapshot.docs.forEach((element) {
-          temp.add(element.id);
+          .then((QuerySnapshot q2) async {
+        await FirebaseFirestore.instance
+            .collection('USER')
+            .where('sex', isEqualTo: q2.docs[0]['sex'])
+            .where('dating', isEqualTo: 'false')
+            .get()
+            .then((QuerySnapshot q) {
+          q.docs.forEach((element) {
+            print((DateTime.now().year -
+                int.parse(element['birthday']
+                    .toString()
+                    .substring(element['birthday'].toString().length - 4))));
+            if ((DateTime.now().year -
+                        int.parse(element['birthday'].toString().substring(
+                            element['birthday'].toString().length - 4))) >=
+                    int.parse(q2.docs[0]['age_from'].toString()) &&
+                (DateTime.now().year -
+                        int.parse(element['birthday'].toString().substring(
+                            element['birthday'].toString().length - 4))) <=
+                    int.parse(q2.docs[0]['age_to'].toString()) &&
+                calculateDistance(
+                        double.parse(q1.docs[0]['latitude']),
+                        double.parse(q1.docs[0]['longitude']),
+                        double.parse(element['latitude']),
+                        double.parse(element['longitude'])) <=
+                    double.parse(q2.docs[0]['distance_to']))
+              temp.add(element.id);
+          });
         });
       });
     });
@@ -76,6 +76,7 @@ class CardProvider extends ChangeNotifier {
         .where('uid', isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .get()
         .then((QuerySnapshot querySnapshot) {
+      print(querySnapshot.docs[index]['images'].toString());
       temp = querySnapshot.docs[index]['images']
           .toString()
           .replaceAll('[', "")
@@ -171,28 +172,17 @@ class CardProvider extends ChangeNotifier {
   }
 
   void resetUser(int index) async {
-    filter1 = await loadDataUser1();
-    print(filter1);
-    print('filter1');
-    filter2 = await loadDataUser2();
-    print(filter2);
-    print('filter2');
-    filter3 = filter1;
-    filter3.removeWhere((item) => !filter2.contains(item));
-    print(filter3);
-    var temp = await loadDataUser(index, filter3);
-    _urlImages = temp.reversed.toList();
-    print(id);
-    // _urlImages = <String>[
-    //   'https://cellphones.com.vn/sforum/wp-content/uploads/2020/04/LR-29-scaled.jpg',
-    //   'https://cdn.nguyenkimmall.com/images/detailed/555/may-anh-cho-nguoi-moi.jpg',
-    //   'https://digitalphoto.com.vn/wp-content/uploads/2018/08/39999935574_11b6d8805f_o-1.jpg',
-    //   'https://halotravel.vn/wp-content/uploads/2020/07/thach_trangg_101029297_573874646879779_1794923475739360981_n.jpg',
-    //   'https://i.pinimg.com/originals/35/2b/87/352b87e5dfa5b6f689edab8fc18b61ad.jpg',
-    //   'https://aphoto.vn/wp-content/uploads/2019/07/anh-chan-dung-nghe-thuat-top-aphoto5.jpg',
-    //   'https://vietyouth.vn/wp-content/uploads/2018/10/ngoi-vao-la-hot-anh-dep-10-chiec-ghe-quyen-luc-vang-danh-khap-hoi-da-lat-13598.jpg',
-    //   'https://photographer.vn/wp-content/uploads/2020/10/chup-anh-chan-dung-nghe-thuat5-800x1200.jpg'
-    // ].reversed.toList();
+    filter = await loadDataFilter1();
+    print(filter);
+
+    if (filter.length != 0) {
+      var temp = await loadDataUser(index, filter);
+      temp.removeWhere((item) => item == "");
+      print(temp);
+      _urlImages = temp.reversed.toList();
+      print(id);
+    }
+
     notifyListeners();
   }
 
@@ -218,7 +208,7 @@ class CardProvider extends ChangeNotifier {
   }
 
   void superlike() {
-    if (temp < filter3.length-1) {
+    if (temp < filter.length - 1) {
       temp++;
       _angle = 0;
       _position -= Offset(0, _screenSize.height);
@@ -253,5 +243,14 @@ class CardProvider extends ChangeNotifier {
       resetPosition();
       notifyListeners();
     }
+  }
+
+  double calculateDistance(lat1, lon1, lat2, lon2) {
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 -
+        c((lat2 - lat1) * p) / 2 +
+        c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+    return 12742 * asin(sqrt(a));
   }
 }

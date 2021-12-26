@@ -29,6 +29,7 @@ class _DiscoverPageState extends State<DiscoverPage>
   int itemLength = 0;
   int ageStart = 0;
   int ageEnd = 0;
+  int distanceEnd = 0;
   String sex = "";
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -42,8 +43,9 @@ class _DiscoverPageState extends State<DiscoverPage>
     await query.forEach((x) {
       x.docs.asMap().forEach((key, value) {
         var t = x.docs[key];
-        ageStart = t['age_from'];
-        ageEnd = t['age_to'];
+        ageStart = int.parse(t['age_from'].toString());
+        ageEnd = int.parse(t['age_to'].toString());
+        distanceEnd = int.parse(t['distance_to'].toString());
         sex = t['sex'];
       });
     });
@@ -433,6 +435,7 @@ class _DiscoverPageState extends State<DiscoverPage>
             builder: (context) => FilterPage(
                   age_from: ageStart,
                   age_to: ageEnd,
+                  distance_to: distanceEnd,
                   sex: sex,
                 )));
     final provider = Provider.of<CardProvider>(context, listen: false);

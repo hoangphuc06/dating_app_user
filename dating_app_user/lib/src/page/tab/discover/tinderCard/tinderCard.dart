@@ -70,7 +70,7 @@ class _TinderCardState extends State<TinderCard> {
 
   Widget buildCard() {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
+      // borderRadius: BorderRadius.circular(20),
       child: Container(
         decoration: BoxDecoration(
             image: DecorationImage(

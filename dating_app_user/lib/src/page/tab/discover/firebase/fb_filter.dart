@@ -31,8 +31,8 @@ class FilterFB {
 
   Future<void> update(
     String id,
-    int age_from,
-    int age_to,
+    String age_from,
+    String age_to,
     String distance_from,
     String distance_to,
     String sex,

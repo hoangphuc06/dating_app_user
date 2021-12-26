@@ -10,11 +10,13 @@ import 'package:google_fonts/google_fonts.dart';
 class FilterPage extends StatefulWidget {
   final int age_from;
   final int age_to;
+  final int distance_to;
   final String sex;
   const FilterPage(
       {Key? key,
       required this.age_from,
       required this.age_to,
+      required this.distance_to,
       required this.sex})
       : super(key: key);
 
@@ -30,10 +32,11 @@ class _FilterPageState extends State<FilterPage> {
 
   int ageStart = 18;
   int ageEnd = 19;
+  int distanceEnd = 50;
   String _sex = "";
 
   RangeValues _values = RangeValues(18.3, 19.0);
-  int distance = 1;
+
   RangeValues _distance = RangeValues(1, 1.1);
   @override
   void initState() {
@@ -50,9 +53,11 @@ class _FilterPageState extends State<FilterPage> {
     }
     ageStart = widget.age_from;
     ageEnd = widget.age_to;
+    distanceEnd = widget.distance_to;
     _sex = widget.sex;
     _values = RangeValues(double.parse(widget.age_from.toString()),
         double.parse(widget.age_to.toString()));
+    _distance = RangeValues(0.0, double.parse(widget.distance_to.toString()));
   }
 
   @override
@@ -63,9 +68,9 @@ class _FilterPageState extends State<FilterPage> {
         leading: GestureDetector(
           onTap: () {
             filterFB
-                .update(FirebaseAuth.instance.currentUser!.uid, ageStart,
-                    ageEnd, '0', '50', _sex)
-                .then((value) => Navigator.pop(context,'1'));
+                .update(FirebaseAuth.instance.currentUser!.uid,
+                    ageStart.toString(), ageEnd.toString(), '0', distanceEnd.toString(), _sex)
+                .then((value) => Navigator.pop(context, '1'));
           },
           child: Icon(Icons.arrow_back),
         ),
@@ -100,10 +105,11 @@ class _FilterPageState extends State<FilterPage> {
             SizedBox(
               height: 10,
             ),
-            // _card(FontAwesomeIcons.route, "Khoảng cách từ tôi", "25 km", 3),
-            // SizedBox(
-            //   height: 10,
-            // ),
+            _card(FontAwesomeIcons.route, "Khoảng cách từ tôi ",
+                distanceEnd.toString() + ' Km', 3),
+            SizedBox(
+              height: 10,
+            ),
           ],
         ),
       ),
@@ -265,7 +271,7 @@ class _FilterPageState extends State<FilterPage> {
                   SizedBox(
                     height: 40,
                   ),
-                  _buttonSave('Lưu', tempStart, tempEnd, tempValues)
+                  _buttonSave('Lưu', tempStart, tempEnd, tempValues, 1)
                 ],
               ),
             ),
@@ -274,6 +280,8 @@ class _FilterPageState extends State<FilterPage> {
   }
 
   _showBottomDistance() {
+    int tempEnd = distanceEnd;
+    RangeValues tempValues = _distance;
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -305,7 +313,7 @@ class _FilterPageState extends State<FilterPage> {
                   SizedBox(
                     height: 20,
                   ),
-                  _text('from 0 to ' + distance.toString() + ' km', 17,
+                  _text('from 0 to ' + tempEnd.toString() + ' km', 17,
                       FontWeight.bold, white),
                   Container(
                     width: 350,
@@ -313,13 +321,13 @@ class _FilterPageState extends State<FilterPage> {
                       activeColor: MyPurple,
                       inactiveColor: white,
                       onChangeStart: null,
-                      values: _distance,
-                      min: 1,
-                      max: 50,
+                      values: tempValues,
+                      min: 0.0,
+                      max: 50.0,
                       onChanged: (RangeValues newValues) {
                         setState(() {
-                          _distance = newValues;
-                          distance = newValues.end.round();
+                          tempValues = newValues;
+                          tempEnd = newValues.end.round();
                         });
                       },
                     ),
@@ -327,7 +335,7 @@ class _FilterPageState extends State<FilterPage> {
                   SizedBox(
                     height: 40,
                   ),
-                  _button('Lưu', 0)
+                  _buttonSave('Lưu', 0, tempEnd, tempValues, 2)
                 ],
               ),
             ),
@@ -388,7 +396,7 @@ class _FilterPageState extends State<FilterPage> {
     );
   }
 
-  _buttonSave(String text, int start, int end, RangeValues values) {
+  _buttonSave(String text, int start, int end, RangeValues values, int check) {
     return ButtonTheme(
       minWidth: 200,
       child: RaisedButton(
@@ -398,9 +406,14 @@ class _FilterPageState extends State<FilterPage> {
         onPressed: () {
           Navigator.pop(context);
           setState(() {
-            ageStart = start;
-            ageEnd = end;
-            _values = values;
+            if (check == 1) {
+              ageStart = start;
+              ageEnd = end;
+              _values = values;
+            } else {
+              distanceEnd = end;
+              _distance = values;
+            }
           });
         },
         child: Container(
