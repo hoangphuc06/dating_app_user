@@ -8,23 +8,22 @@ import 'dart:math';
 enum CardStatus { like, dislike, superlike, down }
 
 class CardProvider extends ChangeNotifier {
-  List<String> _urlImages = [];
+  List<userModel> _listUser = [];
   bool _isDragging = false;
   double _angle = 0;
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
-  int temp = 0;
-  userModel user = new userModel();
+  int _index = 0;
+
   userModel usercurrent = new userModel();
-  String? id;
+
   List<String> filter = [];
 
-  List<String> get urlImages => _urlImages;
+  List<userModel> get listUser => _listUser;
   bool get isDragging => _isDragging;
   Offset get position => _position;
   double get angle => _angle;
-  String get uid => id!;
-  userModel get usermodel => user;
+
   userModel get userCurrent => usercurrent;
   Future<List<String>> loadDataFilter1() async {
     List<String> temp = [];
@@ -73,36 +72,33 @@ class CardProvider extends ChangeNotifier {
     return temp;
   }
 
-  Future<List<String>> loadDataUser(int index, List list) async {
-    List<String> temp = [];
+  Future<List<userModel>> loadDataUser(List list) async {
+    List<userModel> temp = [];
+    userModel user;
     await FirebaseFirestore.instance
         .collection('USER')
         .where('uid', whereIn: list)
         .where('uid', isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .get()
         .then((QuerySnapshot querySnapshot) {
-      print(querySnapshot.docs[index]['images'].toString());
-      id = querySnapshot.docs[index].id;
-      user = userModel.fromDocument(querySnapshot.docs[index]);
-      temp = querySnapshot.docs[index]['images']
-          .toString()
-          .replaceAll('[', "")
-          .replaceAll(']', "")
-          .split(', ');
+      querySnapshot.docs.forEach((x) {
+        user = userModel.fromDocument(x);
+        temp.add(user);
+      });
     });
 
     return temp;
   }
 
   CardProvider() {
-    resetUser(0);
+    resetUser();
   }
 
   void setScreenSize(Size sreenSize) => _screenSize = sreenSize;
-  void resetIndex(int index) {
-    temp = index;
-    notifyListeners();
-  }
+  // void resetIndex(int index) {
+  //   temp = index;
+  //   notifyListeners();
+  // }
 
   void startPosition(DragStartDetails details) {
     _isDragging = true;
@@ -110,10 +106,12 @@ class CardProvider extends ChangeNotifier {
   }
 
   void updatePosition(DragUpdateDetails details) {
-    _position += details.delta;
-    final x = _position.dx;
-    _angle = 45 * x / _screenSize.width;
-    notifyListeners();
+    if (details.delta.dy == _position.dy) {
+      _position += details.delta;
+      final x = _position.dx;
+      _angle = 45 * x / _screenSize.width;
+      notifyListeners();
+    }
   }
 
   void endPosition() {
@@ -133,12 +131,7 @@ class CardProvider extends ChangeNotifier {
       case CardStatus.dislike:
         dislike();
         break;
-      case CardStatus.superlike:
-        superlike();
-        break;
-      case CardStatus.down:
-        down();
-        break;
+
       default:
         resetPosition();
     }
@@ -178,17 +171,13 @@ class CardProvider extends ChangeNotifier {
     }
   }
 
-  void resetUser(int index) async {
+  void resetUser() async {
     filter = await loadDataFilter1();
-    print(filter);
 
     if (filter.length != 0) {
-      var temp = await loadDataUser(index, filter);
-      temp.removeWhere((item) => item == "");
-      print(temp);
-      _urlImages = temp.reversed.toList();
-      print(id);
-      print(user.images);
+      var temp = await loadDataUser(filter);
+
+      _listUser = temp.reversed.toList();
     }
 
     notifyListeners();
@@ -202,16 +191,9 @@ class CardProvider extends ChangeNotifier {
   }
 
   Future _nextCard() async {
-    if (_urlImages.isEmpty) return;
+    if (_listUser.isEmpty) return;
     await Future.delayed(Duration(milliseconds: 200));
-    _urlImages.removeLast();
-    resetPosition();
-  }
-
-  Future _preCard() async {
-    if (_urlImages.isEmpty) return;
-    await Future.delayed(Duration(milliseconds: 200));
-    _urlImages.removeLast();
+    _listUser.removeLast();
     resetPosition();
   }
 
@@ -222,54 +204,9 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void superlike() {
-    if (temp < filter.length - 1) {
-      temp++;
-      _angle = 0;
-      _position -= Offset(0, _screenSize.height);
-      print(temp);
-      resetUser(temp);
-      resetPosition();
-      notifyListeners();
-    } else {
-      _angle = 0;
-      _position -= Offset(0, _screenSize.height);
-      print(temp);
-      resetPosition();
-      notifyListeners();
-    }
-  }
-
   void nextUser() {
-    if (temp < filter.length - 1) {
-      temp++;
-      _angle = 0;
-      _position -= Offset(0, _screenSize.height);
-      print(temp);
-      resetUser(temp);
-      resetPosition();
-      notifyListeners();
-    } else {}
-  }
-
-  void down() {
-    print(temp);
-    if (temp > 0) {
-      temp--;
-      _angle = 0;
-      _position += Offset(0, _screenSize.height);
-      print(temp);
-      resetUser(temp);
-      resetPosition();
-      notifyListeners();
-    } else {
-      _angle = 0;
-      _position += Offset(0, _screenSize.height);
-      print(temp);
-
-      resetPosition();
-      notifyListeners();
-    }
+    _nextCard();
+    notifyListeners();
   }
 
   double calculateDistance(lat1, lon1, lat2, lon2) {

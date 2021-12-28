@@ -1,5 +1,6 @@
 import 'package:dating_app_user/src/colors/colors.dart';
 import 'package:dating_app_user/src/page/tab/discover/userModel/userModel.dart';
+import 'package:dating_app_user/src/page/tab/discover/view/image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/rpg_awesome_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -108,39 +109,72 @@ class _InfoPageState extends State<InfoPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              width: size.width * 0.605,
-              height: size.height / 3,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(border),
-                  image: DecorationImage(
-                      image: NetworkImage(widget.user.images![0]),
-                      fit: BoxFit.cover,
-                      alignment: Alignment(-0.3, 0))),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ImagePage(
+                              user: widget.user,
+                              index: 0,
+                            )));
+              },
+              child: Container(
+                width: size.width * 0.605,
+                height: size.height / 3,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(border),
+                    image: DecorationImage(
+                        image: NetworkImage(widget.user.images![0]),
+                        fit: BoxFit.cover,
+                        alignment: Alignment(-0.3, 0))),
+              ),
             ),
             Column(
               children: [
-                Container(
-                  width: size.width * 0.295,
-                  height: size.height / 6.2,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(border),
-                      image: DecorationImage(
-                          image: NetworkImage(widget.user.images![1]),
-                          fit: BoxFit.cover,
-                          alignment: Alignment(-0.3, 0))),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ImagePage(
+                                  user: widget.user,
+                                  index: 1,
+                                )));
+                  },
+                  child: Container(
+                    width: size.width * 0.295,
+                    height: size.height / 6.2,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(border),
+                        image: DecorationImage(
+                            image: NetworkImage(widget.user.images![1]),
+                            fit: BoxFit.cover,
+                            alignment: Alignment(-0.3, 0))),
+                  ),
                 ),
                 SizedBox(height: 8),
                 widget.user.images![2] != ""
-                    ? Container(
-                        width: size.width * 0.295,
-                        height: size.height / 6.2,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(border),
-                            image: DecorationImage(
-                                image: NetworkImage(widget.user.images![2]),
-                                fit: BoxFit.cover,
-                                alignment: Alignment(-0.3, 0))),
+                    ? GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ImagePage(
+                                        user: widget.user,
+                                        index: 2,
+                                      )));
+                        },
+                        child: Container(
+                          width: size.width * 0.295,
+                          height: size.height / 6.2,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(border),
+                              image: DecorationImage(
+                                  image: NetworkImage(widget.user.images![2]),
+                                  fit: BoxFit.cover,
+                                  alignment: Alignment(-0.3, 0))),
+                        ),
                       )
                     : Container(
                         height: size.height / 6.2,
@@ -156,39 +190,72 @@ class _InfoPageState extends State<InfoPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             widget.user.images![3] != ""
-                ? Container(
-                    width: size.width * 0.295,
-                    height: size.height / 6.2,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(border),
-                        image: DecorationImage(
-                            image: NetworkImage(widget.user.images![3]),
-                            fit: BoxFit.cover,
-                            alignment: Alignment(-0.3, 0))),
+                ? GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ImagePage(
+                                    user: widget.user,
+                                    index: 3,
+                                  )));
+                    },
+                    child: Container(
+                      width: size.width * 0.295,
+                      height: size.height / 6.2,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(border),
+                          image: DecorationImage(
+                              image: NetworkImage(widget.user.images![3]),
+                              fit: BoxFit.cover,
+                              alignment: Alignment(-0.3, 0))),
+                    ),
                   )
                 : Container(),
             widget.user.images![4] != ""
-                ? Container(
-                    width: size.width * 0.295,
-                    height: size.height / 6.2,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(border),
-                        image: DecorationImage(
-                            image: NetworkImage(widget.user.images![4]),
-                            fit: BoxFit.cover,
-                            alignment: Alignment(-0.3, 0))),
+                ? GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ImagePage(
+                                    user: widget.user,
+                                    index: 4,
+                                  )));
+                    },
+                    child: Container(
+                      width: size.width * 0.295,
+                      height: size.height / 6.2,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(border),
+                          image: DecorationImage(
+                              image: NetworkImage(widget.user.images![4]),
+                              fit: BoxFit.cover,
+                              alignment: Alignment(-0.3, 0))),
+                    ),
                   )
                 : Container(),
             widget.user.images![5] != ""
-                ? Container(
-                    width: size.width * 0.295,
-                    height: size.height / 6.2,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(border),
-                        image: DecorationImage(
-                            image: NetworkImage(widget.user.images![5]),
-                            fit: BoxFit.cover,
-                            alignment: Alignment(-0.3, 0))),
+                ? GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ImagePage(
+                                    user: widget.user,
+                                    index: 5,
+                                  )));
+                    },
+                    child: Container(
+                      width: size.width * 0.295,
+                      height: size.height / 6.2,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(border),
+                          image: DecorationImage(
+                              image: NetworkImage(widget.user.images![5]),
+                              fit: BoxFit.cover,
+                              alignment: Alignment(-0.3, 0))),
+                    ),
                   )
                 : Container(),
           ],
@@ -239,7 +306,7 @@ class _InfoPageState extends State<InfoPage> {
                             color: Colors.green,
                             size: 12,
                           ),
-                           SizedBox(
+                          SizedBox(
                             width: 10,
                           ),
                           Text(

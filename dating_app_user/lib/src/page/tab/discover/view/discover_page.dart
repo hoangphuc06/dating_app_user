@@ -129,18 +129,17 @@ class _DiscoverPageState extends State<DiscoverPage>
 
   Widget buildCard() {
     final provider = Provider.of<CardProvider>(context);
-    final urlImages = provider.urlImages;
-    final user = provider.usermodel;
+    final list_user = provider.listUser;
     final userCurrent = provider.userCurrent;
-    return urlImages.isEmpty
+    return list_user.isEmpty
         ? _emptyInfo()
         : Stack(
-            children: urlImages
+            children: list_user
                 .map((urlImage) => TinderCard(
-                      urlImage: urlImage,
-                      isFront: urlImages.last == urlImage,
+                      urlImage: urlImage.images![0],
+                      isFront: list_user.last == urlImage,
                       userCurrent: userCurrent,
-                      user: user,
+                      user: urlImage,
                     ))
                 .toList(),
           );
@@ -181,8 +180,8 @@ class _DiscoverPageState extends State<DiscoverPage>
               onPressed: () {
                 final provider =
                     Provider.of<CardProvider>(context, listen: false);
-                provider.resetUser(0);
-                provider.resetIndex(0);
+                provider.resetUser();
+               
               },
               elevation: 0.5,
               color: Colors.white,
@@ -446,7 +445,7 @@ class _DiscoverPageState extends State<DiscoverPage>
                   sex: sex,
                 )));
     final provider = Provider.of<CardProvider>(context, listen: false);
-    provider.resetUser(0);
-    provider.resetIndex(0);
+    provider.resetUser();
+
   }
 }
