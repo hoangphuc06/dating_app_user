@@ -1,59 +1,67 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class userModel {
-  String? id;
-  String? host;
-  String? room;
-  String? startDay;
-  String? expirationDate;
-  String? billingStartDate;
-  String? roomPaymentPeriod;
-  bool? liquidation;
-  String? roomCharge;
-  String? deposit;
-  String? renter;
-  String? rulesA;
-  String? rulesB;
-  String? rulesC;
-  String? type;
-  bool? isVisible;
-  userModel({
-    this.id,
-    this.host,
-    this.room,
-    this.startDay,
-    this.expirationDate,
-    this.billingStartDate,
-    this.roomPaymentPeriod,
-    this.roomCharge,
-    this.deposit,
-    this.renter,
-    this.liquidation,
-    this.rulesA,
-    this.rulesB,
-    this.rulesC,
-    this.type,
-    this.isVisible,
-  });
+  String? uid;
+  String? address;
+  String? bio;
+  String? birthday;
+  String? dating;
+  List? images;
+  String? email;
+  String? height;
+  String? job;
+  String? name;
+  String? sex;
+  String? status;
+  String? latitude;
+  String? longitude;
+   String? init;
+  List? characters;
+  List? hobbies;
+  String? interesting_fact;
+  List? styles_dating;
+  userModel(
+      {this.uid,
+      this.address,
+      this.bio,
+      this.birthday,
+      this.dating,
+      this.images,
+      this.email,
+      this.height,
+      this.job,
+      this.name,
+      this.sex,
+      this.status,
+      this.latitude,
+      this.longitude,
+      this.init,
+      this.characters,
+      this.hobbies,
+      this.interesting_fact,
+      this.styles_dating});
 
   factory userModel.fromDocument(DocumentSnapshot doc) {
     return userModel(
-      id: doc["id"],
-      host: doc["host"],
-      room: doc['room'],
-      startDay: doc['startDay'],
-      expirationDate: doc['expirationDate'],
-      billingStartDate: doc['billingStartDate'],
-      roomPaymentPeriod: doc['roomPaymentPeriod'],
-      roomCharge: doc['roomCharge'],
-      deposit: doc['deposit'],
-      renter: doc["renter"],
-      rulesA: doc["rulesA"],
-      rulesB: doc["rulesB"],
-      rulesC: doc["rulesC"],
-      type: doc['type'],
-      isVisible: doc["isVisible"],
-      liquidation: doc['liquidation'],
+      uid: doc["uid"],
+      address: doc["address"],
+      bio: doc['bio'],
+      birthday: doc['birthday'],
+      dating: doc['dating'],
+      images: doc['images'],
+      email: doc['email'],
+      height: doc['height'],
+      job: doc["job"],
+      name: doc["name"],
+      sex: doc['sex'],
+      status: doc["status"],
+      latitude: doc['latitude'],
+      longitude: doc["longitude"],
+      init: doc["init"],
+      characters: doc['characters'],
+      hobbies: doc["hobbies"],
+      interesting_fact: doc['interesting_fact'],
+      styles_dating: doc['styles_dating'],
     );
   }
 }

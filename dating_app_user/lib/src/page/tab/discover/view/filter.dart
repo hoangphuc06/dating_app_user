@@ -68,8 +68,13 @@ class _FilterPageState extends State<FilterPage> {
         leading: GestureDetector(
           onTap: () {
             filterFB
-                .update(FirebaseAuth.instance.currentUser!.uid,
-                    ageStart.toString(), ageEnd.toString(), '0', distanceEnd.toString(), _sex)
+                .update(
+                    FirebaseAuth.instance.currentUser!.uid,
+                    ageStart.toString(),
+                    ageEnd.toString(),
+                    '0',
+                    distanceEnd.toString(),
+                    _sex)
                 .then((value) => Navigator.pop(context, '1'));
           },
           child: Icon(Icons.arrow_back),
@@ -320,14 +325,15 @@ class _FilterPageState extends State<FilterPage> {
                     child: RangeSlider(
                       activeColor: MyPurple,
                       inactiveColor: white,
-                      onChangeStart: null,
                       values: tempValues,
                       min: 0.0,
                       max: 50.0,
                       onChanged: (RangeValues newValues) {
                         setState(() {
-                          tempValues = newValues;
-                          tempEnd = newValues.end.round();
+                          if (newValues.start == 0) {
+                            tempValues = newValues;
+                            tempEnd = newValues.end.round();
+                          }
                         });
                       },
                     ),

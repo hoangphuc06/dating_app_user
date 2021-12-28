@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/page/tab/discover/firebase/fb_user.dart';
+import 'package:dating_app_user/src/page/tab/discover/userModel/userModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -13,6 +14,8 @@ class CardProvider extends ChangeNotifier {
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
   int temp = 0;
+  userModel user = new userModel();
+  userModel usercurrent = new userModel();
   String? id;
   List<String> filter = [];
 
@@ -21,8 +24,8 @@ class CardProvider extends ChangeNotifier {
   Offset get position => _position;
   double get angle => _angle;
   String get uid => id!;
-  
-
+  userModel get usermodel => user;
+  userModel get userCurrent => usercurrent;
   Future<List<String>> loadDataFilter1() async {
     List<String> temp = [];
     await FirebaseFirestore.instance
@@ -30,6 +33,7 @@ class CardProvider extends ChangeNotifier {
         .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .get()
         .then((QuerySnapshot q1) async {
+      usercurrent = userModel.fromDocument(q1.docs[0]);
       await FirebaseFirestore.instance
           .collection('FILTER')
           .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
@@ -78,7 +82,8 @@ class CardProvider extends ChangeNotifier {
         .get()
         .then((QuerySnapshot querySnapshot) {
       print(querySnapshot.docs[index]['images'].toString());
-      id=querySnapshot.docs[0].id;
+      id = querySnapshot.docs[index].id;
+      user = userModel.fromDocument(querySnapshot.docs[index]);
       temp = querySnapshot.docs[index]['images']
           .toString()
           .replaceAll('[', "")
@@ -183,6 +188,7 @@ class CardProvider extends ChangeNotifier {
       print(temp);
       _urlImages = temp.reversed.toList();
       print(id);
+      print(user.images);
     }
 
     notifyListeners();
@@ -196,6 +202,13 @@ class CardProvider extends ChangeNotifier {
   }
 
   Future _nextCard() async {
+    if (_urlImages.isEmpty) return;
+    await Future.delayed(Duration(milliseconds: 200));
+    _urlImages.removeLast();
+    resetPosition();
+  }
+
+  Future _preCard() async {
     if (_urlImages.isEmpty) return;
     await Future.delayed(Duration(milliseconds: 200));
     _urlImages.removeLast();

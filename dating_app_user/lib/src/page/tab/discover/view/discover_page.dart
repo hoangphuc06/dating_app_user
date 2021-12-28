@@ -4,6 +4,7 @@ import 'package:dating_app_user/src/data/icons.dart';
 import 'package:dating_app_user/src/page/tab/discover/firebase/fb_filter.dart';
 import 'package:dating_app_user/src/page/tab/discover/tinderCard/cardProvider.dart';
 import 'package:dating_app_user/src/page/tab/discover/tinderCard/tinderCard.dart';
+import 'package:dating_app_user/src/page/tab/discover/userModel/userModel.dart';
 import 'package:dating_app_user/src/page/tab/discover/view/filter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class _DiscoverPageState extends State<DiscoverPage>
     });
   }
 
-  void initState() {
+  void initState()  {
     loadData();
     // TODO: implement initState
     super.initState();
@@ -129,12 +130,18 @@ class _DiscoverPageState extends State<DiscoverPage>
   Widget buildCard() {
     final provider = Provider.of<CardProvider>(context);
     final urlImages = provider.urlImages;
+    final user = provider.usermodel;
+    final userCurrent = provider.userCurrent;
     return urlImages.isEmpty
         ? _emptyInfo()
         : Stack(
             children: urlImages
                 .map((urlImage) => TinderCard(
-                    urlImage: urlImage, isFront: urlImages.last == urlImage))
+                      urlImage: urlImage,
+                      isFront: urlImages.last == urlImage,
+                      userCurrent: userCurrent,
+                      user: user,
+                    ))
                 .toList(),
           );
   }
