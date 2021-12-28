@@ -240,6 +240,18 @@ class CardProvider extends ChangeNotifier {
     }
   }
 
+  void nextUser() {
+    if (temp < filter.length - 1) {
+      temp++;
+      _angle = 0;
+      _position -= Offset(0, _screenSize.height);
+      print(temp);
+      resetUser(temp);
+      resetPosition();
+      notifyListeners();
+    } else {}
+  }
+
   void down() {
     print(temp);
     if (temp > 0) {

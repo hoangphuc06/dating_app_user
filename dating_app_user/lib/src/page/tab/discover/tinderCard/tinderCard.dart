@@ -45,8 +45,11 @@ class _TinderCardState extends State<TinderCard>
     );
     controller.addStatusListener((status) async {
       if (status == AnimationStatus.completed) {
+        final provider = Provider.of<CardProvider>(context, listen: false);
         controller.reset();
+
         Navigator.of(context).pop();
+        provider.nextUser();
       }
     });
     WidgetsBinding.instance!.addPostFrameCallback((_) {
@@ -326,7 +329,6 @@ class _TinderCardState extends State<TinderCard>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                        
                           children: [
                             FaIcon(
                               FontAwesomeIcons.flag,
