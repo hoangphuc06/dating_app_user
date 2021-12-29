@@ -106,7 +106,7 @@ class CardProvider extends ChangeNotifier {
   }
 
   void updatePosition(DragUpdateDetails details) {
-    if (details.delta.dy == _position.dy) {
+    if (details.delta.dy >= _position.dy) {
       _position += details.delta;
       final x = _position.dx;
       _angle = 45 * x / _screenSize.width;
@@ -148,13 +148,13 @@ class CardProvider extends ChangeNotifier {
     final x = _position.dx;
     final y = _position.dy;
     final forceSuperLike = x.abs() < 20;
-    final delta = 100;
+    final delta = 20;
 
-    if (x >= delta) {
+    if (x > delta) {
       print('right');
       return CardStatus.like;
     } else {
-      if (x <= -delta) {
+      if (x < -delta) {
         print('left');
         return CardStatus.dislike;
       } else {
