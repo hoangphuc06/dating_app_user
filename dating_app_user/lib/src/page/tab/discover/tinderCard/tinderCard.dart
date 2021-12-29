@@ -78,7 +78,7 @@ class _TinderCardState extends State<TinderCard>
           builder: (context, constraints) {
             final provider = Provider.of<CardProvider>(context);
             final position = provider.position;
-            final milliseconds = provider.isDragging ? 0 : 400;
+            final milliseconds = provider.isDragging ? 0 : 600;
 
             final center = constraints.smallest.center(Offset.zero);
             final angle = provider.angle * pi / 180;
@@ -198,7 +198,7 @@ class _TinderCardState extends State<TinderCard>
           child: Container(
             padding: EdgeInsets.all(16),
             width: size.width,
-            height: size.height / 8,
+            height: size.height / 7,
             // color: Colors.black,
             decoration: BoxDecoration(
                 gradient: LinearGradient(colors: [
@@ -236,7 +236,7 @@ class _TinderCardState extends State<TinderCard>
                                 .toString(),
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 24,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -267,7 +267,7 @@ class _TinderCardState extends State<TinderCard>
                           " km",
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 17,
                           fontWeight: FontWeight.w500),
                     ),
                   ],
