@@ -4,23 +4,23 @@ import 'package:dating_app_user/src/widgets/dialogs/loading_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class MyJobPage extends StatefulWidget {
-  final String job;
-  const MyJobPage({Key? key, required this.job}) : super(key: key);
+class MyBioPage extends StatefulWidget {
+  final String bio;
+  const MyBioPage({Key? key, required this.bio}) : super(key: key);
 
   @override
-  _MyJobPageState createState() => _MyJobPageState();
+  _MyBioPageState createState() => _MyBioPageState();
 }
 
-class _MyJobPageState extends State<MyJobPage> {
+class _MyBioPageState extends State<MyBioPage> {
 
-  TextEditingController _jobController = new TextEditingController();
+  TextEditingController _bioController = new TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _jobController.text = widget.job;
+    _bioController.text = widget.bio;
   }
 
   @override
@@ -44,22 +44,24 @@ class _MyJobPageState extends State<MyJobPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Nghề nghiệp\ncủa bạn là gì ? 👨‍🔧",
+                  "Miêu tả về bạn ? 🤹‍♀️",
                   style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w500,
                       color: Colors.black
                   ),
                 ),
-                SizedBox(height: 20,),
-                _description("Nhập đúng nghề nghiệp của bạn vào để mọi người có thể biết thêm về bạn."),
+                SizedBox(height: 10,),
+                _description("Miêu tả một chút về bản thân để mọi người hiểu hơn về bạn nào."),
               ],
             ),
             TextFormField(
-              controller: _jobController,
+              minLines: 1,
+              maxLines: 5,
+              controller: _bioController,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-                  hintText: "Nhập nghề nghiệp",
+                  hintText: "Nhập miêu tả về bạn",
                   hintStyle: TextStyle(
                       color: Colors.grey.withOpacity(0.5),
                       fontWeight: FontWeight.w500,
@@ -84,12 +86,12 @@ class _MyJobPageState extends State<MyJobPage> {
 
   void onClick() {
 
-    String job = _jobController.text.trim();
+    String bio = _bioController.text.trim();
 
     LoadingDialog.showLoadingDialog(context, "Đang lưu...");
 
     FirebaseFirestore.instance.collection("USER").doc(FirebaseAuth.instance.currentUser!.uid).update({
-      "job": job,
+      "bio": bio,
     }).then((value) => {
 
       LoadingDialog.hideLoadingDialog(context),

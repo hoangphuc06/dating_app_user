@@ -35,8 +35,6 @@ class _MyImagesPageState extends State<MyImagesPage> {
         ),
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text("Hình ảnh của tôi", style: TextStyle(color: Colors.deepPurple),),
-        centerTitle: true,
       ),
       body: StreamBuilder(
         stream: _firestore.collection("USER").where("uid", isEqualTo: _auth.currentUser!.uid).snapshots(),
@@ -67,14 +65,29 @@ class _MyImagesPageState extends State<MyImagesPage> {
 
   _getBody(QueryDocumentSnapshot x) => SingleChildScrollView(
     child: Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.only(left: 32, right: 32, bottom: 32, top: 16),
       child: Column(
         children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Hình ảnh của bạn ? 📷",
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black
+                ),
+              ),
+              SizedBox(height: 10,),
+              _description("Cập nhật đúng vị trí của bạn để có thể tìm ra những người phù hợp gần bạn nhất."),
+            ],
+          ),
+          SizedBox(height: 20,),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _image(0),
-              SizedBox(width: 20,),
               _listUrl[1] == "" ? _imageNull(1) : _image(1),
             ],
           ),
@@ -97,12 +110,9 @@ class _MyImagesPageState extends State<MyImagesPage> {
             ],
           ),
           SizedBox(height: 20,),
-          Container(
-            margin: EdgeInsets.only(left: 20, right: 20),
-            child: MainButton(name: "Lưu", onpressed: (){
-              _saveImage();
-            }),
-          )
+          MainButton(name: "Lưu", onpressed: (){
+            _saveImage();
+          })
         ],
       ),
     ),
@@ -113,8 +123,8 @@ class _MyImagesPageState extends State<MyImagesPage> {
       _selectImage(index);
     },
     child: Container(
-      width: 150,
-      height: 200,
+      width: (MediaQuery.of(context).size.width - 64 - 20) /2,
+      height: 220,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           image: _listFile[index] == null ? DecorationImage(
@@ -149,8 +159,8 @@ class _MyImagesPageState extends State<MyImagesPage> {
       _selectImageNull(index);
     },
     child: Container(
-      width: 150,
-      height: 200,
+      width: (MediaQuery.of(context).size.width - 64 - 20) /2,
+      height: 220,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: Colors.grey[200],
@@ -235,6 +245,13 @@ class _MyImagesPageState extends State<MyImagesPage> {
 
   }
 
-
+  _description(String description) => Text(
+    description,
+    style: TextStyle(
+        color: Colors.black.withOpacity(0.5),
+        fontWeight: FontWeight.w400
+    ),
+    textAlign: TextAlign.justify,
+  );
 
 }

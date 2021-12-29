@@ -27,8 +27,15 @@ class _MyHeightPageState extends State<MyHeightPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.deepPurple, //change your color here
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
       body: Container(
-        padding: EdgeInsets.all(32),
+        padding: EdgeInsets.only(left: 32, right: 32, bottom: 32, top: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,7 +43,6 @@ class _MyHeightPageState extends State<MyHeightPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 50,),
                 Text(
                   "Chiều cao\ncủa bạn bao nhiêu ? 🤭",
                   style: TextStyle(

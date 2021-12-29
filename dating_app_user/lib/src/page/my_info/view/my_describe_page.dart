@@ -34,10 +34,6 @@ class _MyDescribePageState extends State<MyDescribePage> {
   int _numOfHobby = 0;
   int _numOfStyleDating = 0;
 
-  String a = "☺ Nhạy cảm";
-  String b = "";
-  String c = "";
-
   @override
   void initState() {
     // TODO: implement initState
@@ -85,8 +81,6 @@ class _MyDescribePageState extends State<MyDescribePage> {
         ),
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text("Mô tả bản thân", style: TextStyle(color: Colors.deepPurple),),
-        centerTitle: true,
       ),
       body: _getBody(),
     );
@@ -95,10 +89,21 @@ class _MyDescribePageState extends State<MyDescribePage> {
   Widget _getBody() {
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.only(left: 32, right: 32, bottom: 32, top: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              "Miêu tả\nvề bản thân bạn? 😝",
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black
+              ),
+            ),
+            SizedBox(height: 10,),
+            _description("Chọn các tag bên dưới để mọi người hiểu rõ hơn về bạn"),
+            SizedBox(height: 30,),
             _title("Tính cách"),
             SizedBox(height: 5,),
             _supTitle("Chọn 1 - 3 tag"),
@@ -134,6 +139,15 @@ class _MyDescribePageState extends State<MyDescribePage> {
         fontSize: 17,
         fontWeight: FontWeight.w500
     ),
+  );
+
+  _description(String description) => Text(
+    description,
+    style: TextStyle(
+        color: Colors.black.withOpacity(0.5),
+        fontWeight: FontWeight.w400
+    ),
+    textAlign: TextAlign.justify,
   );
 
   _supTitle(String text) => Text(

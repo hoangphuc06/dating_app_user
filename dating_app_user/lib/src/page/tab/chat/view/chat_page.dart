@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dating_app_user/src/data/chats_json.dart';
 import 'package:dating_app_user/src/page/chat_room/chat_room_page.dart';
 import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';

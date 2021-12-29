@@ -5,14 +5,15 @@ const hobbies_data = [
   "✈ Du lịch",
   "⚽ Thể thao",
   "🤸‍♂ Yoga",
-  "💪 Gym",
+  "🐈 Động vật",
   "🎖 Tham gia tình nguyện",
   "📚 Đọc sách",
   "🍕 Ăn uống",
   "🎵 Âm nhạc",
+  "💪 Gym",
   "🎭 Ngôn ngữ",
   "📸 Chụp ảnh",
   "🎮 Game online",
   "🖼 Nghệ thuật",
-  "🐈 Động vật",
+
 ];

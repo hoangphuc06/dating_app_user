@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/data/characters_data.dart';
-import 'package:dating_app_user/src/page/my_images/my_images_page.dart';
+import 'package:dating_app_user/src/page/my_info/view/my_16_characters_page.dart';
+import 'package:dating_app_user/src/page/my_info/view/my_bio_page.dart';
+import 'package:dating_app_user/src/page/my_info/view/my_images_page.dart';
 import 'package:dating_app_user/src/page/my_info/view/my_address_page.dart';
-import 'package:dating_app_user/src/page/my_info/view/my_characters_page.dart';
 import 'package:dating_app_user/src/page/my_info/view/my_describe_page.dart';
 import 'package:dating_app_user/src/page/my_info/view/my_height_page.dart';
 import 'package:dating_app_user/src/page/my_info/view/my_job_page.dart';
 import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
-import 'package:dating_app_user/src/widgets/buttons/tag_button.dart';
 import 'package:dating_app_user/src/widgets/dialogs/loading_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,10 +25,6 @@ class _MyInfoPageState extends State<MyInfoPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  List<bool> _listCharacterBool = [];
-
-  bool a = false;
-
   TextEditingController _bioController = new TextEditingController();
 
 
@@ -41,15 +37,6 @@ class _MyInfoPageState extends State<MyInfoPage> {
   final String inlove_INTJ = "INTJ quan tâm đến chiều sâu và trí tuệ, và quan trọng sự trung thực, cởi mở trong giao tiếp. "
       "Đối với họ, một mối quan hệ không dự trên những giá trị này sẽ khó có thể lâu dài.";
   final String dating_INTJ = "INTP, INFJ, INFP";
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    characters_data.forEach((element) {
-      _listCharacterBool.add(false);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +101,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
           }),
           SizedBox(height: 10,),
           _detail("Sống tại", x["address"], (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => MyAddressPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MyAddressPage(long: x["longitude"], lat: x["latitude"], addr: x["address"],)));
           }),
           SizedBox(height: 10,),
           _detail("Nghề nghiệp", x["job"], (){
@@ -124,7 +111,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
           _title("Sự thật thú vị"),
           SizedBox(height: 10,),
           _detail("16 nhóm tính cách", x["interesting_fact"], (){
-            _showTop16CharacterDialog();
+            Navigator.push(context, MaterialPageRoute(builder: (context) => My16CharactersPage(name: x["interesting_fact"])));
           }),
           SizedBox(height: 50,),
         ],
@@ -191,7 +178,6 @@ class _MyInfoPageState extends State<MyInfoPage> {
 
   _bio(String bio) => Container(
     padding: EdgeInsets.all(16),
-    //height: 150,
     width: double.infinity,
     decoration: BoxDecoration(
       color: Colors.grey.withOpacity(0.1),
@@ -212,10 +198,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
             Spacer(),
             GestureDetector(
               onTap: (){
-                setState(() {
-                  _updateBio(_bioController.text.trim());
-
-                });
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MyBioPage(bio: bio)));
               },
               child: Text(
                 "Cập nhật",
@@ -229,6 +212,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
         ),
         //SizedBox(height: 10,),
         TextFormField(
+          readOnly: true,
           onSaved: (value) => {
             _bioController.text = value!,
           },
@@ -400,71 +384,6 @@ class _MyInfoPageState extends State<MyInfoPage> {
         ),
       ],
     ),
-  );
-
-  _showBioDialog(String bio) => showModalBottomSheet(
-      isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
-        ),
-      ),
-      context: context,
-      builder: (context)=>SingleChildScrollView(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        child: Container(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "Miêu tả về bản thân bạn?",
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.deepPurple,
-                    fontWeight: FontWeight.bold
-                ),
-              ),
-              SizedBox(height: 10,),
-              Text(
-                "Viết ngắn ngọn để mọi người hiểu rõ bạn hơn",
-                style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w500
-                ),
-              ),
-              SizedBox(height: 100,),
-              TextFormField(
-                maxLines: 5,
-                minLines: 3,
-                controller: _bioController,
-                decoration: InputDecoration(
-                  hintText: "Nhập họ và tên",
-                  hintStyle: TextStyle(
-                      color: Colors.grey.withOpacity(0.5),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15
-                  ),
-                  border: InputBorder.none
-                ),
-                style: TextStyle(
-                  //color: Colors.black,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 15
-                ),
-              ),
-              SizedBox(height: 100,),
-              MainButton(name: "Lưu", onpressed: (){
-
-              })
-            ],
-          ),
-        ),
-      )
   );
 
   _showTop16CharacterDialog() => showModalBottomSheet(
@@ -754,24 +673,6 @@ class _MyInfoPageState extends State<MyInfoPage> {
       text,
       style: TextStyle(
         fontSize: 15
-      ),
-    ),
-  );
-
-  _lableChoice(String text, bool isActive, func) => Container(
-    padding: EdgeInsets.all(8),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-      color: isActive ? Colors.deepPurple : Colors.grey.withOpacity(0.2),
-    ),
-    child: GestureDetector(
-      onTap: func,
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 15,
-          color: isActive ? Colors.white : Colors.black,
-        ),
       ),
     ),
   );
