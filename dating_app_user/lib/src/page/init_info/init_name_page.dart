@@ -74,6 +74,11 @@ class _InitNamePageState extends State<InitNamePage> {
 
     String name = _nameController.text.trim();
 
+    if (name == "") {
+      MsgDialog.showMsgDialog(context, "Thông báo", "Vui lòng không bỏ trống.");
+      return;
+    }
+
     LoadingDialog.showLoadingDialog(context, "Đang lưu...");
 
     FirebaseFirestore.instance.collection("USER").doc(FirebaseAuth.instance.currentUser!.uid).update({
@@ -83,7 +88,6 @@ class _InitNamePageState extends State<InitNamePage> {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => InitBirthdayPage())),
 
     });
-
   }
 
   _description(String description) => Text(

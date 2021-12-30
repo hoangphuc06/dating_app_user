@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/page/init_info/init_completed_page.dart';
 import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
 import 'package:dating_app_user/src/widgets/dialogs/loading_dialog.dart';
+import 'package:dating_app_user/src/widgets/dialogs/msg_dilog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -96,6 +97,12 @@ class _InitFilterSexPageState extends State<InitFilterSexPage> {
   }
 
   void onClick() {
+
+    if (_myChoice == "") {
+      MsgDialog.showMsgDialog(context, "Thông báo", "Vui lòng không bỏ trống.");
+      return;
+    }
+
     LoadingDialog.showLoadingDialog(context, "Đang lưu...");
 
     FirebaseFirestore.instance.collection("FILTER").doc(FirebaseAuth.instance.currentUser!.uid).set({

@@ -150,6 +150,13 @@ class _TinderCardState extends State<TinderCard>
                     setState(() {
                       flag = !flag;
                     });
+                    String id = (new DateTime.now().millisecondsSinceEpoch).toString();
+                    FirebaseFirestore.instance.collection("LIKE").doc(id).set({
+                      "id": id,
+                      "uid": widget.user.uid,
+                      "herid": widget.userCurrent.uid,
+                      "status": "new"
+                    });
                   },
                   child: FaIcon(
                     FontAwesomeIcons.solidHeart,
@@ -242,7 +249,6 @@ class _TinderCardState extends State<TinderCard>
                     ),
                   ],
                 ),
-
                 SizedBox(
                   height: 10,
                 ),
@@ -271,6 +277,9 @@ class _TinderCardState extends State<TinderCard>
                           fontWeight: FontWeight.w500),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: 10,
                 ),
               ],
             ),

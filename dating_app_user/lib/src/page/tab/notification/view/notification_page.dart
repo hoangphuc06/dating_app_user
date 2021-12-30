@@ -60,7 +60,7 @@ class _NotificationPageState extends State<NotificationPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _title("Mới nhất"),
-        _newNoti(size),
+       _newNoti(size),
         SizedBox(height: 20,),
         _title("Đã xem"),
         _seenNoti(size),
@@ -110,11 +110,11 @@ class _NotificationPageState extends State<NotificationPage> {
   _newNoti(Size size) => Padding(
     padding: const EdgeInsets.only(top: 10),
     child: StreamBuilder(
-      stream: _firestore.collection("NOTIFICATION").where("uid", isEqualTo: _auth.currentUser!.uid).where("status", isEqualTo: "new").snapshots(),
+      stream: _firestore.collection("LIKE").where("uid", isEqualTo: _auth.currentUser!.uid).where("status", isEqualTo: "new").snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
         if (!snapshot.hasData) {
           return Center(
-            child: Container(),
+            child: Container(height: 0, width: 0,),
           );
         }
         else {
@@ -140,7 +140,7 @@ class _NotificationPageState extends State<NotificationPage> {
   _seenNoti(Size size) => Padding(
     padding: const EdgeInsets.only(top: 10),
     child: StreamBuilder(
-      stream: _firestore.collection("NOTIFICATION").where("uid", isEqualTo: _auth.currentUser!.uid).where("status", isEqualTo: "seen").snapshots(),
+      stream: _firestore.collection("LIKE").where("uid", isEqualTo: _auth.currentUser!.uid).where("status", isEqualTo: "seen").snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
         if (!snapshot.hasData) {
           return Center(

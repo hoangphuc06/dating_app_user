@@ -32,8 +32,8 @@ class _TabPageState extends State<TabPage> with WidgetsBindingObserver {
 
   List<Widget> _widgetOptions=[
     DiscoverPage(),
-    NotificationPage(),
-    //LikesPage(),
+    //NotificationPage(),
+    LikesPage(),
     //ChatPage(),
     DatingPage(),
     MyAccountPage(),

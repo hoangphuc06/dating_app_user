@@ -45,7 +45,7 @@ class NewNotiCard extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                    image: NetworkImage((x["avatar"])),
+                    image: NetworkImage((x["images"][0])),
                     fit: BoxFit.cover)),
           ),
           Container(

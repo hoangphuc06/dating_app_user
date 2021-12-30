@@ -30,6 +30,7 @@ class _DiscoverPageState extends State<DiscoverPage>
   int itemLength = 0;
   int ageStart = 0;
   int ageEnd = 0;
+  int distanceFrom = 0;
   int distanceEnd = 0;
   String sex = "";
 
@@ -46,6 +47,7 @@ class _DiscoverPageState extends State<DiscoverPage>
         var t = x.docs[key];
         ageStart = int.parse(t['age_from'].toString());
         ageEnd = int.parse(t['age_to'].toString());
+        distanceFrom = int.parse(t['distance_from'].toString());
         distanceEnd = int.parse(t['distance_to'].toString());
         sex = t['sex'];
       });
@@ -72,59 +74,60 @@ class _DiscoverPageState extends State<DiscoverPage>
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: Colors.deepPurple, //change your color here
-          ),
-          backgroundColor: Colors.white,
-          elevation: 0,
-          actions: [
-            IconButton(
-              icon: Icon(Icons.filter_list_alt),
-              onPressed: () {
-                _gotoPage();
-              },
-            ),
-          ],
-          title: Text(
-            "Khám phá",
-            style: TextStyle(
-                color: Colors.deepPurple, fontWeight: FontWeight.bold),
-          ),
-          centerTitle: true,
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.deepPurple, //change your color here
         ),
-        backgroundColor: Colors.white,
-        // body: StreamBuilder(
-        //   stream: _firestore
-        //       .collection("USER")
-        //       .where("uid", isNotEqualTo: _auth.currentUser!.uid)
-        //       .snapshots(),
-        //   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        //     if (!snapshot.hasData) {
-        //       return Center(
-        //         child: Container(
-        //           height: size.height / 20,
-        //           width: size.height / 20,
-        //           child: CircularProgressIndicator(),
-        //         ),
-        //       );
-        //     } else {
-        //       x = snapshot.data!.docs[i];
-        //      images= x!['images'].toString().replaceAll('[', "").replaceAll(']', "").split(', ');
-        //      print(images.length);
-        //        return images.isEmpty
-        //   ? _emptyInfo()
-        //   : Stack(
-        //       children: images
-        //           .map((urlImage) => TinderCard(
-        //               urlImage: urlImage, isFront: images.last == urlImage))
-        //           .toList(),
-        //     );
-        //     }
-        //   },
-        // ),
-        // //bottomSheet: getBottomSheet(),
-        body: buildCard());
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.filter_list_alt),
+            onPressed: () {
+              _gotoPage();
+            },
+          ),
+        ],
+        title: Text(
+          "Khám phá",
+          style: TextStyle(
+              color: Colors.deepPurple, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+      ),
+      backgroundColor: Colors.white,
+      body: buildCard(),
+      // body: StreamBuilder(
+      //   stream: _firestore
+      //       .collection("USER")
+      //       .where("uid", isNotEqualTo: _auth.currentUser!.uid)
+      //       .snapshots(),
+      //   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      //     if (!snapshot.hasData) {
+      //       return Center(
+      //         child: Container(
+      //           height: size.height / 20,
+      //           width: size.height / 20,
+      //           child: CircularProgressIndicator(),
+      //         ),
+      //       );
+      //     } else {
+      //       x = snapshot.data!.docs[i];
+      //      images= x!['images'].toString().replaceAll('[', "").replaceAll(']', "").split(', ');
+      //      print(images.length);
+      //        return images.isEmpty
+      //   ? _emptyInfo()
+      //   : Stack(
+      //       children: images
+      //           .map((urlImage) => TinderCard(
+      //               urlImage: urlImage, isFront: images.last == urlImage))
+      //           .toList(),
+      //     );
+      //     }
+      //   },
+      // ),
+      // //bottomSheet: getBottomSheet(),
+    );
   }
 
   Widget buildCard() {
@@ -441,6 +444,7 @@ class _DiscoverPageState extends State<DiscoverPage>
             builder: (context) => FilterPage(
                   age_from: ageStart,
                   age_to: ageEnd,
+                  distance_from: distanceFrom,
                   distance_to: distanceEnd,
                   sex: sex,
                 )));
