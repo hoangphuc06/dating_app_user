@@ -671,12 +671,12 @@ class _InfoPageState extends State<InfoPage> {
                 padding: EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.deepPurple,
+                  color: Colors.grey[100],
                 ),
                 child: Row(children: [
                   FaIcon(
                     FontAwesomeIcons.mapMarkedAlt,
-                    color: white,
+                    color: Colors.black,
                   ),
                   SizedBox(
                     width: 16,
@@ -685,9 +685,9 @@ class _InfoPageState extends State<InfoPage> {
                     child: Text(
                       widget.user.address!,
                       style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w500),
+                          color: Colors.black,
+                          fontSize: 15,
+                      ),
                     ),
                   ),
                 ]),
@@ -710,7 +710,7 @@ class _InfoPageState extends State<InfoPage> {
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Colors.deepPurple,
+              color: Colors.grey[100],
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -718,16 +718,17 @@ class _InfoPageState extends State<InfoPage> {
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   FaIcon(
                     FontAwesomeIcons.smile,
-                    color: white,
+                    color: Colors.black,
+                    size: 18,
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Text('Tính cách',
                       style: TextStyle(
-                          fontSize: 17,
+                          fontSize: 15,
                           fontWeight: FontWeight.w500,
-                          color: white))
+                          color: Colors.black))
                 ]),
                 SizedBox(
                   height: 10,
@@ -750,7 +751,7 @@ class _InfoPageState extends State<InfoPage> {
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Colors.deepPurple,
+              color: Colors.grey[100],
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -758,16 +759,17 @@ class _InfoPageState extends State<InfoPage> {
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   FaIcon(
                     FontAwesomeIcons.heart,
-                    color: white,
+                    color: Colors.black,
+                    size: 18,
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Text('Kiểu hẹn hò',
                       style: TextStyle(
-                          fontSize: 17,
+                          fontSize: 15,
                           fontWeight: FontWeight.w500,
-                          color: white))
+                          color: Colors.black))
                 ]),
                 SizedBox(
                   height: 10,
@@ -794,7 +796,7 @@ class _InfoPageState extends State<InfoPage> {
       width: size.width,
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-          color: Colors.deepPurple, borderRadius: BorderRadius.circular(20)),
+          color: Colors.grey[100], borderRadius: BorderRadius.circular(20)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -802,14 +804,15 @@ class _InfoPageState extends State<InfoPage> {
           Row(children: [
             FaIcon(
               FontAwesomeIcons.music,
-              color: white,
+              color: Colors.black,
+              size: 18,
             ),
             SizedBox(
               width: 10,
             ),
             Text('Sở thích',
                 style: TextStyle(
-                    fontSize: 17, fontWeight: FontWeight.w500, color: white))
+                    fontSize: 15, color: Colors.black, fontWeight: FontWeight.w500,))
           ]),
           SizedBox(
             height: 10,
@@ -836,11 +839,11 @@ class _InfoPageState extends State<InfoPage> {
         padding: EdgeInsets.only(top: 8, bottom: 8, left: 14, right: 14),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: white,
+          color: Colors.grey[300],
         ),
         child: Text(text,
             style: TextStyle(
-                fontSize: 17, fontWeight: FontWeight.w500, color: backgr)),
+                fontSize: 15, color: Colors.black)),
       ),
     );
   }

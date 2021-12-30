@@ -20,15 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="97335e0d-cb59-458a-9b4a-ba8de56748e4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/discover/tinderCard/tinderCard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/discover/tinderCard/tinderCard.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/discover/view/discover_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/discover/view/discover_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/discover/view/filter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/discover/view/filter.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/discover/view/info.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/discover/view/info.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/likes/view/likes_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/likes/view/likes_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/notification/view/notification_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/notification/view/notification_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/tab_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/tab_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/widgets/cards/noti_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/widgets/cards/noti_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/welcome/view/welcome_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/welcome/view/welcome_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,21 +132,21 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1640852399336" />
-    <state width="1491" height="92" key="GridCell.Tab.0.bottom" timestamp="1640858990468">
+    <state width="1491" height="10" key="GridCell.Tab.0.bottom" timestamp="1640868918528">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="92" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1640858990468" />
-    <state width="1491" height="92" key="GridCell.Tab.0.center" timestamp="1640858990467">
+    <state width="1491" height="10" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1640868918528" />
+    <state width="1491" height="10" key="GridCell.Tab.0.center" timestamp="1640868918528">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="92" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1640858990467" />
-    <state width="1491" height="92" key="GridCell.Tab.0.left" timestamp="1640858990467">
+    <state width="1491" height="10" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1640868918528" />
+    <state width="1491" height="10" key="GridCell.Tab.0.left" timestamp="1640868918528">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="92" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1640858990467" />
-    <state width="1491" height="92" key="GridCell.Tab.0.right" timestamp="1640858990468">
+    <state width="1491" height="10" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1640868918528" />
+    <state width="1491" height="10" key="GridCell.Tab.0.right" timestamp="1640868918528">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="92" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1640858990468" />
+    <state width="1491" height="10" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1640868918528" />
   </component>
 </project>
