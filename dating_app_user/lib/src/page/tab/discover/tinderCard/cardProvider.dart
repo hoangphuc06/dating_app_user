@@ -40,15 +40,10 @@ class CardProvider extends ChangeNotifier {
           .then((QuerySnapshot q2) async {
         await FirebaseFirestore.instance
             .collection('USER')
-            .where('sex', isEqualTo: q2.docs[0]['sex'])
             .where('dating', isEqualTo: 'false')
             .get()
             .then((QuerySnapshot q) {
           q.docs.forEach((element) {
-            print((DateTime.now().year -
-                int.parse(element['birthday']
-                    .toString()
-                    .substring(element['birthday'].toString().length - 4))));
             if ((DateTime.now().year -
                         int.parse(element['birthday'].toString().substring(
                             element['birthday'].toString().length - 4))) >=
@@ -62,8 +57,15 @@ class CardProvider extends ChangeNotifier {
                         double.parse(q1.docs[0]['longitude']),
                         double.parse(element['latitude']),
                         double.parse(element['longitude'])) <=
-                    double.parse(q2.docs[0]['distance_to']))
-              temp.add(element.id);
+                    double.parse(q2.docs[0]['distance_to'])) {
+              if (q2.docs[0]['sex'] == 'Mọi người') {
+                temp.add(element.id);
+              } else {
+                if (element['sex'] == q2.docs[0]['sex']) {
+                  temp.add(element.id);
+                }
+              }
+            }
           });
         });
       });
@@ -178,6 +180,7 @@ class CardProvider extends ChangeNotifier {
       var temp = await loadDataUser(filter);
 
       _listUser = temp.reversed.toList();
+      print(_listUser);
     }
 
     notifyListeners();

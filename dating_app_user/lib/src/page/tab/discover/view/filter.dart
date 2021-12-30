@@ -61,7 +61,8 @@ class _FilterPageState extends State<FilterPage> {
     _sex = widget.sex;
     _values = RangeValues(double.parse(widget.age_from.toString()),
         double.parse(widget.age_to.toString()));
-    _distance = RangeValues(0.0, double.parse(widget.distance_to.toString()));
+    _distance = RangeValues(double.parse(widget.distance_from.toString()),
+        double.parse(widget.distance_to.toString()));
   }
 
   @override
@@ -75,12 +76,12 @@ class _FilterPageState extends State<FilterPage> {
               onTap: () {
                 filterFB
                     .update(
-                    FirebaseAuth.instance.currentUser!.uid,
-                    ageStart.toString(),
-                    ageEnd.toString(),
-                    distanceStart.toString(),
-                    distanceEnd.toString(),
-                    _sex)
+                        FirebaseAuth.instance.currentUser!.uid,
+                        ageStart.toString(),
+                        ageEnd.toString(),
+                        distanceStart.toString(),
+                        distanceEnd.toString(),
+                        _sex)
                     .then((value) => Navigator.pop(context, '1'));
               },
               child: Icon(Icons.save),
@@ -118,8 +119,11 @@ class _FilterPageState extends State<FilterPage> {
             SizedBox(
               height: 10,
             ),
-            _card(FontAwesomeIcons.route, "Khoảng cách từ tôi ",
-                distanceStart.toString() + '-' +distanceEnd.toString() + ' Km', 3),
+            _card(
+                FontAwesomeIcons.route,
+                "Khoảng cách từ tôi ",
+                distanceStart.toString() + '-' + distanceEnd.toString() + ' Km',
+                3),
             SizedBox(
               height: 10,
             ),
@@ -252,7 +256,8 @@ class _FilterPageState extends State<FilterPage> {
                       alignment: Alignment.center,
                       padding: EdgeInsets.all(24),
                       child: Center(
-                        child: _text('Độ tuổi của người bạn tìm ?', 17, FontWeight.bold, Colors.black),
+                        child: _text('Độ tuổi của người bạn tìm ?', 17,
+                            FontWeight.bold, Colors.black),
                       )),
                   SizedBox(
                     height: 20,
@@ -284,7 +289,9 @@ class _FilterPageState extends State<FilterPage> {
                     height: 40,
                   ),
                   _buttonSave('Lưu', tempStart, tempEnd, tempValues, 1),
-                  SizedBox(height: 20,)
+                  SizedBox(
+                    height: 20,
+                  )
                 ],
               ),
             ),
@@ -322,13 +329,14 @@ class _FilterPageState extends State<FilterPage> {
                       alignment: Alignment.center,
                       padding: EdgeInsets.all(24),
                       child: Center(
-                        child: _text('Khoảng cách giữa 2 bạn ?', 17, FontWeight.bold, Colors.black),
+                        child: _text('Khoảng cách giữa 2 bạn ?', 17,
+                            FontWeight.bold, Colors.black),
                       )),
                   SizedBox(
                     height: 20,
                   ),
-                  _text( tempStart.toString() + '-' + tempEnd.toString() + ' km', 15,
-                      FontWeight.normal, Colors.black),
+                  _text(tempStart.toString() + '-' + tempEnd.toString() + ' km',
+                      15, FontWeight.normal, Colors.black),
                   Container(
                     width: 350,
                     child: RangeSlider(
@@ -350,7 +358,9 @@ class _FilterPageState extends State<FilterPage> {
                     height: 40,
                   ),
                   _buttonSave('Lưu', tempStart, tempEnd, tempValues, 2),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                 ],
               ),
             ),
@@ -360,59 +370,62 @@ class _FilterPageState extends State<FilterPage> {
 
   _button(String text, int check) {
     return ButtonTheme(
-      minWidth: 200,
-      child: RaisedButton(
-        elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: (check == 1 && isMale == true)
-            ? Colors.deepPurple
-            : (check == 2 && isFeMale == true)
-                ? Colors.deepPurple
-                : (check == 3 && isOther == true)
-                    ? Colors.deepPurple : Color(0xFFF2F2F2),
-        onPressed: () {
-          Navigator.pop(context);
-          setState(() {
-            switch (check) {
-              case 1:
-                isMale = true;
-                isOther = false;
-                isFeMale = false;
-                _sex = 'Nam';
-                break;
-              case 2:
-                isMale = false;
-                isOther = false;
-                isFeMale = true;
-                _sex = 'Nữ';
-                break;
-              default:
-                isMale = false;
-                isOther = true;
-                isFeMale = false;
-                _sex = 'Mọi người';
-                break;
-            }
-          });
-        },
-        child: Container(
-          width: 200,
-          height: 50,
-          child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                  color: (check == 1 && isMale == true)
-                  ? Colors.white
-                  : (check == 2 && isFeMale == true)
-                  ? Colors.white
+        minWidth: 200,
+        child: RaisedButton(
+          elevation: 0,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          color: (check == 1 && isMale == true)
+              ? Colors.deepPurple
+              : (check == 2 && isFeMale == true)
+                  ? Colors.deepPurple
                   : (check == 3 && isOther == true)
-                  ? Colors.white : Colors.black,
+                      ? Colors.deepPurple
+                      : Color(0xFFF2F2F2),
+          onPressed: () {
+            Navigator.pop(context);
+            setState(() {
+              switch (check) {
+                case 1:
+                  isMale = true;
+                  isOther = false;
+                  isFeMale = false;
+                  _sex = 'Nam';
+                  break;
+                case 2:
+                  isMale = false;
+                  isOther = false;
+                  isFeMale = true;
+                  _sex = 'Nữ';
+                  break;
+                default:
+                  isMale = false;
+                  isOther = true;
+                  isFeMale = false;
+                  _sex = 'Mọi người';
+                  break;
+              }
+            });
+          },
+          child: Container(
+            width: 200,
+            height: 50,
+            child: Center(
+              child: Text(
+                text,
+                style: TextStyle(
+                  color: (check == 1 && isMale == true)
+                      ? Colors.white
+                      : (check == 2 && isFeMale == true)
+                          ? Colors.white
+                          : (check == 3 && isOther == true)
+                              ? Colors.white
+                              : Colors.black,
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 
   _buttonSave(String text, int start, int end, RangeValues values, int check) {

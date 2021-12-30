@@ -54,7 +54,13 @@ class _TestState extends State<Test> {
       setState(() {
         _imageFile = File(imageFile.path);
         _faces = faces;
+        //hinh có 1 khuôn mặt
+        if(faces.length==1)
         _loadImage(File(imageFile.path));
+        else{
+          //trường hợp ko có hoặc nhiều hơn
+          print('wrong');
+        }
       });
     }
   }

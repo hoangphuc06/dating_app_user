@@ -6,6 +6,7 @@ import 'package:dating_app_user/src/page/tab/discover/tinderCard/cardProvider.da
 import 'package:dating_app_user/src/page/tab/discover/tinderCard/tinderCard.dart';
 import 'package:dating_app_user/src/page/tab/discover/userModel/userModel.dart';
 import 'package:dating_app_user/src/page/tab/discover/view/filter.dart';
+import 'package:dating_app_user/src/page/welcome/view/test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -54,7 +55,7 @@ class _DiscoverPageState extends State<DiscoverPage>
     });
   }
 
-  void initState()  {
+  void initState() {
     loadData();
     // TODO: implement initState
     super.initState();
@@ -75,6 +76,11 @@ class _DiscoverPageState extends State<DiscoverPage>
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+            onTap: () {
+              _goto();
+            },
+            child: Icon(Icons.explore)),
         iconTheme: IconThemeData(
           color: Colors.deepPurple, //change your color here
         ),
@@ -90,8 +96,8 @@ class _DiscoverPageState extends State<DiscoverPage>
         ],
         title: Text(
           "Khám phá",
-          style: TextStyle(
-              color: Colors.deepPurple, fontWeight: FontWeight.bold),
+          style:
+              TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
@@ -184,7 +190,6 @@ class _DiscoverPageState extends State<DiscoverPage>
                 final provider =
                     Provider.of<CardProvider>(context, listen: false);
                 provider.resetUser();
-               
               },
               elevation: 0.5,
               color: Colors.white,
@@ -450,6 +455,10 @@ class _DiscoverPageState extends State<DiscoverPage>
                 )));
     final provider = Provider.of<CardProvider>(context, listen: false);
     provider.resetUser();
+  }
 
+  void _goto() async {
+    var id = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Test()));
   }
 }
