@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dating_app_user/src/page/init_info/init_address_page.dart';
 import 'package:dating_app_user/src/page/init_info/init_filter_sex_page.dart';
 import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
 import 'package:dating_app_user/src/widgets/dialogs/loading_dialog.dart';
+import 'package:dating_app_user/src/widgets/dialogs/msg_dilog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -105,6 +107,11 @@ class _InitAvatarPageState extends State<InitAvatarPage> {
 
   Future<void> onClick() async {
 
+    if (file == null) {
+      MsgDialog.showMsgDialog(context, "Thông báo", "Vui lòng không bỏ trống.");
+      return;
+    }
+
     LoadingDialog.showLoadingDialog(context, "Đang lưu...");
 
     String filename = DateTime.now().millisecondsSinceEpoch.toString();
@@ -120,7 +127,7 @@ class _InitAvatarPageState extends State<InitAvatarPage> {
       "images": list,
     }).then((value) => {
 
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => InitFilterSexPage())),
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => InitAddressPage())),
 
     });
 

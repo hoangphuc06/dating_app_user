@@ -17,7 +17,7 @@ class _WelcomePageState extends State<WelcomePage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+      body: Container(
         padding: EdgeInsets.symmetric(horizontal: 28, vertical: 28),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

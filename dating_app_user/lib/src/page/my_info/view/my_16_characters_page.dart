@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/data/16_characters_data.dart';
+import 'package:dating_app_user/src/page/my_info/view/detail_16_characters_page.dart';
 import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
 import 'package:dating_app_user/src/widgets/dialogs/loading_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,8 +21,6 @@ class _My16CharactersPageState extends State<My16CharactersPage> {
 
   List<bool> _listCharacterBool = [];
 
-  int _numOfCharacter = 0;
-
   @override
   void initState() {
     // TODO: implement initState
@@ -30,7 +29,6 @@ class _My16CharactersPageState extends State<My16CharactersPage> {
     for (var i = 0; i < characters_16_data.length; i++) {
       if (characters_16_data[i]["name"] == this.widget.name) {
         _listCharacterBool.add(true);
-        _numOfCharacter = 1;
       }
       else {
         _listCharacterBool.add(false);
@@ -89,19 +87,17 @@ class _My16CharactersPageState extends State<My16CharactersPage> {
     for (var i = 0; i < characters_16_data.length; i++) {
       list.add(
           _lableChoice(characters_16_data[i], _listCharacterBool[i], (){
-            if (_numOfCharacter == 1) {
-              if (_listCharacterBool[i] == true) {
+            for (var j = 0; j < _listCharacterBool.length; j++) {
+              if (i == j) {
                 setState(() {
-                  _listCharacterBool[i] = false;
-                  _numOfCharacter = 0;
+                  _listCharacterBool[j] = true;
                 });
               }
-            }
-            else {
-              setState(() {
-                _listCharacterBool[i] = true;
-                _numOfCharacter = 1;
-              });
+              else {
+                setState(() {
+                  _listCharacterBool[j] = false;
+                });
+              }
             }
           })
       );
@@ -128,6 +124,7 @@ class _My16CharactersPageState extends State<My16CharactersPage> {
           GestureDetector(
             onTap: (){
               print("hello");
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Detail16CharactersPage(data: x)));
             },
             child: Align(
               alignment: Alignment.topRight,
@@ -171,13 +168,20 @@ class _My16CharactersPageState extends State<My16CharactersPage> {
 
   void _onClick() {
 
+    String name;
+
     LoadingDialog.showLoadingDialog(context, "Đang lưu...");
 
-    _firestore.collection("USER").doc(_auth.currentUser!.uid).update({
-
-    }).then((value) => {
-      LoadingDialog.hideLoadingDialog(context),
-      Navigator.pop(context),
-    });
+    for (var j = 0; j < _listCharacterBool.length; j++) {
+      if (_listCharacterBool[j] == true ) {
+        name = characters_16_data[j]["name"];
+        _firestore.collection("USER").doc(_auth.currentUser!.uid).update({
+          "interesting_fact": name,
+        }).then((value) => {
+          LoadingDialog.hideLoadingDialog(context),
+          Navigator.pop(context),
+        });
+      }
+    }
   }
 }

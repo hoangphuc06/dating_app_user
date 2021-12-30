@@ -20,22 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="97335e0d-cb59-458a-9b4a-ba8de56748e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/data/16_characters_data.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_16_characters_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_bio_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_address_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/detail_16_characters_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/data/chats_json.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/data/hobbies_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/data/hobbies_data.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/data/styles_dating_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/data/styles_dating_data.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_images/my_images_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_images_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_address_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_address_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_characters_page.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_describe_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_describe_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_height_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_height_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_info_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_info_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_job_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_job_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/chat/view/chat_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/chat/view/chat_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/data/16_characters_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/data/16_characters_data.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_avatar_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_avatar_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_birthday_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_birthday_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_filter_sex_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_filter_sex_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_name_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_name_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_sex_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_sex_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_16_characters_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/my_info/view/my_16_characters_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/welcome/view/welcome_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/welcome/view/welcome_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,21 +138,21 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1640087338613" />
-    <state width="1491" height="168" key="GridCell.Tab.0.bottom" timestamp="1640772082726">
+    <state width="1491" height="35" key="GridCell.Tab.0.bottom" timestamp="1640848417525">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="168" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1640772082726" />
-    <state width="1491" height="168" key="GridCell.Tab.0.center" timestamp="1640772082726">
+    <state width="1491" height="35" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1640848417525" />
+    <state width="1491" height="35" key="GridCell.Tab.0.center" timestamp="1640848417525">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="168" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1640772082726" />
-    <state width="1491" height="168" key="GridCell.Tab.0.left" timestamp="1640772082726">
+    <state width="1491" height="35" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1640848417525" />
+    <state width="1491" height="35" key="GridCell.Tab.0.left" timestamp="1640848417525">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="168" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1640772082726" />
-    <state width="1491" height="168" key="GridCell.Tab.0.right" timestamp="1640772082726">
+    <state width="1491" height="35" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1640848417525" />
+    <state width="1491" height="35" key="GridCell.Tab.0.right" timestamp="1640848417525">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="168" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1640772082726" />
+    <state width="1491" height="35" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1640848417525" />
   </component>
 </project>
