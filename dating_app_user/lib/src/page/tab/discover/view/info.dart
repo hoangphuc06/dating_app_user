@@ -56,7 +56,7 @@ class _InfoPageState extends State<InfoPage> {
         ),
         centerTitle: true,
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: Container(
         padding: EdgeInsets.all(16),
         child: SingleChildScrollView(
@@ -270,13 +270,13 @@ class _InfoPageState extends State<InfoPage> {
         Container(
           width: size.width * 0.65,
           height: size.height * 0.12,
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.only(right: 16, top: 16, bottom: 16, left: 24),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Colors.deepPurple,
+            color: Colors.grey[100],
           ),
           child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
@@ -290,16 +290,17 @@ class _InfoPageState extends State<InfoPage> {
                                           4)))
                           .toString(),
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 widget.user.status == 'Online'
                     ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        //mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.circle,
@@ -307,19 +308,18 @@ class _InfoPageState extends State<InfoPage> {
                             size: 12,
                           ),
                           SizedBox(
-                            width: 10,
+                            width: 5,
                           ),
                           Text(
-                            'Mới hoạt động',
+                            'Online',
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500),
+                                color: Colors.black,
+                                fontSize: 15,),
                           )
                         ],
                       )
                     : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Icon(
                             Icons.circle,
@@ -330,11 +330,10 @@ class _InfoPageState extends State<InfoPage> {
                             width: 10,
                           ),
                           Text(
-                            'Hoạt động vài phút trước',
+                            'Offline',
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500),
+                              color: Colors.black,
+                              fontSize: 15,),
                           )
                         ],
                       )
@@ -400,7 +399,7 @@ class _InfoPageState extends State<InfoPage> {
                   height: size.height / 3,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.deepPurple),
+                    color: Colors.grey[100],),
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -416,7 +415,7 @@ class _InfoPageState extends State<InfoPage> {
                                   alignment: Alignment(-0.3, 0))),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         Text(
                             widget.user.interesting_fact!.substring(0, 4) +
@@ -424,9 +423,9 @@ class _InfoPageState extends State<InfoPage> {
                                 widget.user.interesting_fact!.substring(4),
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold)),
+                                color: Colors.black,
+                                fontSize: 17,
+                            )),
                       ],
                     ),
                   ),
@@ -443,13 +442,13 @@ class _InfoPageState extends State<InfoPage> {
                       EdgeInsets.only(right: 16, left: 16, top: 40, bottom: 40),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.deepPurple),
+                      color: Colors.grey[100]),
                   child: Center(
                     child: Text(widget.user.bio!,
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
+                            color: Colors.black,
+                            fontSize: 17,
+                        )),
                   ),
                 ),
                 Positioned.fill(
@@ -459,8 +458,8 @@ class _InfoPageState extends State<InfoPage> {
                         padding: EdgeInsets.only(left: 16, top: 16),
                         child: FaIcon(
                           FontAwesomeIcons.quoteLeft,
-                          color: white,
-                          size: 16,
+                          color: Colors.black,
+                          size: 13,
                         )),
                   ),
                 ),
@@ -471,8 +470,8 @@ class _InfoPageState extends State<InfoPage> {
                         padding: EdgeInsets.only(right: 16, bottom: 16),
                         child: FaIcon(
                           FontAwesomeIcons.quoteRight,
-                          color: white,
-                          size: 16,
+                          color: Colors.black,
+                          size: 13,
                         )),
                   ),
                 ),
@@ -493,13 +492,13 @@ class _InfoPageState extends State<InfoPage> {
                   // height: size.height / 3,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.deepPurple),
+                    color: Colors.grey[100],),
                   child: Center(
                     child: Text(widget.user.bio!,
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.normal)),
                   ),
                 ),
               ),
@@ -510,8 +509,8 @@ class _InfoPageState extends State<InfoPage> {
                       padding: EdgeInsets.only(left: 16, top: 16),
                       child: FaIcon(
                         FontAwesomeIcons.quoteLeft,
-                        color: white,
-                        size: 16,
+                        color: Colors.black,
+                        size: 13,
                       )),
                 ),
               ),
@@ -522,8 +521,8 @@ class _InfoPageState extends State<InfoPage> {
                       padding: EdgeInsets.only(right: 16, bottom: 16),
                       child: FaIcon(
                         FontAwesomeIcons.quoteRight,
-                        color: white,
-                        size: 16,
+                        color: Colors.black,
+                        size: 13,
                       )),
                 ),
               ),
@@ -552,13 +551,14 @@ class _InfoPageState extends State<InfoPage> {
                   width: 15,
                 ),
                 Text(
+                  "Cách bạn\n" +
                     calculateDistance(
                                 double.parse(widget.userCurrent.latitude!),
                                 double.parse(widget.userCurrent.longitude!),
                                 double.parse(widget.user.latitude!),
                                 double.parse(widget.user.longitude!))
                             .toStringAsFixed(2) +
-                        ' km\nCách bạn',
+                        ' km',
                     style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w500,
@@ -575,30 +575,30 @@ class _InfoPageState extends State<InfoPage> {
                 padding: EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.deepPurple,
+                  color: Colors.grey[100],
                 ),
                 child: Row(
                   children: [
                     Icon(
                       OpenIconicIcons.mapMarker,
-                      color: white,
+                      color: Colors.black,
                       size: 20,
                     ),
                     SizedBox(
                       width: 15,
                     ),
                     Text(
+                      "Cách bạn \n" +
                         calculateDistance(
                                     double.parse(widget.userCurrent.latitude!),
                                     double.parse(widget.userCurrent.longitude!),
                                     double.parse(widget.user.latitude!),
                                     double.parse(widget.user.longitude!))
                                 .toStringAsFixed(2) +
-                            ' km\nCách bạn',
+                            ' km',
                         style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500,
-                            color: white))
+                            fontSize: 15,
+                            color: Colors.black))
                   ],
                 ),
               ),
@@ -608,13 +608,13 @@ class _InfoPageState extends State<InfoPage> {
                 padding: EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.deepPurple,
+                  color: Colors.grey[100],
                 ),
                 child: Row(
                   children: [
                     FaIcon(
                       FontAwesomeIcons.suitcase,
-                      color: white,
+                      color: Colors.black,
                       size: 20,
                     ),
                     SizedBox(
@@ -622,9 +622,8 @@ class _InfoPageState extends State<InfoPage> {
                     ),
                     Text(widget.user.job!,
                         style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500,
-                            color: white))
+                            fontSize: 15,
+                            color: Colors.black))
                   ],
                 ),
               )
@@ -640,14 +639,14 @@ class _InfoPageState extends State<InfoPage> {
             height: size.height * 0.12,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Colors.deepPurple,
+              color: Colors.grey[100],
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FaIcon(
                   FontAwesomeIcons.ruler,
-                  color: white,
+                  color: Colors.black,
                   size: 22,
                 ),
                 SizedBox(
@@ -655,9 +654,9 @@ class _InfoPageState extends State<InfoPage> {
                 ),
                 Text(widget.user.height! + ' cm',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w500))
+                        color: Colors.black,
+                        fontSize: 15,
+                    ))
               ],
             ),
           ),
