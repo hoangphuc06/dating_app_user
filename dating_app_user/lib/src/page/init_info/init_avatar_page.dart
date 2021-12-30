@@ -8,6 +8,7 @@ import 'package:dating_app_user/src/widgets/dialogs/loading_dialog.dart';
 import 'package:dating_app_user/src/widgets/dialogs/msg_dilog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,8 @@ class InitAvatarPage extends StatefulWidget {
 class _InitAvatarPageState extends State<InitAvatarPage> {
 
   File? file;
+
+  bool _isload = false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +68,7 @@ class _InitAvatarPageState extends State<InitAvatarPage> {
                 ),
               ],
             ),
-            GestureDetector(
+            _isload == false ? GestureDetector(
               onTap: () {
                 _selectImage();
               },
@@ -95,6 +98,12 @@ class _InitAvatarPageState extends State<InitAvatarPage> {
                   ),
                 ),
               ),
+            ) : Center(
+                child: Container(
+                  height: size.height / 20,
+                  width: size.height / 20,
+                  child: CircularProgressIndicator(),
+                ),
             ),
             MainButton(name: "Lưu", onpressed: (){
               onClick();
@@ -236,10 +245,10 @@ class _InitAvatarPageState extends State<InitAvatarPage> {
           SizedBox(height: 10,),
           Row(
             children: [
-              Icon(Icons.star, size: 20,),
+              Icon(Icons.search, size: 20,),
               SizedBox(width: 10,),
               Text(
-                "Không dùng ảnh có quá nhiều filter",
+                "Không dùng ảnh không có mặt bạn trong đó",
                 style: TextStyle(
                   color: Colors.black,
                 ),
@@ -249,10 +258,10 @@ class _InitAvatarPageState extends State<InitAvatarPage> {
           SizedBox(height: 10,),
           Row(
             children: [
-              Icon(Icons.search, size: 20,),
+              Icon(Icons.group, size: 20,),
               SizedBox(width: 10,),
               Text(
-                "Không dùng ảnh không có mặt bạn trong đó",
+                "Không dùng ảnh không có quá nhiều người",
                 style: TextStyle(
                   color: Colors.black,
                 ),
@@ -326,7 +335,7 @@ class _InitAvatarPageState extends State<InitAvatarPage> {
                   alignment: AlignmentDirectional.topEnd,
                   children: [
                     Image.asset(
-                      "assets/image/example/female_2.jpg",
+                      "assets/image/example/shadow.jpg",
                       fit: BoxFit.cover,
                       height: 250,
                       width: (size.width - 64 - 10) /2,
@@ -347,7 +356,7 @@ class _InitAvatarPageState extends State<InitAvatarPage> {
                   alignment: AlignmentDirectional.topEnd,
                   children: [
                     Image.asset(
-                      "assets/image/example/male_2.jpg",
+                      "assets/image/example/group.jpg",
                       fit: BoxFit.cover,
                       height: 250,
                       width: (size.width - 64 - 10) /2,
@@ -377,12 +386,42 @@ class _InitAvatarPageState extends State<InitAvatarPage> {
   );
 
   Future _selectImage() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: true);
-    if (result == null) return;
-    final path = result.files.single.path!;
+
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+
     setState(() {
-      file = File(path);
+      _isload  = true;
     });
+
+    if (result == null) {
+      setState(() {
+        _isload  = false;
+      });
+      return;
+    }
+
+    final path = result.files.single.path!;
+
+    final image = FirebaseVisionImage.fromFile(File(path));
+    final faceDetector = FirebaseVision.instance.faceDetector();
+    List<Face> faces = await faceDetector.processImage(image);
+
+    if (mounted) {
+      if(faces.length==1) {
+        setState(() {
+          _isload  = false;
+          file = File(path);
+        });
+      }
+      else {
+        setState(() {
+          _isload  = false;
+        });
+        MsgDialog.showMsgDialog(context, "Sai quy tắc", "Bức ảnh của bạn không phù hợp với cộng đồng iLove, vui lòng sử dụng ảnh khác.");
+      }
+    }
+
+
   }
 
   _description(String description) => Text(
