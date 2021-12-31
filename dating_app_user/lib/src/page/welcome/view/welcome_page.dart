@@ -1,6 +1,7 @@
 
 import 'dart:ui';
 import 'package:dating_app_user/src/page/welcome/home.dart';
+import 'package:dating_app_user/src/page/welcome/view/abc.dart';
 import 'package:dating_app_user/src/page/welcome/view/test.dart';
 import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -113,8 +114,8 @@ class _WelcomePageState extends State<WelcomePage> {
   );
 
   void getStarted() {
-    //Navigator.push(context, MaterialPageRoute(builder: (context)=>Test()));
-     Navigator.pushNamed(context, "login_page");
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>TESTT()));
+    //  Navigator.pushNamed(context, "login_page");
     // if (FirebaseAuth.instance.currentUser!=null)
     //   Navigator.pushReplacementNamed(context, "tab_page");
     // else
