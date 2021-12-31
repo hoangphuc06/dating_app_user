@@ -58,7 +58,7 @@ class _TestState extends State<Test> {
         if(faces.length==1)
         _loadImage(File(imageFile.path));
         else{
-          //trường hợp ko có hoặc nhiều hơn
+          //trường hợp ko có hoặc nhiều hơn 
           print('wrong');
         }
       });
