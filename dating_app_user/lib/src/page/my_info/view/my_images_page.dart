@@ -84,7 +84,7 @@ class _MyImagesPageState extends State<MyImagesPage> {
                 ),
               ),
               SizedBox(height: 10,),
-              _description("Cập nhật đúng vị trí của bạn để có thể tìm ra những người phù hợp gần bạn nhất."),
+              _description("Tải lên những bức ảnh xinh đẹp để mọi người cùng xem nào"),
               SizedBox(height: 10,),
               GestureDetector(
                 onTap: (){
