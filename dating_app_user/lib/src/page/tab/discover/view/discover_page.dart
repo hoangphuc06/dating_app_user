@@ -157,19 +157,18 @@ class _DiscoverPageState extends State<DiscoverPage>
   _emptyInfo() {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        //borderRadius: BorderRadius.circular(20),
         color: Colors.deepPurple,
       ),
-      width: double.infinity,
-      height: double.infinity,
+      //height: 500,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           FaIcon(
-            FontAwesomeIcons.searchLocation,
+            FontAwesomeIcons.search,
             size: 70,
-            color: Colors.white70,
+            color: Colors.white,
           ),
           SizedBox(
             height: 30,
