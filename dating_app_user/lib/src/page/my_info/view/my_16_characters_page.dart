@@ -5,6 +5,9 @@ import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
 import 'package:dating_app_user/src/widgets/dialogs/loading_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/link.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class My16CharactersPage extends StatefulWidget {
   final String name;
@@ -60,7 +63,7 @@ class _My16CharactersPageState extends State<My16CharactersPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Miêu tả\nvề bản thân bạn? 😝",
+              "Nhóm tính cách\nbạn thuộc loại nào? 🧐",
               style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w500,
@@ -68,7 +71,30 @@ class _My16CharactersPageState extends State<My16CharactersPage> {
               ),
             ),
             SizedBox(height: 10,),
-            _description("Chọn các tag bên dưới để mọi người hiểu rõ hơn về bạn"),
+            _description("Tìm hiểu về nhóm tính cách sẽ giúp hiểu rõ hơn về bản thân bạn cũng như người ấy"),
+            SizedBox(height: 10,),
+            InkWell(
+              onTap: () => launch("https://pub.dev/packages/url_launcher/example"),
+              child: Text(
+                "Làm bài trắc nghiệm tính cách",
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.deepPurple
+                ),
+              ),
+            ),
+            // Link(
+            //   uri: Uri.parse(
+            //       'https://pub.dev/documentation/url_launcher/latest/link/link-library.html'),
+            //   target: LinkTarget.blank,
+            //   builder: (BuildContext ctx, FollowLink? openLink) {
+            //     return TextButton.icon(
+            //       onPressed: openLink,
+            //       label: const Text('Link Widget documentation'),
+            //       icon: const Icon(Icons.read_more),
+            //     );
+            //   },
+            // ),
             SizedBox(height: 30,),
             _characterView(),
             SizedBox(height: 40,),
@@ -140,9 +166,8 @@ class _My16CharactersPageState extends State<My16CharactersPage> {
             height: 70,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                image: DecorationImage(
-                    image: AssetImage(x["image"]),
-                    fit: BoxFit.cover)),
+            ),
+            child: SvgPicture.asset(x["image"]),
           ),
           SizedBox(height: 15,),
           Text(
@@ -182,6 +207,17 @@ class _My16CharactersPageState extends State<My16CharactersPage> {
           Navigator.pop(context),
         });
       }
+    }
+  }
+
+  Future<void> _launchInBrowser(String url) async {
+    if (!await launch(
+      url,
+      forceSafariVC: false,
+      forceWebView: false,
+      headers: <String, String>{'my_header_key': 'my_header_value'},
+    )) {
+      throw 'Could not launch $url';
     }
   }
 }

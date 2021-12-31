@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Detail16CharactersPage extends StatefulWidget {
   final data;
@@ -48,15 +49,16 @@ class _Detail16CharactersPageState extends State<Detail16CharactersPage> {
                   height: 120,
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: AssetImage(this.widget.data["image"]),
-                          fit: BoxFit.cover)),
+                  ),
+                  child: SvgPicture.asset(this.widget.data["image"]),
                 ),
               ),
               SizedBox(height: 20,),
               Center(
                 child: Wrap(
+                  alignment: WrapAlignment.center,
                   spacing: 10,
+                  runSpacing: 10,
                   children: [
                     _lable(this.widget.data["tag"][0]),
                     _lable(this.widget.data["tag"][1]),
