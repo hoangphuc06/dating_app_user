@@ -155,7 +155,6 @@ class _TinderCardState extends State<TinderCard>
                       "id": id,
                       "uid": widget.user.uid,
                       "herid": widget.userCurrent.uid,
-                      "status": "new"
                     });
                   },
                   child: FaIcon(
@@ -173,8 +172,8 @@ class _TinderCardState extends State<TinderCard>
                         context,
                         MaterialPageRoute(
                             builder: (context) => InfoPage(
-                                  user: widget.user,
-                                  userCurrent: widget.userCurrent,
+                                  userUid: widget.user.uid!,
+                                  myUid: widget.userCurrent.uid!,
                                 )));
                   },
                   child: Icon(
@@ -314,8 +313,8 @@ class _TinderCardState extends State<TinderCard>
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
-              height: MediaQuery.of(context).size.height * 0.22,
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
                       width: double.infinity,
@@ -327,7 +326,7 @@ class _TinderCardState extends State<TinderCard>
                               topRight: Radius.circular(30))),
                       alignment: Alignment.center,
                       child: Center(
-                        child: _text('Thêm', 28, FontWeight.bold, white),
+                        child: _text('Thêm', 20, FontWeight.bold, white),
                       )),
                   SizedBox(
                     height: 15,
@@ -348,7 +347,7 @@ class _TinderCardState extends State<TinderCard>
                               width: 15,
                             ),
                             _text(
-                                'Báo cáo vi phạm', 20, FontWeight.bold, white),
+                                'Báo cáo vi phạm', 17, FontWeight.bold, white),
                           ],
                         ),
                         Icon(

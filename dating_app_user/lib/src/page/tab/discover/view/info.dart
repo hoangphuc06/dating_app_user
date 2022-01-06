@@ -1,16 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/colors/colors.dart';
-import 'package:dating_app_user/src/page/tab/discover/userModel/userModel.dart';
-import 'package:dating_app_user/src/page/tab/discover/view/image.dart';
+import 'package:dating_app_user/src/data/16_characters_data.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttericon/rpg_awesome_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:open_iconic_flutter/open_iconic_flutter.dart';
 import "dart:math";
 
 class InfoPage extends StatefulWidget {
-  final userModel user;
-  final userModel userCurrent;
-  const InfoPage({Key? key, required this.user, required this.userCurrent})
+  final String userUid;
+  final String myUid;
+  const InfoPage({Key? key, required this.userUid, required this.myUid})
       : super(key: key);
 
   @override
@@ -18,11 +19,9 @@ class InfoPage extends StatefulWidget {
 }
 
 class _InfoPageState extends State<InfoPage> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    print(widget.user.images![0]);
-  }
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +40,7 @@ class _InfoPageState extends State<InfoPage> {
             },
             child: Icon(
               Icons.close,
+              color: Colors.deepPurple,
               size: 24,
             ),
           ),
@@ -57,214 +57,219 @@ class _InfoPageState extends State<InfoPage> {
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      body: Container(
-        padding: EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              widget.user.images!.length == 1
-                  ? Container(
-                      width: size.width,
-                      height: size.height / 2,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          image: DecorationImage(
-                              image: NetworkImage(widget.user.images![0]),
-                              fit: BoxFit.cover,
-                              alignment: Alignment(-0.3, 0))),
-                    )
-                  : image(size),
-              info(size),
-              SizedBox(
-                height: 8,
-              ),
-              bio_character(size),
-              SizedBox(
-                height: 8,
-              ),
-              distance(size),
-              SizedBox(
-                height: 8,
-              ),
-              height_address(size),
-              SizedBox(
-                height: 8,
-              ),
-              chacracter_styleDating(size),
-              SizedBox(
-                height: 8,
-              ),
-              hobbies(size)
-            ],
-          ),
-        ),
-      ),
+      body: StreamBuilder(
+          stream: _firestore.collection("USER").where("uid", isEqualTo: widget.userUid).snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+            if (!snapshot.hasData) {
+              return Center(
+                child: Container(
+                  height: size.height / 20,
+                  width: size.height / 20,
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+            else {
+              QueryDocumentSnapshot x = snapshot.data!.docs[0];
+              return StreamBuilder(
+                stream: _firestore.collection("USER").where("uid", isEqualTo: widget.myUid).snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: Container(
+                        height: size.height / 20,
+                        width: size.height / 20,
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                  else {
+                    QueryDocumentSnapshot y = snapshot.data!.docs[0];
+                    return _getBody(x,y);
+                  }
+                },
+              );
+            }
+          },
+        )
     );
   }
 
-  Widget image(Size size) {
-    double border = 20;
+  Widget _getBody(QueryDocumentSnapshot x, QueryDocumentSnapshot y) {
+    var size = MediaQuery.of(context).size;
+    return SingleChildScrollView(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          imageView(x["images"]),
+          SizedBox(height: 10,),
+          info(x),
+          SizedBox(height: 10,),
+          bio_character(x),
+          SizedBox(height: 10,),
+          distance_job(x,y),
+          SizedBox(height: 10,),
+          height_address(x),
+          SizedBox(height: 10,),
+          chacracter_styleDating(x),
+          SizedBox(height: 10,),
+          hobbies(x),
+          SizedBox(height: 10,),
+          Text("Lịch sử hẹn hò", style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w500),),
+          SizedBox(height: 10,),
+          history(x),
+        ]
+      )
+    );
+  }
+
+
+  Widget imageView(x) {
+    var size = MediaQuery.of(context).size;
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        x[5] == "" && x[4] == "" && x[3] == "" && x[2] == "" && x[1] == "" && x[0] != "" ? _view1(x)
+            : x[5] == "" && x[4] == "" && x[3] == "" && x[2] == "" && x[1] != "" && x[0] != "" ? _view2(x)
+            : x[5] == "" && x[4] == "" && x[3] == "" && x[2] != "" && x[1] != "" && x[0] != "" ? _view3(x)
+            : x[5] == "" && x[4] == "" && x[3] != "" && x[2] != "" && x[1] != "" && x[0] != "" ? _view4(x)
+            : x[5] == "" && x[4] != "" && x[3] != "" && x[2] != "" && x[1] != "" && x[0] != "" ? _view5(x)
+            : _view6(x),
+        // ?
+      ],
+    );
+  }
+
+  Widget _view1(x) {
+    var size = MediaQuery.of(context).size;
+    return _image(250.0, size.width, x[0]);
+  }
+
+  Widget _view2(x) {
+    var size = MediaQuery.of(context).size;
+    return Row(
+      children: [
+        _image(250.0, (size.width - 32 - 10) /2 , x[0]),
+        SizedBox(width: 10,),
+        _image(250.0, (size.width - 32 - 10) /2 , x[1])
+      ],
+    );
+  }
+
+  Widget _view3(x) {
+    var size = MediaQuery.of(context).size;
+    return Row(
+      children: [
+        _image(300.0, (size.width - 32 - 10) * 2 / 3 , x[0]),
+        SizedBox(width: 10,),
+        Column(
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ImagePage(
-                              user: widget.user,
-                              index: 0,
-                            )));
-              },
-              child: Container(
-                width: size.width * 0.605,
-                height: size.height / 3,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(border),
-                    image: DecorationImage(
-                        image: NetworkImage(widget.user.images![0]),
-                        fit: BoxFit.cover,
-                        alignment: Alignment(-0.3, 0))),
-              ),
-            ),
-            Column(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ImagePage(
-                                  user: widget.user,
-                                  index: 1,
-                                )));
-                  },
-                  child: Container(
-                    width: size.width * 0.295,
-                    height: size.height / 6.2,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(border),
-                        image: DecorationImage(
-                            image: NetworkImage(widget.user.images![1]),
-                            fit: BoxFit.cover,
-                            alignment: Alignment(-0.3, 0))),
-                  ),
-                ),
-                SizedBox(height: 8),
-                widget.user.images![2] != ""
-                    ? GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ImagePage(
-                                        user: widget.user,
-                                        index: 2,
-                                      )));
-                        },
-                        child: Container(
-                          width: size.width * 0.295,
-                          height: size.height / 6.2,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(border),
-                              image: DecorationImage(
-                                  image: NetworkImage(widget.user.images![2]),
-                                  fit: BoxFit.cover,
-                                  alignment: Alignment(-0.3, 0))),
-                        ),
-                      )
-                    : Container(
-                        height: size.height / 6.2,
-                      ),
-              ],
-            )
-          ],
-        ),
-        SizedBox(
-          height: 8,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            widget.user.images![3] != ""
-                ? GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ImagePage(
-                                    user: widget.user,
-                                    index: 3,
-                                  )));
-                    },
-                    child: Container(
-                      width: size.width * 0.295,
-                      height: size.height / 6.2,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(border),
-                          image: DecorationImage(
-                              image: NetworkImage(widget.user.images![3]),
-                              fit: BoxFit.cover,
-                              alignment: Alignment(-0.3, 0))),
-                    ),
-                  )
-                : Container(),
-            widget.user.images![4] != ""
-                ? GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ImagePage(
-                                    user: widget.user,
-                                    index: 4,
-                                  )));
-                    },
-                    child: Container(
-                      width: size.width * 0.295,
-                      height: size.height / 6.2,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(border),
-                          image: DecorationImage(
-                              image: NetworkImage(widget.user.images![4]),
-                              fit: BoxFit.cover,
-                              alignment: Alignment(-0.3, 0))),
-                    ),
-                  )
-                : Container(),
-            widget.user.images![5] != ""
-                ? GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ImagePage(
-                                    user: widget.user,
-                                    index: 5,
-                                  )));
-                    },
-                    child: Container(
-                      width: size.width * 0.295,
-                      height: size.height / 6.2,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(border),
-                          image: DecorationImage(
-                              image: NetworkImage(widget.user.images![5]),
-                              fit: BoxFit.cover,
-                              alignment: Alignment(-0.3, 0))),
-                    ),
-                  )
-                : Container(),
+            _image(145.0, (size.width - 32 - 10) * 1 / 3 , x[1]),
+            SizedBox(height: 10,),
+            _image(145.0, (size.width - 32 - 10) * 1 / 3 , x[2])
           ],
         )
       ],
     );
   }
 
-  Widget info(Size size) {
+  Widget _view4(x) {
+    var size = MediaQuery.of(context).size;
+    return Row(
+      children: [
+        Column(
+          children: [
+            _image(180.0, (size.width - 32 - 10) * 1 / 2 , x[0]),
+            SizedBox(height: 10,),
+            _image(180.0, (size.width - 32 - 10) * 1 / 2 , x[1])
+          ],
+        ),
+        SizedBox(width: 10,),
+        Column(
+          children: [
+            _image(180.0, (size.width - 32 - 10) * 1 / 2 , x[2]),
+            SizedBox(height: 10,),
+            _image(180.0, (size.width - 32 - 10) * 1 / 2 , x[3])
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget _view5(x) {
+    var size = MediaQuery.of(context).size;
+    return Column(
+      children: [
+        Row(
+          children: [
+            _image(300.0, (size.width - 32 - 10) * 2 / 3 , x[0]),
+            SizedBox(width: 10,),
+            Column(
+              children: [
+                _image(145.0, (size.width - 32 - 10) * 1 / 3 , x[1]),
+                SizedBox(height: 10,),
+                _image(145.0, (size.width - 32 - 10) * 1 / 3 , x[2])
+              ],
+            )
+          ],
+        ),
+        SizedBox(height: 10,),
+        Row(
+          children: [
+            _image(150.0, (size.width - 32 - 10) * 1 / 2 , x[3]),
+            SizedBox(width: 10,),
+            _image(150.0, (size.width - 32 - 10) * 1 / 2 , x[4]),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _view6(x) {
+    var size = MediaQuery.of(context).size;
+    return Column(
+      children: [
+        Row(
+          children: [
+            _image(300.0, (size.width - 32 - 10) * 2 / 3 , x[0]),
+            SizedBox(width: 10,),
+            Column(
+              children: [
+                _image(145.0, (size.width - 32 - 10) * 1 / 3 , x[1]),
+                SizedBox(height: 10,),
+                _image(145.0, (size.width - 32 - 10) * 1 / 3 , x[2])
+              ],
+            )
+          ],
+        ),
+        SizedBox(height: 10,),
+        Row(
+          children: [
+            _image(150.0, (size.width - 32 - 20) * 1 / 3 , x[3]),
+            SizedBox(width: 10,),
+            _image(150.0, (size.width - 32 - 20) * 1 / 3 , x[4]),
+            SizedBox(width: 10,),
+            _image(150.0, (size.width - 32 - 20) * 1 / 3 , x[5]),
+          ],
+        ),
+      ],
+    );
+  }
+
+  _image(h , w, img) => Container(
+    height: h,
+    width: w,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10.0),
+      image: DecorationImage(
+        image: NetworkImage(img),
+        fit: BoxFit.cover,
+      )
+    ),
+  );
+
+  Widget info(x) {
+    var size = MediaQuery.of(context).size;
     return Row(
       children: [
         Container(
@@ -276,19 +281,11 @@ class _InfoPageState extends State<InfoPage> {
             color: Colors.grey[100],
           ),
           child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  widget.user.name! +
-                      ', ' +
-                      (DateTime.now().year -
-                              int.parse(widget.user.birthday
-                                  .toString()
-                                  .substring(
-                                      widget.user.birthday.toString().length -
-                                          4)))
-                          .toString(),
+                  x["name"] + ', ' + (DateTime.now().year - int.parse(x["birthday"].toString().substring(x["birthday"].toString().length - 4))).toString(),
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 15,
@@ -297,10 +294,10 @@ class _InfoPageState extends State<InfoPage> {
                 SizedBox(
                   height: 10,
                 ),
-                widget.user.status == 'Online'
+                x["status"] == 'Online'
                     ? Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        //mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.circle,
@@ -320,6 +317,7 @@ class _InfoPageState extends State<InfoPage> {
                       )
                     : Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.circle,
@@ -343,295 +341,196 @@ class _InfoPageState extends State<InfoPage> {
           width: 8,
         ),
         Expanded(
-          child: Stack(children: [
-            Container(
-              height: size.height * 0.12,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.deepPurple,
-              ),
-              child: Center(
-                child: Container(
-                  padding: EdgeInsets.all(18),
-                  decoration: ShapeDecoration(
-                    shape: CircleBorder(),
-                    color: Colors.pink,
-                  ),
-                  child: Icon(
-                    RpgAwesome.taurus,
-                    color: white,
-                  ),
+          child: Container(
+            height: size.height * 0.12,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.grey[100],
+            ),
+            child: Center(
+              child: Container(
+                padding: EdgeInsets.all(18),
+                decoration: ShapeDecoration(
+                  shape: CircleBorder(),
+                  color: Colors.pink,
+                ),
+                child: Icon(
+                  x["sex"] == "Nam" ? FontAwesomeIcons.mars : x["sex"] == "Nữ" ? FontAwesomeIcons.venus : FontAwesomeIcons.transgender,
+                  color: white,
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                  padding: EdgeInsets.all(2),
-                  decoration: ShapeDecoration(
-                    shape: CircleBorder(),
-                    color: Colors.black,
-                  ),
-                  child: Container(
-                      padding: EdgeInsets.all(1),
-                      decoration: ShapeDecoration(
-                        shape: CircleBorder(),
-                        color: Colors.grey,
-                      ),
-                      child: FaIcon(
-                        FontAwesomeIcons.infoCircle,
-                        color: white,
-                        size: 20,
-                      ))),
-            ),
-          ]),
+          ),
         )
       ],
     );
   }
 
-  Widget bio_character(Size size) {
-    return widget.user.interesting_fact != ""
-        ? Row(
-            children: [
-              Expanded(
-                child: Container(
-                  height: size.height / 3,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                    color: Colors.grey[100],),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: ShapeDecoration(
-                              shape: CircleBorder(),
-                              image: DecorationImage(
-                                  image: NetworkImage(widget.user.images![0]),
-                                  fit: BoxFit.cover,
-                                  alignment: Alignment(-0.3, 0))),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                            widget.user.interesting_fact!.substring(0, 4) +
-                                '\n' +
-                                widget.user.interesting_fact!.substring(4),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 17,
-                            )),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Stack(children: [
-                Container(
-                  width: size.width * 0.605,
-                  height: size.height / 3,
-                  padding:
-                      EdgeInsets.only(right: 16, left: 16, top: 40, bottom: 40),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey[100]),
-                  child: Center(
-                    child: Text(widget.user.bio!,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 17,
-                        )),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                        padding: EdgeInsets.only(left: 16, top: 16),
-                        child: FaIcon(
-                          FontAwesomeIcons.quoteLeft,
-                          color: Colors.black,
-                          size: 13,
-                        )),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: Container(
-                        padding: EdgeInsets.only(right: 16, bottom: 16),
-                        child: FaIcon(
-                          FontAwesomeIcons.quoteRight,
-                          color: Colors.black,
-                          size: 13,
-                        )),
-                  ),
-                ),
-              ]),
-            ],
-          )
-        : Container(
-            child: Stack(children: [
-              ConstrainedBox(
-                constraints: new BoxConstraints(
-                  minHeight: size.height * 0.12,
-                  minWidth: 5.0,
-                ),
-                child: Container(
-                  padding:
-                      EdgeInsets.only(right: 16, left: 16, top: 40, bottom: 40),
-                  width: size.width,
-                  // height: size.height / 3,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                    color: Colors.grey[100],),
-                  child: Center(
-                    child: Text(widget.user.bio!,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.normal)),
-                  ),
-                ),
-              ),
-              Positioned.fill(
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Container(
-                      padding: EdgeInsets.only(left: 16, top: 16),
-                      child: FaIcon(
-                        FontAwesomeIcons.quoteLeft,
-                        color: Colors.black,
-                        size: 13,
-                      )),
-                ),
-              ),
-              Positioned.fill(
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: Container(
-                      padding: EdgeInsets.only(right: 16, bottom: 16),
-                      child: FaIcon(
-                        FontAwesomeIcons.quoteRight,
-                        color: Colors.black,
-                        size: 13,
-                      )),
-                ),
-              ),
-            ]),
-          );
-  }
-
-  Widget distance(Size size) {
-    return widget.user.job == ""
-        ? Container(
-            width: size.width,
-            height: size.height * 0.12,
-            padding: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.deepPurple,
-            ),
-            child: Row(
+  Widget bio_character(x) {
+    int index = -1;
+    var size = MediaQuery.of(context).size;
+    if (x["interesting_fact"] != null) {
+      for (int i = 0; i < characters_16_data.length; i++) {
+        if (characters_16_data[i]["name"] == x["interesting_fact"]) {
+          index = i;
+        }
+      }
+    }
+    return Row(
+      children: [
+        x["interesting_fact"] != "" ? Container(
+          height: size.height / 4,
+          width: size.width / 4,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.grey[100],),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  OpenIconicIcons.mapMarker,
-                  color: white,
-                  size: 20,
+                Container(
+                  width: 70,
+                  height: 70,
+                  decoration: ShapeDecoration(
+                      shape: CircleBorder(),
+                  ),
+                  child: SvgPicture.asset(characters_16_data[index]["image"]),
                 ),
                 SizedBox(
-                  width: 15,
+                  height: 20,
                 ),
                 Text(
-                  "Cách bạn\n" +
-                    calculateDistance(
-                                double.parse(widget.userCurrent.latitude!),
-                                double.parse(widget.userCurrent.longitude!),
-                                double.parse(widget.user.latitude!),
-                                double.parse(widget.user.longitude!))
-                            .toStringAsFixed(2) +
-                        ' km',
+                    characters_16_data[index]["name"] + '\n' + characters_16_data[index]["who"],
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w500,
-                        color: white))
+                      color: Colors.black,
+                      fontSize: 15,
+                    )),
               ],
             ),
-          )
-        : Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: size.width * 0.45,
-                height: size.height * 0.12,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.grey[100],
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      OpenIconicIcons.mapMarker,
-                      color: Colors.black,
-                      size: 20,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      "Cách bạn \n" +
-                        calculateDistance(
-                                    double.parse(widget.userCurrent.latitude!),
-                                    double.parse(widget.userCurrent.longitude!),
-                                    double.parse(widget.user.latitude!),
-                                    double.parse(widget.user.longitude!))
-                                .toStringAsFixed(2) +
-                            ' km',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black))
-                  ],
-                ),
-              ),
-              Container(
-                width: size.width * 0.45,
-                height: size.height * 0.12,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.grey[100],
-                ),
-                child: Row(
-                  children: [
-                    FaIcon(
-                      FontAwesomeIcons.suitcase,
-                      color: Colors.black,
-                      size: 20,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text(widget.user.job!,
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black))
-                  ],
-                ),
-              )
-            ],
-          );
+          ),
+        ) : Container(height: 0, width: 0,),
+        SizedBox(
+          width: x["interesting_fact"] != "" ? 10 : 0,
+        ),
+        Stack(children: [
+          Container(
+            width: x["interesting_fact"] != "" ? (size.width * 0.75) - 42 : size.width - 32,
+            height: size.height / 4,
+            padding:
+            EdgeInsets.only(right: 16, left: 16, top: 40, bottom: 40),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.grey[100]),
+            child: Center(
+              child: Text(x["bio"],
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 17,
+                  )),
+            ),
+          ),
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Container(
+                  padding: EdgeInsets.only(left: 16, top: 16),
+                  child: FaIcon(
+                    FontAwesomeIcons.quoteLeft,
+                    color: Colors.black,
+                    size: 13,
+                  )),
+            ),
+          ),
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                  padding: EdgeInsets.only(right: 16, bottom: 16),
+                  child: FaIcon(
+                    FontAwesomeIcons.quoteRight,
+                    color: Colors.black,
+                    size: 13,
+                  )),
+            ),
+          ),
+        ]),
+      ],
+    );
   }
 
-  Widget height_address(Size size) {
+  Widget distance_job(x,y) {
+    var size = MediaQuery.of(context).size;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          width: size.width * 0.45,
+          height: size.height * 0.12,
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.grey[100],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                OpenIconicIcons.mapMarker,
+                color: Colors.black,
+                size: 20,
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Text(
+                  "Cách bạn \n" +
+                      calculateDistance(
+                          double.parse(y["latitude"]),
+                          double.parse(y["longitude"]),
+                          double.parse(x["latitude"]),
+                          double.parse(x["longitude"]))
+                          .toStringAsFixed(2) +
+                      ' km',
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black))
+            ],
+          ),
+        ),
+        Container(
+          width: size.width * 0.45,
+          height: size.height * 0.12,
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.grey[100],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              FaIcon(
+                FontAwesomeIcons.suitcase,
+                color: Colors.black,
+                size: 20,
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Text(x["job"],
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black))
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget height_address(x) {
+    var size = MediaQuery.of(context).size;
     return Row(
       children: [
         Expanded(
@@ -643,6 +542,7 @@ class _InfoPageState extends State<InfoPage> {
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 FaIcon(
                   FontAwesomeIcons.ruler,
@@ -650,9 +550,9 @@ class _InfoPageState extends State<InfoPage> {
                   size: 22,
                 ),
                 SizedBox(
-                  height: 10,
+                  height: x["height"] !=  "" ? 10 : 0,
                 ),
-                Text(widget.user.height! + ' cm',
+                Text(x["height"] !=  "" ? x["height"] + ' cm' : "",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 15,
@@ -664,43 +564,42 @@ class _InfoPageState extends State<InfoPage> {
         SizedBox(
           width: 8,
         ),
-        widget.user.address != ""
-            ? Container(
-                width: size.width * 0.65,
-                height: size.height * 0.12,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.grey[100],
-                ),
-                child: Row(children: [
-                  FaIcon(
-                    FontAwesomeIcons.mapMarkedAlt,
+        Container(
+          width: size.width * 0.65,
+          height: size.height * 0.12,
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.grey[100],
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+            FaIcon(
+              FontAwesomeIcons.mapMarkedAlt,
+              color: Colors.black,
+            ),
+            SizedBox(
+              width: 16,
+            ),
+            Expanded(
+              child: Text(
+                x["address"],
+                style: TextStyle(
                     color: Colors.black,
-                  ),
-                  SizedBox(
-                    width: 16,
-                  ),
-                  Expanded(
-                    child: Text(
-                      widget.user.address!,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                      ),
-                    ),
-                  ),
-                ]),
-              )
-            : Container(
-                width: size.width * 0.65,
-                height: size.height * 0.12,
+                    fontSize: 15,
+                ),
               ),
+            ),
+          ]),
+        )
       ],
     );
   }
 
-  Widget chacracter_styleDating(Size size) {
+  Widget chacracter_styleDating(x) {
+    var size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -736,12 +635,12 @@ class _InfoPageState extends State<InfoPage> {
                 ListView.builder(
                     shrinkWrap: true,
                     physics: ScrollPhysics(),
-                    itemCount: widget.user.characters!.length,
+                    itemCount: x["characters"].length,
                     itemBuilder: (context, i) {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [card(widget.user.characters![i])],
+                        children: [x["characters"][i] == ""?  Container(height: 0, width: 0,) : card(x["characters"][i])],
                       );
                     }),
               ],
@@ -777,12 +676,12 @@ class _InfoPageState extends State<InfoPage> {
                 ListView.builder(
                     shrinkWrap: true,
                     physics: ScrollPhysics(),
-                    itemCount: widget.user.styles_dating!.length,
+                    itemCount: x["styles_dating"].length,
                     itemBuilder: (context, i) {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [card(widget.user.styles_dating![i])],
+                        children: [x["styles_dating"][i] == ""?  Container(height: 0, width: 0,) : card(x["styles_dating"][i])],
                       );
                     }),
               ],
@@ -791,7 +690,8 @@ class _InfoPageState extends State<InfoPage> {
     );
   }
 
-  Widget hobbies(Size size) {
+  Widget hobbies(x) {
+    var size = MediaQuery.of(context).size;
     return Container(
       width: size.width,
       padding: EdgeInsets.all(16),
@@ -826,7 +726,7 @@ class _InfoPageState extends State<InfoPage> {
           //         children: [card(widget.user.hobbies![i])],
           //       );
           //     }),
-          Wrap(spacing: 8.0, children: _generateCard())
+          Wrap(spacing: 8.0, children: _generateCard(x))
         ],
       ),
     );
@@ -843,16 +743,16 @@ class _InfoPageState extends State<InfoPage> {
         ),
         child: Text(text,
             style: TextStyle(
-                fontSize: 15, color: Colors.black)),
+                fontSize: 15, color: Colors.black, height: 1.3)),
       ),
     );
   }
 
-  List<Widget> _generateCard() {
+  List<Widget> _generateCard(x) {
     List<Widget> items = [];
 
-    for (int i = 0; i < widget.user.hobbies!.length; i++) {
-      items.add(card(widget.user.hobbies![i]));
+    for (int i = 0; i < x["hobbies"].length; i++) {
+      items.add(x["hobbies"][i] == ""?  Container(height: 0, width: 0,) : card(x["hobbies"][i]));
     }
 
     return items;
@@ -865,5 +765,178 @@ class _InfoPageState extends State<InfoPage> {
         c((lat2 - lat1) * p) / 2 +
         c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
     return 12742 * asin(sqrt(a));
+  }
+
+  Widget history(x) {
+    var size = MediaQuery.of(context).size;
+    return Container(
+      alignment: Alignment.centerLeft,
+      height: 150,
+      child: StreamBuilder(
+        stream: _firestore.collection("DATING").where("uid", isEqualTo: x["uid"]).where("status", isEqualTo: "break up").snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+          if (!snapshot.hasData) {
+            return Center(
+              child: Container(
+                height: size.height / 20,
+                width: size.height / 20,
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+          else {
+            return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, i) {
+                  QueryDocumentSnapshot a = snapshot.data!.docs[i];
+                  return StreamBuilder(
+                    stream: _firestore.collection("USER").where("uid", isEqualTo: a["herid"]).snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: Container(
+                            height: size.height / 20,
+                            width: size.height / 20,
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }
+                      else {
+                        QueryDocumentSnapshot data1 = snapshot.data!.docs[0];
+                        return StreamBuilder(
+                          stream: _firestore.collection("USER").where("uid", isEqualTo: a["uid"]).snapshots(),
+                          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: Container(
+                                  height: size.height / 20,
+                                  width: size.height / 20,
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
+                            }
+                            else {
+                              QueryDocumentSnapshot data2 = snapshot.data!.docs[0];
+                              return _historyCard(data1, data2, a);
+                            }
+                          },
+                        );
+                      }
+                    },
+                  );
+                });
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _historyCard(x,y,a) {
+    return GestureDetector(
+      onTap: (){
+        _showMyDialog(x,y,a);
+      },
+      child: Container(
+        margin: EdgeInsets.only(right: 10),
+        width: 100,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            color: Colors.pink,
+            image: DecorationImage(
+                image: NetworkImage(x["images"][0]),
+                fit: BoxFit.cover
+            )
+        ),
+      ),
+    );
+  }
+
+  Future<void> _showMyDialog(x,y,a) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Chi tiết hồ sơ'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          image: NetworkImage(x["images"][0]),
+                          fit: BoxFit.cover
+                      )
+                  ),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text("Tên: ", style: TextStyle(fontWeight: FontWeight.w500),),
+                    Text(x["name"]),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text("Ngày sinh: ", style: TextStyle(fontWeight: FontWeight.w500),),
+                    Text(x["birthday"]),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text("Giới tính: ", style: TextStyle(fontWeight: FontWeight.w500),),
+                    Text(x["sex"]),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text("Ngày bắt đầu: ", style: TextStyle(fontWeight: FontWeight.w500),),
+                    Text(a["time_start"]),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text("Ngày kết thúc: ", style: TextStyle(fontWeight: FontWeight.w500),),
+                    Text(a["time_end"]),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text("Người kết thúc: ", style: TextStyle(fontWeight: FontWeight.w500),),
+                    Text(a["who_end"] == x["uid"] ? x["name"] : y["name"]),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text("Lí do: ", style: TextStyle(fontWeight: FontWeight.w500),),
+                    Text(a["why_end"]),
+                  ],
+                )
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Đóng'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

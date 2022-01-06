@@ -74,7 +74,7 @@ class _My16CharactersPageState extends State<My16CharactersPage> {
             _description("Tìm hiểu về nhóm tính cách sẽ giúp hiểu rõ hơn về bản thân bạn cũng như người ấy"),
             SizedBox(height: 10,),
             InkWell(
-              onTap: () => launch("https://pub.dev/packages/url_launcher/example"),
+              onTap: () => launch("https://innocom.vn/lastform/3"),
               child: Text(
                 "Làm bài trắc nghiệm tính cách",
                 style: TextStyle(

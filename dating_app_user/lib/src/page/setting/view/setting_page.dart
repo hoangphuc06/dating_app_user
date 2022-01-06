@@ -39,24 +39,56 @@ class _SettingPageState extends State<SettingPage> {
 
               SizedBox(height: 10,),
 
-              _description("Để giữ được tính chân thật cho cộng đồng Vima, bạn sẽ chỉ có thể thay đổi thông tin này 1 lần."),
+              _description("Để giữ được tính chân thật cho cộng đồng iLove, bạn sẽ không thể thay đổi các thông tin này."),
 
               SizedBox(height: 10,),
 
-              _detail("Tên", "Lê Hoàng Phúc", () {
-                print("2");
-              }),
+              StreamBuilder(
+                stream: _firestore.collection("USER").where("uid", isEqualTo: _auth.currentUser!.uid).snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+                  if (!snapshot.hasData) {
+                    return Column(
+                      children: [
+                        _detail("Tên", "", () {
+                          print("2");
+                        }),
 
-              SizedBox(height: 10,),
-              _detail("Ngày sinh", "06/12/2001", () {
-                print("2");
-              }),
+                        SizedBox(height: 10,),
+                        _detail("Ngày sinh", "", () {
+                          print("2");
+                        }),
 
-              SizedBox(height: 10,),
+                        SizedBox(height: 10,),
 
-              _detail("Giới tính", "Nam", () {
-                print("2");
-              }),
+                        _detail("Giới tính", "", () {
+                          print("2");
+                        }),
+                      ],
+                    );
+                  }
+                  else {
+                    QueryDocumentSnapshot x = snapshot.data!.docs[0];
+                    return Column(
+                      children: [
+                        _detail("Tên", x["name"], () {
+                          print("2");
+                        }),
+
+                        SizedBox(height: 10,),
+                        _detail("Ngày sinh", x["birthday"], () {
+                          print("2");
+                        }),
+
+                        SizedBox(height: 10,),
+
+                        _detail("Giới tính", x["sex"], () {
+                          print("2");
+                        }),
+                      ],
+                    );
+                  }
+                },
+              ),
 
               //_____________Thông tin khác______________________________
               SizedBox(height: 20,),
@@ -115,13 +147,13 @@ class _SettingPageState extends State<SettingPage> {
                 print("2");
               }),
 
-              SizedBox(height: 10,),
-              _tab_logout("Đăng xuất", (){
-                setStatus("Offline");
-                FirebaseAuth.instance.signOut().then((value) => {
-                  Navigator.pushNamedAndRemoveUntil(context, "welcome_page", (Route<dynamic> route) => false),
-                });
-              }),
+              // SizedBox(height: 10,),
+              // _tab_logout("Đăng xuất", (){
+              //   setStatus("Offline");
+              //   FirebaseAuth.instance.signOut().then((value) => {
+              //     Navigator.pushNamedAndRemoveUntil(context, "welcome_page", (Route<dynamic> route) => false),
+              //   });
+              // }),
 
               SizedBox(height: 50,)
             ],
