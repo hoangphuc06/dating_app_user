@@ -76,11 +76,11 @@ class _DiscoverPageState extends State<DiscoverPage>
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-            onTap: () {
-              _goto();
-            },
-            child: Icon(Icons.explore)),
+        // leading: GestureDetector(
+        //     onTap: () {
+        //       _goto();
+        //     },
+        //     child: Icon(Icons.explore)),
         iconTheme: IconThemeData(
           color: Colors.deepPurple, //change your color here
         ),
@@ -102,37 +102,27 @@ class _DiscoverPageState extends State<DiscoverPage>
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      body: buildCard(),
-      // body: StreamBuilder(
-      //   stream: _firestore
-      //       .collection("USER")
-      //       .where("uid", isNotEqualTo: _auth.currentUser!.uid)
-      //       .snapshots(),
-      //   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-      //     if (!snapshot.hasData) {
-      //       return Center(
-      //         child: Container(
-      //           height: size.height / 20,
-      //           width: size.height / 20,
-      //           child: CircularProgressIndicator(),
-      //         ),
-      //       );
-      //     } else {
-      //       x = snapshot.data!.docs[i];
-      //      images= x!['images'].toString().replaceAll('[', "").replaceAll(']', "").split(', ');
-      //      print(images.length);
-      //        return images.isEmpty
-      //   ? _emptyInfo()
-      //   : Stack(
-      //       children: images
-      //           .map((urlImage) => TinderCard(
-      //               urlImage: urlImage, isFront: images.last == urlImage))
-      //           .toList(),
-      //     );
-      //     }
-      //   },
-      // ),
-      // //bottomSheet: getBottomSheet(),
+      body: StreamBuilder(
+        stream: _firestore.collection("USER").where("uid", isEqualTo: _auth.currentUser!.uid).snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+          if (!snapshot.hasData) {
+            return Center(
+              child: Container(
+                height: size.height / 20,
+                width: size.height / 20,
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+          else {
+            QueryDocumentSnapshot x = snapshot.data!.docs[0];
+            if (x["dating"]=="false")
+              return buildCard();
+            else
+              return getDatingBody();
+          }
+        },
+      ),
     );
   }
 
@@ -167,22 +157,19 @@ class _DiscoverPageState extends State<DiscoverPage>
         children: [
           FaIcon(
             FontAwesomeIcons.search,
-            size: 70,
+            size: 50,
             color: Colors.white,
           ),
-          SizedBox(
-            height: 30,
-          ),
-          Text(
-              "Bạn đã xem hết các hồ sơ có trong khu vực của mình. \n Hãy mở rộng tìm kiếm hoặc quay lại sau nhé! 😄",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(
-                  textStyle: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white))),
-          SizedBox(
-            height: 25,
+          Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Text(
+                "Bạn đã xem hết các hồ sơ có trong khu vực của mình. Hãy mở rộng tìm kiếm hoặc quay lại sau nhé! 😄",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.roboto(
+                    textStyle: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white))),
           ),
           RaisedButton(
               onPressed: () {
@@ -204,10 +191,6 @@ class _DiscoverPageState extends State<DiscoverPage>
                             fontWeight: FontWeight.w500,
                             color: Colors.deepPurple))),
               )),
-          SizedBox(
-            height: 20,
-          ),
-          _text("Thay đổi bộ lọc tìm kiếm", 17, FontWeight.w400)
         ],
       ),
     );

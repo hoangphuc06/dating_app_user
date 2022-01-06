@@ -79,11 +79,11 @@ class _InitFilterSexPageState extends State<InitFilterSexPage> {
                         btnMale = false;
                         btnFeMale = false;
                         btnOther = true;
-                        _myChoice = "Cả hai";
+                        _myChoice = "Mọi người";
                       });
                     },
                     btnOther,
-                    'Cả hai'
+                    'Mọi người'
                 ),
               ],
             ),

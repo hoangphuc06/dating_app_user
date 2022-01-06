@@ -29,6 +29,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         title: StreamBuilder<DocumentSnapshot>(
@@ -103,9 +104,9 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                               onPressed: () => getImage(),
                               icon: Icon(Icons.photo),
                             ),
-                            hintText: "Send Message",
+                            hintText: "Nhập tin nhắn",
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(20),
                             )),
                       ),
                     ),
@@ -128,17 +129,17 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
       alignment: map['sendby'] == _auth.currentUser!.uid ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 14),
-        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 14),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: map['sendby'] == _auth.currentUser!.uid ? Colors.deepPurple : Colors.grey.withOpacity(0.6),
+          color: map['sendby'] == _auth.currentUser!.uid ? Colors.deepPurple : Colors.grey.withOpacity(0.1),
         ),
         child: Text(
           map['message'],
           style: TextStyle(
             //fontSize: 16,
             //fontWeight: FontWeight.w500,
-            color: Colors.white,
+            color: map['sendby'] == _auth.currentUser!.uid ? Colors.white : Colors.black,
           ),
         ),
       ),
@@ -146,7 +147,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
         : Container(
       height: size.height / 2.5,
       width: size.width,
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 14),
       alignment: map['sendby'] == _auth.currentUser!.uid
           ? Alignment.centerRight
           : Alignment.centerLeft,
@@ -162,14 +163,15 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
           height: size.height / 2.5,
           width: size.width / 2,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10))
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            image: DecorationImage(
+              image: NetworkImage(map['message']),
+              fit: BoxFit.cover,
+            )
           ),
           alignment: map['message'] != "" ? null : Alignment.center,
           child: map['message'] != ""
-              ? Image.network(
-            map['message'],
-            fit: BoxFit.cover,
-          )
+              ? Container()
               : CircularProgressIndicator(),
         ),
       ),
