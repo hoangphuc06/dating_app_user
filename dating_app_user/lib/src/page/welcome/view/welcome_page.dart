@@ -114,8 +114,8 @@ class _WelcomePageState extends State<WelcomePage> {
   );
 
   void getStarted() {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>TESTT()));
-    //  Navigator.pushNamed(context, "login_page");
+    // Navigator.push(context, MaterialPageRoute(builder: (context)=>TESTT()));
+     Navigator.pushNamed(context, "login_page");
     // if (FirebaseAuth.instance.currentUser!=null)
     //   Navigator.pushReplacementNamed(context, "tab_page");
     // else

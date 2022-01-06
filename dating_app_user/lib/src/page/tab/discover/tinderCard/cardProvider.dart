@@ -44,7 +44,11 @@ class CardProvider extends ChangeNotifier {
             .get()
             .then((QuerySnapshot q) {
           q.docs.forEach((element) {
-            if ((DateTime.now().year -
+            if (element['birthday'].toString() != "" &&
+                element['latitude'].toString() != "" &&
+                element['longitude'].toString() != "" &&
+                element['sex'].toString() != "" &&
+                (DateTime.now().year -
                         int.parse(element['birthday'].toString().substring(
                             element['birthday'].toString().length - 4))) >=
                     int.parse(q2.docs[0]['age_from'].toString()) &&
@@ -52,6 +56,12 @@ class CardProvider extends ChangeNotifier {
                         int.parse(element['birthday'].toString().substring(
                             element['birthday'].toString().length - 4))) <=
                     int.parse(q2.docs[0]['age_to'].toString()) &&
+                calculateDistance(
+                        double.parse(q1.docs[0]['latitude']),
+                        double.parse(q1.docs[0]['longitude']),
+                        double.parse(element['latitude']),
+                        double.parse(element['longitude'])) >=
+                    double.parse(q2.docs[0]['distance_from']) &&
                 calculateDistance(
                         double.parse(q1.docs[0]['latitude']),
                         double.parse(q1.docs[0]['longitude']),
