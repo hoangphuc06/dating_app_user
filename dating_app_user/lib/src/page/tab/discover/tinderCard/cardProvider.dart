@@ -40,11 +40,11 @@ class CardProvider extends ChangeNotifier {
           .then((QuerySnapshot q2) async {
         await FirebaseFirestore.instance
             .collection('USER')
-            .where('dating', isEqualTo: 'false')
             .get()
             .then((QuerySnapshot q) {
           q.docs.forEach((element) {
-            if (element['birthday'].toString() != "" &&
+            if (element['dating'] == 'false' &&
+                element['birthday'].toString() != "" &&
                 element['latitude'].toString() != "" &&
                 element['longitude'].toString() != "" &&
                 element['sex'].toString() != "" &&
@@ -89,13 +89,14 @@ class CardProvider extends ChangeNotifier {
     userModel user;
     await FirebaseFirestore.instance
         .collection('USER')
-        .where('uid', whereIn: list)
         .where('uid', isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((x) {
-        user = userModel.fromDocument(x);
-        temp.add(user);
+        if (list.contains(x['uid'])) {
+          user = userModel.fromDocument(x);
+          temp.add(user);
+        }
       });
     });
 
