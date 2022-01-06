@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dating_app_user/src/page/forgot_password/forgot_password_page.dart';
 import 'package:dating_app_user/src/page/init_info/init_info_page.dart';
-import 'package:dating_app_user/src/page/init_info/init_name_page.dart';
 import 'package:dating_app_user/src/style/my_style.dart';
 import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
 import 'package:dating_app_user/src/widgets/dialogs/loading_dialog.dart';
@@ -8,7 +8,6 @@ import 'package:dating_app_user/src/widgets/dialogs/msg_dilog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -78,7 +77,9 @@ class _LoginPageState extends State<LoginPage> {
                 // Quên mật khẩu
                 SizedBox(height: 20,),
                 GestureDetector(
-                  onTap: (){},
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
+                  },
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(

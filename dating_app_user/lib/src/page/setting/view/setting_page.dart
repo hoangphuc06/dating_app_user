@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/colors/colors.dart';
+import 'package:dating_app_user/src/page/welcome/update_password_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -138,7 +139,7 @@ class _SettingPageState extends State<SettingPage> {
               SizedBox(height: 10,),
 
               _tab_detail("Đổi mật khẩu", (){
-                print("2");
+                Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePasswordPage()));
               }),
 
               SizedBox(height: 10,),
