@@ -3,286 +3,113 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/colors/colors.dart';
 import 'package:dating_app_user/src/data/16_characters_data.dart';
-import 'package:dating_app_user/src/data/likes_json.dart';
 import 'package:dating_app_user/src/page/tab/discover/view/info.dart';
-import 'package:dating_app_user/src/page/tab/likes/view/detail_like_page.dart';
-import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
-import 'package:dating_app_user/src/widgets/cards/noti_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttericon/octicons_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:open_iconic_flutter/open_iconic_flutter.dart';
 
-class LikesPage extends StatefulWidget {
-  const LikesPage({Key? key}) : super(key: key);
+class DetailLikePage extends StatefulWidget {
+  final String userUid;
+  final String myUid;
+  final String like_id;
+  const DetailLikePage({Key? key, required this.userUid, required this.myUid, required this.like_id}) : super(key: key);
 
   @override
-  _LikesPageState createState() => _LikesPageState();
+  _DetailLikePageState createState() => _DetailLikePageState();
 }
 
-class _LikesPageState extends State<LikesPage> with SingleTickerProviderStateMixin{
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  int dem = 0;
+class _DetailLikePageState extends State<DetailLikePage> with SingleTickerProviderStateMixin{
 
   late AnimationController controller = AnimationController(
     duration: Duration(seconds: 3),
     vsync: this,
   );
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text("Những người thích bạn", style: TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold),),
-        centerTitle: true,
-      ),
-      body: StreamBuilder(
-        stream: _firestore.collection("USER").where("uid", isEqualTo: _auth.currentUser!.uid).snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
-          if (!snapshot.hasData) {
-            return Center(
-              child: Container(
-                height: size.height / 20,
-                width: size.height / 20,
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-          else {
-            QueryDocumentSnapshot x = snapshot.data!.docs[0];
-            if (x["dating"]=="false")
-              return _bodyNonDating(size);
-            else
-              return _bodyDating(size);
-          }
-        },
-      ),
-    );
-  }
-
-  _bodyNonDating(Size size) => SingleChildScrollView(
-    padding: EdgeInsets.all(16),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _title("Danh sách"),
-        _newNoti(size),
-      ],
-    ),
-  );
-
-  _newNoti(Size size) => Padding(
-    padding: const EdgeInsets.only(top: 10),
-    child: StreamBuilder(
-      stream: _firestore.collection("LIKE").where("uid", isEqualTo: _auth.currentUser!.uid).snapshots(),
-      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
-        if (!snapshot.hasData) {
-          return Center(
-            child: Container(height: 0, width: 0,),
-          );
-        }
-        else {
-          return GridView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10.0,
-                mainAxisSpacing: 10.0,
-              ),
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (context, i) {
-                QueryDocumentSnapshot x = snapshot.data!.docs[i];
-                return NewNotiCard(herid: x["herid"], func: (){
-                  //_showBottomSheet(context, x["herid"], x["uid"], x["id"]);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => DetailLikePage(userUid: x["herid"], myUid: x["uid"], like_id: x["id"],)));
-                });
-              }
-          );
-        }
-      },
-    ),
-  );
-
-  _showBottomSheet( BuildContext context, x, y, id) => showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      builder: (context) => _bodyBottomSheet(context, x, y, id)
-  );
-
-  Widget _bodyBottomSheet(BuildContext context, x, y, like_id) {
-    bool flag = false;
-    final size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            StreamBuilder(
-              stream: _firestore.collection("USER").where("uid", isEqualTo: x).snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: Container(
-                      height: size.height / 20,
-                      width: size.height / 20,
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
-                else {
-                  QueryDocumentSnapshot x = snapshot.data!.docs[0];
-                  return StreamBuilder(
-                    stream: _firestore.collection("USER").where("uid", isEqualTo: y).snapshots(),
-                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: Container(
-                            height: size.height / 20,
-                            width: size.height / 20,
-                            child: CircularProgressIndicator(),
-                          ),
-                        );
-                      }
-                      else {
-                        QueryDocumentSnapshot y = snapshot.data!.docs[0];
-                        return _getBody(x,y);
-                      }
-                    },
-                  );
-                }
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          iconTheme: IconThemeData(
+            color: Colors.deepPurple, //change your color here
+          ),
+          backgroundColor: Colors.white,
+          actions: [
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
               },
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                padding: EdgeInsets.all(10),
-                child: GestureDetector(
-                  onTap: () {
-                    flag
-                        ? Container()
-                        : showAnimatedDialog(
-                      context: context,
-                      barrierDismissible: true,
-                      builder: (BuildContext context) {
-                        return Center(
-                            child: Lottie.asset('assets/heart.json',
-                                repeat: false, controller: controller,
-                                onLoaded: (composition) {
-                                  controller.duration = composition.duration;
-                                  controller.forward();
-                                }));
-                      },
-                      animationType: DialogTransitionType.size,
-                      curve: Curves.linear,
-                    );
-                    setState(() {
-                      flag = !flag;
-                    });
-                    Navigator.pop(context);
-                    _firestore.collection("USER").doc(x).update({
-                      "dating": "true",
-                    });
-                    _firestore.collection("USER").doc(y).update({
-                      "dating": "true",
-                    });
-                    String id = (new DateTime.now().millisecondsSinceEpoch).toString();
-                    String id1 = id + "1";
-                    String id2 = id + "2";
-                    _firestore.collection("DATING").doc(id1).set({
-                      "id": id1,
-                      "uid" : x,
-                      "herid": y,
-                      "status": "dating",
-                      "time_start": new DateTime.now().day.toString() + "/" + new DateTime.now().month.toString() + "/" + new DateTime.now().year.toString(),
-                      "time_end": "",
-                      "who_end": "",
-                      "why_end": "",
-                    });
-                    _firestore.collection("DATING").doc(id2).set({
-                      "id": id2,
-                      "uid" : y,
-                      "herid": x,
-                      "status": "dating",
-                      "time_start": new DateTime.now().day.toString() + "/" + new DateTime.now().month.toString() + "/" + new DateTime.now().year.toString(),
-                      "time_end": "",
-                      "who_end": "",
-                      "why_end": "",
-                    });
-                    _firestore.collection("LIKE").doc(like_id).delete();
-
-                  },
-                  child: FaIcon(
-                    FontAwesomeIcons.solidHeart,
-                    color: flag ? Colors.red : Colors.red,
-                    size: 50,
-                  ),
-                ),
+              child: Icon(
+                Icons.close,
+                color: Colors.deepPurple,
+                size: 24,
               ),
             ),
-            SizedBox(height: 50,)
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _bodyDating(Size) {
-    var size = MediaQuery.of(context).size;
-    return Center(
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset("assets/image/love2.svg", height: size.height * 0.23,),
-            SizedBox(height: 20,),
-            Text(
-              "Hãy thành thật với nhau 😉",
-              style: TextStyle(
-                  color: Colors.deepPurple,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500
-              ),
-            ),
-            SizedBox(height: 5,),
-            Text(
-              "Hãy thành thật với nhau nhưng cũng phải tỉnh táo \nđể không rơi vào những trường hợp đáng tiếc nhé.",
-              style: TextStyle(
-                color: Colors.black,
-              ),
-              textAlign: TextAlign.center,
+            SizedBox(
+              width: 10,
             )
           ],
+          elevation: 0,
+          title: Text(
+            "Thông tin",
+            style:
+            TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
         ),
-      ),
+        backgroundColor: Colors.white,
+        body: StreamBuilder(
+          stream: _firestore.collection("USER").where("uid", isEqualTo: widget.userUid).snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+            if (!snapshot.hasData) {
+              return Center(
+                child: Container(
+                  height: size.height / 20,
+                  width: size.height / 20,
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+            else {
+              QueryDocumentSnapshot x = snapshot.data!.docs[0];
+              return StreamBuilder(
+                stream: _firestore.collection("USER").where("uid", isEqualTo: widget.myUid).snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: Container(
+                        height: size.height / 20,
+                        width: size.height / 20,
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                  else {
+                    QueryDocumentSnapshot y = snapshot.data!.docs[0];
+                    return _getBody(x,y);
+                  }
+                },
+              );
+            }
+          },
+        )
     );
   }
-
-  _title(String text) => Text(
-    text,
-    style: TextStyle(
-        color: Colors.grey,
-        fontWeight: FontWeight.w500
-    ),
-  );
 
   Widget _getBody(QueryDocumentSnapshot x, QueryDocumentSnapshot y) {
     var size = MediaQuery.of(context).size;
     return SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               imageView(x["images"]),
               SizedBox(height: 10,),
@@ -301,10 +128,61 @@ class _LikesPageState extends State<LikesPage> with SingleTickerProviderStateMix
               Text("Lịch sử hẹn hò", style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w500),),
               SizedBox(height: 10,),
               history(x),
+              SizedBox(height: 20,),
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+
+                      _firestore.collection("USER").doc(this.widget.userUid).update({
+                        "dating": "true",
+                      });
+                      _firestore.collection("USER").doc(this.widget.myUid).update({
+                        "dating": "true",
+                      });
+                      String id = (new DateTime.now().millisecondsSinceEpoch).toString();
+                      String id1 = id + "1";
+                      String id2 = id + "2";
+                      _firestore.collection("DATING").doc(id1).set({
+                        "id": id1,
+                        "uid" : this.widget.userUid,
+                        "herid": this.widget.myUid,
+                        "status": "dating",
+                        "time_start": new DateTime.now().day.toString() + "/" + new DateTime.now().month.toString() + "/" + new DateTime.now().year.toString(),
+                        "time_end": "",
+                        "who_end": "",
+                        "why_end": "",
+                      });
+                      _firestore.collection("DATING").doc(id2).set({
+                        "id": id2,
+                        "uid" : this.widget.myUid,
+                        "herid": this.widget.userUid,
+                        "status": "dating",
+                        "time_start": new DateTime.now().day.toString() + "/" + new DateTime.now().month.toString() + "/" + new DateTime.now().year.toString(),
+                        "time_end": "",
+                        "who_end": "",
+                        "why_end": "",
+                      });
+                      _firestore.collection("LIKE").doc(this.widget.like_id).delete();
+
+                    },
+                    child: FaIcon(
+                      FontAwesomeIcons.solidHeart,
+                      color: Colors.red,
+                      size: 50,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 50,)
             ]
         )
     );
   }
+
 
   Widget imageView(x) {
     var size = MediaQuery.of(context).size;
@@ -437,7 +315,7 @@ class _LikesPageState extends State<LikesPage> with SingleTickerProviderStateMix
     );
   }
 
-  _image(h, w, img) => Container(
+  _image(h , w, img) => Container(
     height: h,
     width: w,
     decoration: BoxDecoration(
@@ -966,7 +844,6 @@ class _LikesPageState extends State<LikesPage> with SingleTickerProviderStateMix
             );
           }
           else {
-            dem = snapshot.data!.docs.length;
             return ListView.builder(
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
@@ -1025,12 +902,12 @@ class _LikesPageState extends State<LikesPage> with SingleTickerProviderStateMix
         margin: EdgeInsets.only(right: 10),
         width: 100,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: Colors.pink,
-          image: DecorationImage(
-            image: NetworkImage(x["images"][0]),
-            fit: BoxFit.cover
-          )
+            borderRadius: BorderRadius.circular(10.0),
+            color: Colors.pink,
+            image: DecorationImage(
+                image: NetworkImage(x["images"][0]),
+                fit: BoxFit.cover
+            )
         ),
       ),
     );
@@ -1050,11 +927,11 @@ class _LikesPageState extends State<LikesPage> with SingleTickerProviderStateMix
                   height: 100,
                   width: 100,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: NetworkImage(x["images"][0]),
-                      fit: BoxFit.cover
-                    )
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          image: NetworkImage(x["images"][0]),
+                          fit: BoxFit.cover
+                      )
                   ),
                 ),
                 SizedBox(height: 10),
@@ -1121,5 +998,4 @@ class _LikesPageState extends State<LikesPage> with SingleTickerProviderStateMix
       },
     );
   }
-
 }

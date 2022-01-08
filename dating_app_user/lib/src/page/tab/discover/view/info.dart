@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/colors/colors.dart';
 import 'package:dating_app_user/src/data/16_characters_data.dart';
+import 'package:dating_app_user/src/page/chat_room/chat_room_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -256,15 +257,24 @@ class _InfoPageState extends State<InfoPage> {
     );
   }
 
-  _image(h , w, img) => Container(
-    height: h,
-    width: w,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(10.0),
-      image: DecorationImage(
-        image: NetworkImage(img),
-        fit: BoxFit.cover,
-      )
+  _image(h , w, img) => GestureDetector(
+    onTap: () => Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => ShowImage(
+          imageUrl: img,
+        ),
+      ),
+    ),
+    child: Container(
+      height: h,
+      width: w,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        image: DecorationImage(
+          image: NetworkImage(img),
+          fit: BoxFit.cover,
+        )
+      ),
     ),
   );
 

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_user/src/page/chat_room/chat_room_page.dart';
+import 'package:dating_app_user/src/page/tab/discover/view/info.dart';
 import 'package:dating_app_user/src/widgets/buttons/main_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -149,7 +150,7 @@ class _IsDatingPageState extends State<IsDatingPage> {
             Padding(
               padding: const EdgeInsets.only(left: 32.0, right: 32),
               child: MainButton(name: "Xem thông tin", onpressed: () async {
-
+                Navigator.push(context, MaterialPageRoute(builder: (context) => InfoPage(userUid: userMap!["uid"], myUid: myMap!["uid"],)));
               }),
             ),
             SizedBox(height: 10,),
@@ -264,6 +265,8 @@ class _IsDatingPageState extends State<IsDatingPage> {
     else if (lydo3 == true) lydo = "Lừa đảo";
     else if (lydo4 == true) lydo == "Không tiện nói";
 
+    Navigator.pop(context);
+
     await _firestore.collection("USER").doc(myMap!["uid"]).update({
       "dating" : "false",
     });
@@ -292,7 +295,7 @@ class _IsDatingPageState extends State<IsDatingPage> {
     lydo3 = false;
     lydo4 = false;
 
-    Navigator.pop(context);
+
   }
 }
 
