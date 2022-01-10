@@ -20,18 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="97335e0d-cb59-458a-9b4a-ba8de56748e4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/likes/view/detail_like_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/dating/view/is_dating_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/dating/view/is_dating_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/discover/view/info.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/discover/view/info.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/likes/view/likes_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/tab/likes/view/likes_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_avatar_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/init_info/init_avatar_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/signup/view/sign_up_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/signup/view/sign_up_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dating_app_user/lib/src/page/welcome/update_password_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/dating_app_user/lib/src/page/welcome/update_password_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[R58MC17EMQX]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_3_XL_API_30]" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -124,30 +123,30 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="499" y="164" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.834@0.0.1536.834" timestamp="1640765474953" />
-    <state x="113" y="106" width="1336" height="634" key="AVDManager" timestamp="1641575975409">
+    <state x="113" y="106" width="1336" height="634" key="AVDManager" timestamp="1641730823890">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="113" y="106" width="1336" height="634" key="AVDManager/0.0.1536.834@0.0.1536.834" timestamp="1641575975409" />
+    <state x="113" y="106" width="1336" height="634" key="AVDManager/0.0.1536.834@0.0.1536.834" timestamp="1641730823890" />
     <state x="549" y="172" key="FileChooserDialogImpl" timestamp="1640852399336">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="172" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1640852399336" />
-    <state width="1476" height="37" key="GridCell.Tab.0.bottom" timestamp="1641629420372">
+    <state width="1491" height="191" key="GridCell.Tab.0.bottom" timestamp="1641732734110">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1476" height="37" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1641629420372" />
-    <state width="1476" height="37" key="GridCell.Tab.0.center" timestamp="1641629420371">
+    <state width="1491" height="191" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1641732734110" />
+    <state width="1491" height="191" key="GridCell.Tab.0.center" timestamp="1641732734110">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1476" height="37" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1641629420371" />
-    <state width="1476" height="37" key="GridCell.Tab.0.left" timestamp="1641629420371">
+    <state width="1491" height="191" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1641732734110" />
+    <state width="1491" height="191" key="GridCell.Tab.0.left" timestamp="1641732734109">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1476" height="37" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1641629420371" />
-    <state width="1476" height="37" key="GridCell.Tab.0.right" timestamp="1641629420371">
+    <state width="1491" height="191" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1641732734109" />
+    <state width="1491" height="191" key="GridCell.Tab.0.right" timestamp="1641732734110">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1476" height="37" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1641629420371" />
+    <state width="1491" height="191" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1641732734110" />
     <state x="425" y="189" key="run.anything.popup" timestamp="1641105066805">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

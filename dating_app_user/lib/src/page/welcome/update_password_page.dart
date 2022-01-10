@@ -99,6 +99,10 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
           user.updatePassword(newPass).then((_) {
             LoadingDialog.hideLoadingDialog(context);
             MsgDialog.showMsgDialog(context, "Đổi thành công", "Mật khẩu đã được thay đổi.");
+
+            _recentPasswordlController.clear();
+            _newPasswordController.clear();
+            _recentPasswordlController.clear();
           }).catchError((error) {
             //Error, show something
           });

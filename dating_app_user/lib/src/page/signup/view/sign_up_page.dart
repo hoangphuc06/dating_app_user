@@ -42,7 +42,7 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 //Tựa đề
                 Text(
-                  "Đăng ký",
+                  "Tạo tài khoản",
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 30,
